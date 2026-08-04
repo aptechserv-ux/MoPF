@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v4';
+const STORAGE_KEY = 'asump_tracker_v5';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -574,9 +574,9 @@ const DEFAULT_PROJECTS = [
       {
         id:'cad-bid1', isGeneric:false,
         bidNumber:'GEM/2026/B/7871272', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
-        deliveryDays:30, emdAmount:1467060, emdLabel:'₹13,44,060 (console/radio, incl. STRIKE portion) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)',
-        tenderValueOverride:69963000,
-        valueBasis:'₹33.90 Lakh of Schedule 1 (DMR Tier II Radios with Dispatch Console) is STRIKE\u2019s DMR Tier-II VHF radio/HH set order, not CAD\u2019s &ndash; reallocated out of this figure and counted under STRIKE instead. Full EMD is still shown above since one combined bid document covers both.',
+        deliveryDays:30, emdAmount:1467060, emdPercent:0.015, emdLabel:'₹13,44,060 (console/radio, incl. STRIKE portion) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)',
+        valueAdjustment:-3390000,
+        valueBasis:'This tender was floated at an EMD of <b>1.5%</b> of tender value (not the usual 2% GeM default), so value = EMD &divide; 1.5%. ₹33.90 Lakh of Schedule 1 (DMR Tier II Radios with Dispatch Console) is STRIKE\u2019s DMR Tier-II VHF radio/HH set order, not CAD\u2019s &ndash; subtracted out of this figure and counted under STRIKE instead. Full EMD is still shown above since one combined bid document covers both.',
         consignee:'Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban',
         items:[ 'DMR Tier II Radios with Dispatch Console &times; 1 (₹33.90L of this schedule reallocated to STRIKE)', 'Pneumatic Telescopic Mast &times; 12', 'Battery Backup Banks &times; 12',
                 'Radio over IP Gateway &times; 12', 'Network Integration Router with Programming Kit &times; 12', 'Data Wall Display &times; 1' ],
@@ -623,7 +623,11 @@ function formatINR(x){
 function crFmt(rupees){ return '₹' + (rupees/1e7).toFixed(2) + ' Cr'; }
 function tenderValueOf(bid){
   if(bid.tenderValueOverride) return bid.tenderValueOverride;
-  return bid.emdAmount ? bid.emdAmount / EMD_PERCENT : null;
+  if(!bid.emdAmount) return null;
+  const pct = bid.emdPercent || EMD_PERCENT;
+  let value = bid.emdAmount / pct;
+  if(bid.valueAdjustment) value += bid.valueAdjustment;
+  return value;
 }
 
 // Builds the 7-stage plan (name + baseline planned date) for a bid.
@@ -843,7 +847,11 @@ function bidHeadAndMeta(b){
   const itemsHtml = b.items && b.items.length ? b.items.join(' &middot; ') : '';
   const emdDisplay = b.emdLabel || (b.emdAmount ? formatINR(b.emdAmount) : '\u2014');
   const tv = tenderValueOf(b);
-  const tvLabel = b.tenderValueOverride ? 'Tender value (adjusted)' : 'Est. tender value (EMD &divide; 2%)';
+  const pctUsed = b.emdPercent || EMD_PERCENT;
+  const pctLabel = (pctUsed*100).toFixed(pctUsed*100 % 1 === 0 ? 0 : 2) + '%';
+  const tvLabel = b.tenderValueOverride
+    ? 'Tender value (adjusted)'
+    : (b.valueAdjustment ? `Tender value (EMD &divide; ${pctLabel}, adjusted)` : `Est. tender value (EMD &divide; ${pctLabel})`);
   let metaHtml = '';
   if(!b.isGeneric){
     metaHtml = `<div class="bid-meta">
