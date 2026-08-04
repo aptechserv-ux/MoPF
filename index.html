@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v2';
+const STORAGE_KEY = 'asump_tracker_v3';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -480,41 +480,95 @@ const DEFAULT_PROJECTS = [
   {
     id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
     officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
-    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems (₹7.20 Cr); Phase II is security &amp; mission-critical communication equipment (₹3.62 Cr). Estimated project cost is <b>₹10.81 Cr</b> against a sanctioned/approved amount of <b>₹9.21 Cr</b> &ndash; components will need to be prioritised to fit the approved sanction. No tender has been floated yet.',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Four component tenders have been floated on GeM so far.',
     components:[
       { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
       { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
       { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Advanced Life Support Evacuation System (ambulance + medical equipment)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Advanced Life Support Evacuation System + Advance Emergency Life Support medical equipment (Type-D)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-goggles' },
       { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:null },
       { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'1.54 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.28 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Portable Explosive Detector', qty:'3', cost:'0.99 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Wireless Mesh Network Radios (400 MHz) with accessories', qty:'1 lot', cost:'0.34 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'0.56 Cr', method:'GeM Portal', bidRef:'strike-nljd' },
+      { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-dsmd' },
+      { name:'Portable Explosive Detector (Hand Held Explosive Detector)', qty:'3', cost:'0.39 Cr', method:'GeM Portal', bidRef:'strike-evd' },
+      { name:'DMR Tier-II VHF Radios (handheld/base/repeater) with accessories', qty:'80', cost:'0.34 Cr', method:'GeM Portal', bidRef:null },
       { name:'Tactical personnel tracking: dispatch SW licence, console &amp; GPS for 20 UHF radios', qty:'1', cost:'0.07 Cr', method:'GeM (PAC Bid)', bidRef:null },
-      { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.12 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.21 Cr', method:'GeM Portal', bidRef:null },
       { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:null },
     ],
-    bids:[]
+    bids:[
+      {
+        id:'strike-goggles', isGeneric:false,
+        bidNumber:'GEM/2026/B/7871519', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:30, emdAmount:35000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Goggles (All Terrains) (Defence) &times; 250' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-nljd', isGeneric:false,
+        bidNumber:'GEM/2026/B/7871574', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:30, emdAmount:112000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Non Linear Junction Evaluator (NLJE) as per MHA QRs &times; 7' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-dsmd', isGeneric:false,
+        bidNumber:'GEM/2026/B/7871550', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:30, emdAmount:35000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Deep Search Mine / Metal Detector as per MHA QRs &times; 7' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-evd', isGeneric:false,
+        bidNumber:'GEM/2026/B/7871582', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:30, emdAmount:78000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Hand Held Explosive Detector (HHED) as per MHA QR &times; 3' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+    ]
   },
   {
     id:'cad', code:'P-07', name:'Project CAD (Communication Aided for Disasters)',
     officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'9.45',
-    context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. No tender has been floated yet.',
+    context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated.',
     components:[
       { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
       { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
       { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:null },
-      { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Radio over IP (RoIP) Gateway, 4-port (1/district &times; 12 districts)', qty:'12', cost:'0.18 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Network Integration Router (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
-      { name:'96" LED Video Wall Dashboard Unit for State HQ', qty:'1', cost:'0.04 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'Radio over IP (RoIP) Gateway, 4-port (1/district &times; 12 districts)', qty:'12', cost:'0.18 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'Network Integration Router (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'96" LED Video Wall Dashboard Unit for State HQ', qty:'1', cost:'0.04 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
     ],
-    bids:[]
+    bids:[
+      {
+        id:'cad-bid1', isGeneric:false,
+        bidNumber:'GEM/2026/B/7871272', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:30, emdAmount:1467060, emdLabel:'₹13,44,060 (console/radio) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)',
+        consignee:'Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban',
+        items:[ 'DMR Tier II Radios with Dispatch Console &times; 1', 'Pneumatic Telescopic Mast &times; 12', 'Battery Backup Banks &times; 12',
+                'Radio over IP Gateway &times; 12', 'Network Integration Router with Programming Kit &times; 12', 'Data Wall Display &times; 1' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
   },
 ];
 
