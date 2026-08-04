@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v3';
+const STORAGE_KEY = 'asump_tracker_v4';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -293,7 +293,7 @@ const STAGE_NAMES = [
   'Bill submission & payment processing'
 ];
 // Fallback plan for tenders without a tracked GeM bid document (e.g. CCTNS, floated on apeprocurement)
-const GENERIC_PLAN_DMY = ['28.07.2026','03.08.2026','20.08.2026','28.08.2026','01.09.2026','15.10.2026','31.10.2026'];
+const GENERIC_PLAN_DMY = ['28.07.2026','03.08.2026','25.08.2026','02.09.2026','06.09.2026','20.10.2026','05.11.2026'];
 
 const COLOR_MAP = { ontime:'#2E6B4E', late:'#B23A34', progress:'#3D6A9E', atrisk:'#B9832C', blocked:'#7A4B8C', pending:'#C9C2AF' };
 const BG_MAP = { ontime:'var(--green-bg)', late:'var(--red-bg)', progress:'#EAF1FA', atrisk:'var(--amber-bg)', blocked:'#F3E9F5', pending:'var(--grey-bg)' };
@@ -311,29 +311,6 @@ function freshStages(defaults){
 // Projects & Components breakdown, and the 4 GeM bids floated so far.
 // ---------------------------------------------------------------------
 const DEFAULT_PROJECTS = [
-  {
-    id:'cctns', code:'P-01', name:'CCTNS 2026-27',
-    officer:'T. Anoj Kumar, RSI / J. Kalpana, SI', amount:'8.00',
-    context:'Data migration to CCTNS 2.0, rollout &amp; stabilisation across all units, and development of existing EeCOPS modules. Tender floated on the strength of HPC approval dt. 24.06.2026, currently <b>on hold</b> pending NCRB clarification on CCTNS 2.0 rollout timelines and customisations.',
-    components:[
-      { name:'Data migration to CCTNS 2.0', qty:'1 pack', cost:'8.00 Cr (combined)', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
-      { name:'Rollout & stabilisation across all units', qty:'1 pack', cost:'&mdash;', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
-      { name:'EeCOPS module development', qty:'1 pack', cost:'&mdash;', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
-    ],
-    bids:[
-      {
-        id:'cctns-tender', isGeneric:true,
-        bidNumber:'Tender floated via apeprocurement portal (pre-GeM tracking)',
-        note:'No GeM bid document tracked for this tender yet.',
-        stages: freshStages([
-          {status:'done'},
-          {status:'done'},
-          {status:'blocked', note:'Bid submission paused &ndash; awaiting NCRB reply on CCTNS 2.0 timelines/customisation'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
-        ])
-      }
-    ]
-  },
   {
     id:'cctv', code:'P-02', name:'CCTV Cameras, Centralized Dashboard & VMS',
     officer:'K. Sreekanth, RI', amount:'46.60',
@@ -478,9 +455,36 @@ const DEFAULT_PROJECTS = [
     ]
   },
   {
+    id:'cctns', code:'P-01', name:'CCTNS 2026-27',
+    officer:'T. Anoj Kumar, RSI / J. Kalpana, SI', amount:'8.00',
+    context:'Selection of System Integrator for migration to the CCTNS 2.0 platform, state-specific customisation, additional module development (incl. EeCOPS), and application maintenance. NIT C.No.01/CCTNS2.0/PCS&S/AP/2026 has been called on apeprocurement; the tender is formally floated and counted as <b>tendered</b>, but is currently <b>on hold</b> pending NCRB clarification on CCTNS 2.0 rollout timelines/customisations &ndash; schedule sale/bid closing has been extended to 25.08.2026 to accommodate this.',
+    components:[
+      { name:'Data migration to CCTNS 2.0', qty:'1 pack', cost:'8.00 Cr (combined)', method:'apeprocurement (QCBS)', bidRef:'cctns-tender' },
+      { name:'Rollout & stabilisation across all units', qty:'1 pack', cost:'&mdash;', method:'apeprocurement (QCBS)', bidRef:'cctns-tender' },
+      { name:'EeCOPS module development', qty:'1 pack', cost:'&mdash;', method:'apeprocurement (QCBS)', bidRef:'cctns-tender' },
+    ],
+    bids:[
+      {
+        id:'cctns-tender', isGeneric:true,
+        bidNumber:'C.No.01/CCTNS2.0/PCS&S/AP/2026 &middot; Selection of System Integrator for Migration to CCTNS 2.0',
+        note:'Schedule sale opening 07.07.2026 &middot; Pre-bid meeting 13.07.2026 &middot; Schedule sale/bid closing <b>extended to 25.08.2026</b> (originally 06.08.2026) &middot; Technical bid opening 07.08.2026 &middot; Price bid 14.08.2026. Selection: QCBS (Technical 70% / Financial 30%). Contract on hold pending NCRB clarification on CCTNS 2.0 rollout timelines/customisation.',
+        emdAmount:4800000,
+        tenderValueOverride:80000000,
+        valueBasis:'Contract value taken as the full ₹8.00 Cr sanction for this project &ndash; this is a QCBS services tender under GFR 2017 (36-month SI contract, extendable 24 months), so EMD is a fixed departmental figure and not 2% of contract value as on GeM.',
+        contractPeriod:'36 months (design/development/deployment + maintenance), extendable 24 months',
+        stages: freshStages([
+          {status:'done'},
+          {status:'done'},
+          {status:'blocked', note:'Bid submission window extended to 25.08.2026 &ndash; still on hold awaiting NCRB reply on CCTNS 2.0 timelines/customisation'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
+  {
     id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
     officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
-    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Four component tenders have been floated on GeM so far.',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Five component tenders have been floated so far, incl. a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender.',
     components:[
       { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
       { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
@@ -492,7 +496,7 @@ const DEFAULT_PROJECTS = [
       { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'0.56 Cr', method:'GeM Portal', bidRef:'strike-nljd' },
       { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-dsmd' },
       { name:'Portable Explosive Detector (Hand Held Explosive Detector)', qty:'3', cost:'0.39 Cr', method:'GeM Portal', bidRef:'strike-evd' },
-      { name:'DMR Tier-II VHF Radios (handheld/base/repeater) with accessories', qty:'80', cost:'0.34 Cr', method:'GeM Portal', bidRef:null },
+      { name:'DMR Tier-II VHF Radios (handheld/base/repeater) with accessories', qty:'80', cost:'0.339 Cr', method:'GeM Portal', bidRef:'strike-dmr' },
       { name:'Tactical personnel tracking: dispatch SW licence, console &amp; GPS for 20 UHF radios', qty:'1', cost:'0.07 Cr', method:'GeM (PAC Bid)', bidRef:null },
       { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.21 Cr', method:'GeM Portal', bidRef:null },
       { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:null },
@@ -538,12 +542,23 @@ const DEFAULT_PROJECTS = [
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
+      {
+        id:'strike-dmr', isGeneric:true,
+        bidNumber:'GEM/2026/B/7871272 (Schedule 1, apportioned) &middot; DMR Tier-II VHF Radio/HH Sets',
+        note:'Floated jointly with Project CAD\u2019s combined Communications tender (GEM/2026/B/7871272, Schedule 1 &ndash; "DMR Tier II Radios with Dispatch Console"). ₹33.90 Lakh of that schedule is STRIKE\u2019s DMR Tier-II VHF handheld/base/repeater order and has been reallocated here from CAD.',
+        tenderValueOverride:3390000,
+        valueBasis:'Value taken as the ₹33.90 Lakh apportioned to STRIKE out of Schedule 1 of GEM/2026/B/7871272; no separate EMD was raised for this portion &ndash; it shares the schedule\u2019s EMD, shown under Project CAD.',
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
     ]
   },
   {
     id:'cad', code:'P-07', name:'Project CAD (Communication Aided for Disasters)',
     officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'9.45',
-    context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated.',
+    context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated. <b>Note:</b> ₹33.90 Lakh of DMR Tier II radio/HH sets included in that tender\u2019s Schedule 1 has been reallocated to the <b>STRIKE</b> project\u2019s budget &ndash; see STRIKE for that tender entry.',
     components:[
       { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
       { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
@@ -559,9 +574,11 @@ const DEFAULT_PROJECTS = [
       {
         id:'cad-bid1', isGeneric:false,
         bidNumber:'GEM/2026/B/7871272', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
-        deliveryDays:30, emdAmount:1467060, emdLabel:'₹13,44,060 (console/radio) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)',
+        deliveryDays:30, emdAmount:1467060, emdLabel:'₹13,44,060 (console/radio, incl. STRIKE portion) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)',
+        tenderValueOverride:69963000,
+        valueBasis:'₹33.90 Lakh of Schedule 1 (DMR Tier II Radios with Dispatch Console) is STRIKE\u2019s DMR Tier-II VHF radio/HH set order, not CAD\u2019s &ndash; reallocated out of this figure and counted under STRIKE instead. Full EMD is still shown above since one combined bid document covers both.',
         consignee:'Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban',
-        items:[ 'DMR Tier II Radios with Dispatch Console &times; 1', 'Pneumatic Telescopic Mast &times; 12', 'Battery Backup Banks &times; 12',
+        items:[ 'DMR Tier II Radios with Dispatch Console &times; 1 (₹33.90L of this schedule reallocated to STRIKE)', 'Pneumatic Telescopic Mast &times; 12', 'Battery Backup Banks &times; 12',
                 'Radio over IP Gateway &times; 12', 'Network Integration Router with Programming Kit &times; 12', 'Data Wall Display &times; 1' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
@@ -604,7 +621,10 @@ function formatINR(x){
   return '₹' + otherNumbers + lastThree;
 }
 function crFmt(rupees){ return '₹' + (rupees/1e7).toFixed(2) + ' Cr'; }
-function tenderValueOf(bid){ return bid.emdAmount ? bid.emdAmount / EMD_PERCENT : null; }
+function tenderValueOf(bid){
+  if(bid.tenderValueOverride) return bid.tenderValueOverride;
+  return bid.emdAmount ? bid.emdAmount / EMD_PERCENT : null;
+}
 
 // Builds the 7-stage plan (name + baseline planned date) for a bid.
 // Real GeM bids derive dates from their actual milestones; the generic
@@ -823,12 +843,24 @@ function bidHeadAndMeta(b){
   const itemsHtml = b.items && b.items.length ? b.items.join(' &middot; ') : '';
   const emdDisplay = b.emdLabel || (b.emdAmount ? formatINR(b.emdAmount) : '\u2014');
   const tv = tenderValueOf(b);
-  const metaHtml = b.isGeneric ? '' : `<div class="bid-meta">
+  const tvLabel = b.tenderValueOverride ? 'Tender value (adjusted)' : 'Est. tender value (EMD &divide; 2%)';
+  let metaHtml = '';
+  if(!b.isGeneric){
+    metaHtml = `<div class="bid-meta">
       <span>EMD: <b>${emdDisplay}</b></span>
-      ${tv ? `<span>Est. tender value (EMD &divide; 2%): <b>${crFmt(tv)}</b></span>` : ''}
+      ${tv ? `<span>${tvLabel}: <b>${crFmt(tv)}</b></span>` : ''}
       <span>Delivery: <b>${b.deliveryDays} days from PO</b></span>
       <span>Consignee: <b>${b.consignee}</b></span>
-    </div>`;
+    </div>${b.valueBasis ? `<div class="bid-dates" style="margin-top:4px">${b.valueBasis}</div>` : ''}`;
+  } else if(b.emdAmount || tv){
+    // Generic (non-GeM) bid with manually-supplied value info, e.g. a QCBS
+    // services tender where EMD isn't a fixed 2% of contract value.
+    metaHtml = `<div class="bid-meta">
+      ${b.emdAmount ? `<span>EMD: <b>${emdDisplay}</b></span>` : ''}
+      ${tv ? `<span>Contract value: <b>${crFmt(tv)}</b></span>` : ''}
+      ${b.contractPeriod ? `<span>Contract period: <b>${b.contractPeriod}</b></span>` : ''}
+    </div>${b.valueBasis ? `<div class="bid-dates" style="margin-top:4px">${b.valueBasis}</div>` : ''}`;
+  }
   return { headInfo, itemsHtml, metaHtml };
 }
 
