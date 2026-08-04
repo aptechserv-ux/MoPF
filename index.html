@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASUMP 2026-27 · Procurement Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0A1424; --navy-900:#0F1E36; --navy-800:#16294A; --navy-700:#1E3A66;
+    --paper:#F5F2EA; --card:#FFFFFF; --ink:#1B2430; --ink-soft:#5B6472;
+    --line:#E1DACB; --line-dark:#2A3C5E;
+    --steel:#3D6A9E; --amber:#B9832C; --amber-bg:#FBF1DE;
+    --green:#2E6B4E; --green-bg:#E7F2EA; --red:#B23A34; --red-bg:#FBEAE8;
+    --grey-bg:#EFEDE5; --grey-txt:#8B8574;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  .wrap{max-width:1180px;margin:0 auto;}
+
+  .ops{background:linear-gradient(180deg,var(--navy-950) 0%, var(--navy-800) 100%);color:#EAF0FA;padding:28px 28px 22px;border-bottom:3px solid var(--amber);}
+  .ops-inner{max-width:1180px;margin:0 auto;}
+  .ops-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
+  .ops-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8FA6C9;margin:0 0 6px;}
+  .ops-title{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:.01em;margin:0 0 3px;color:#FFFFFF;}
+  .ops-sub{font-size:13px;color:#B7C4DA;margin:0 0 18px;}
+  .ops-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:6px;overflow:hidden;}
+  .ops-cell{background:var(--navy-900);padding:12px 16px;position:relative;}
+  .ops-cell .label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7E93B5;font-family:'IBM Plex Mono',monospace;}
+  .ops-cell .value{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#F3F7FC;margin-top:4px;}
+  .ops-cell .sub{font-size:11px;color:#8FA6C9;margin-top:2px;}
+  .ops-cell.warn .value{color:#E8B65B;}
+  .ops-cell.crit .value{color:#E67C74;}
+
+  .lock-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.02em;
+    padding:8px 14px;border-radius:6px;cursor:pointer;white-space:nowrap;border:1px solid;
+  }
+  .lock-btn.locked{background:#16294A;border-color:#2A3C5E;color:#B7C4DA;}
+  .lock-btn.unlocked{background:#3A2E12;border-color:#6B5122;color:#F0C87B;}
+
+  .body-pad{padding:26px 28px 60px;}
+  .mode-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:6px;font-size:12.5px;margin-bottom:18px;border:1px solid;}
+  .mode-banner.view{background:var(--grey-bg);border-color:var(--line);color:var(--ink-soft);}
+  .mode-banner.edit{background:var(--amber-bg);border-color:#E3C888;color:#7A5717;}
+  .mode-banner b{font-weight:600;}
+
+  .banner{display:flex;align-items:center;gap:10px;background:var(--amber-bg);border:1px solid #E3C888;color:#7A5717;padding:10px 14px;border-radius:6px;font-size:13px;margin-bottom:14px;}
+  .banner.hidden{display:none;}
+  .banner b{font-weight:600;}
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  .toolbar .tt{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--navy-900);text-transform:uppercase;letter-spacing:.04em;}
+  .toolbar .actions{display:flex;gap:8px;}
+  button.mini{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.03em;background:var(--card);border:1px solid var(--line);color:var(--ink-soft);padding:7px 12px;border-radius:5px;cursor:pointer;}
+  button.mini:hover{border-color:var(--steel);color:var(--steel);}
+  button.mini:disabled{opacity:.4;cursor:not-allowed;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:11.5px;color:var(--ink-soft);}
+  .legend .lg-title{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-right:2px;}
+  .legend .lg-item{display:flex;align-items:center;gap:6px;}
+  .legend .lg-dot{width:10px;height:10px;border-radius:3px;flex:none;}
+
+  .project{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:16px;overflow:hidden;box-shadow:0 1px 2px rgba(20,30,50,.04);}
+  .p-head{display:grid;grid-template-columns:52px 1fr auto auto auto 30px;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;border-bottom:1px solid transparent;}
+  .project.open .p-head{border-bottom-color:var(--line);}
+  .badge{width:44px;height:44px;border-radius:8px;background:var(--navy-900);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;}
+  .p-title{min-width:0;}
+  .p-name{font-weight:600;font-size:15.5px;color:var(--navy-900);}
+  .p-officer{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .p-amt{text-align:right;font-family:'IBM Plex Mono',monospace;}
+  .p-amt .n{font-weight:700;font-size:16px;color:var(--navy-900);}
+  .p-amt .l{font-size:10px;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;}
+  .p-bar-wrap{width:150px;}
+  .p-bar-track{height:8px;background:var(--grey-bg);border-radius:4px;overflow:hidden;display:flex;}
+  .p-bar-seg{height:100%;}
+  .p-bar-pct{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:5px;text-align:right;}
+  .chev{transition:transform .18s ease;color:var(--ink-soft);justify-self:center;}
+  .project.open .chev{transform:rotate(90deg);}
+  .sched-badge{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.02em;padding:4px 9px;border-radius:20px;white-space:nowrap;justify-self:end;}
+
+  .p-context{padding:0 18px 12px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;max-width:920px;}
+  .p-context b{color:var(--ink);font-weight:600;}
+  .p-tender-sub{padding:0 18px 14px;font-size:11.5px;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);}
+
+  .p-body{display:none;padding:4px 18px 20px;}
+  .project.open .p-body{display:block;}
+
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:16px 0 8px;}
+
+  table.comp-table, table.stages{width:100%;border-collapse:collapse;font-size:12px;}
+  table.comp-table th, table.stages th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;padding:7px 8px;border-bottom:1px solid var(--line);}
+  table.comp-table td, table.stages td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+  table.comp-table tr:last-child td, table.stages tr:last-child td{border-bottom:none;}
+  .comp-name{font-weight:500;color:var(--ink);}
+  .comp-qty{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);white-space:nowrap;}
+  .tender-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:12px;white-space:nowrap;display:inline-block;text-decoration:none;}
+  .tender-chip.yes{background:var(--green-bg);color:var(--green);border:1px solid #B7D6C2;}
+  .tender-chip.no{background:var(--grey-bg);color:var(--grey-txt);border:1px solid var(--line);}
+
+  .bid-card{border:1px solid var(--line);border-left:4px solid var(--steel);border-radius:8px;padding:14px 16px;margin:10px 0 18px;background:#FCFBF8;}
+  .bid-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .bid-num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;color:var(--navy-900);}
+  .bid-dates{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:3px;}
+  .bid-items{font-size:11.5px;color:var(--ink-soft);margin:4px 0 10px;line-height:1.6;}
+  .bid-items b{color:var(--ink);}
+  .bid-meta{display:flex;flex-wrap:wrap;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);}
+  .bid-meta span b{color:var(--ink);font-weight:600;}
+
+  .stage-num{width:20px;height:20px;border-radius:50%;background:var(--grey-bg);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;}
+  .stage-name{font-weight:500;color:var(--ink);}
+  .stage-plan{color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:11px;white-space:nowrap;}
+
+  select.status-sel{font-family:'IBM Plex Sans',sans-serif;font-size:11.5px;padding:5px 7px;border-radius:5px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;}
+  select.status-sel.st-done{background:var(--green-bg);border-color:#B7D6C2;color:var(--green);}
+  select.status-sel.st-progress{background:#EAF1FA;border-color:#BCD4EE;color:var(--steel);}
+  select.status-sel.st-blocked{background:var(--red-bg);border-color:#E7C1BD;color:var(--red);}
+  select.status-sel.st-pending{background:var(--grey-bg);border-color:var(--line);color:var(--ink-soft);}
+  select.status-sel:disabled, input.date-in:disabled, textarea.note-in:disabled{cursor:default;opacity:.85;}
+
+  input.date-in{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);border-radius:5px;padding:5px 6px;width:118px;color:var(--ink);}
+  textarea.note-in{font-family:'IBM Plex Sans',sans-serif;font-size:11.5px;border:1px solid var(--line);border-radius:5px;padding:6px 8px;width:100%;min-width:150px;resize:vertical;min-height:32px;color:var(--ink);}
+
+  .stage-num.done{background:var(--green);color:#fff;}
+  .stage-num.progress{background:var(--steel);color:#fff;}
+  .stage-num.blocked{background:var(--red);color:#fff;}
+
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+
+  .flow-heading{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 8px;}
+  .flow-wrap{display:flex;flex-direction:column;align-items:stretch;max-width:620px;}
+  .flow-box{border-radius:8px;padding:9px 12px;display:flex;gap:10px;align-items:flex-start;border:1px solid;}
+  .flow-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;flex:none;color:#fff;margin-top:1px;}
+  .flow-content{flex:1;min-width:0;}
+  .flow-name{font-weight:600;font-size:12px;color:var(--ink);}
+  .flow-meta{font-size:10px;font-family:'IBM Plex Mono',monospace;margin-top:3px;color:var(--ink-soft);}
+  .flow-meta .shifted{font-style:italic;}
+  .flow-status{font-size:11px;margin-top:4px;font-weight:600;}
+  .flow-arrow{width:2px;height:14px;margin:0 0 0 21px;}
+  .flow-arrow-head{width:0;height:0;margin-left:17px;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid;}
+
+  .no-tender-note{font-size:12px;color:var(--ink-soft);font-style:italic;padding:10px 0 4px;}
+
+  .add-tender-toggle{margin:6px 0 4px;}
+  .add-tender-card{border:1px dashed var(--steel);border-radius:8px;padding:14px 16px;margin:8px 0 18px;background:#F5F9FD;}
+  .add-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:10px;}
+  .add-grid label, .add-tender-card > label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .add-grid input, .add-tender-card textarea{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;border:1px solid var(--line);border-radius:5px;padding:6px 8px;color:var(--ink);background:#fff;}
+  .checkbox-label{flex-direction:row !important;align-items:center;gap:6px !important;font-family:'IBM Plex Sans',sans-serif !important;font-size:12.5px !important;color:var(--ink) !important;}
+  .checkbox-label input{width:auto;}
+  .comp-checks{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px;max-height:180px;overflow-y:auto;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;}
+  .add-actions{display:flex;gap:8px;}
+  .bid-del{margin-left:auto;color:var(--red) !important;border-color:#E7C1BD !important;}
+
+  /* ---------- TAB NAVIGATION ---------- */
+  .tabnav{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;}
+  .tabnav-inner{max-width:1180px;margin:0 auto;display:flex;padding:0 28px;overflow-x:auto;}
+  .tab-btn{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.02em;color:var(--ink-soft);background:none;border:none;border-bottom:3px solid transparent;padding:14px 8px;margin-right:24px;cursor:pointer;white-space:nowrap;}
+  .tab-btn:hover{color:var(--navy-900);}
+  .tab-btn.active{color:var(--navy-900);border-bottom-color:var(--amber);}
+  .page{}
+
+  /* ---------- DASHBOARD PAGE ---------- */
+  .dash-stats{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:16px;align-items:stretch;margin-bottom:26px;}
+  .stat-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;}
+  .stat-card .label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .stat-card .value{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:25px;color:var(--navy-900);margin-top:4px;}
+  .stat-card.tendered .value{color:var(--green);}
+  .stat-card.remaining .value{color:var(--amber);}
+  .donut-card{display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;}
+  .donut{width:104px;height:104px;border-radius:50%;position:relative;flex:none;}
+  .donut-hole{position:absolute;inset:14px;background:var(--card);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .donut-hole .pct{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:17px;color:var(--navy-900);}
+  .donut-hole .lbl{font-size:8.5px;color:var(--ink-soft);letter-spacing:.03em;text-transform:uppercase;text-align:center;}
+
+  .dash-section-title{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--navy-900);text-transform:uppercase;letter-spacing:.04em;margin:6px 0 14px;}
+  .budget-panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 20px;margin-bottom:26px;}
+  .budget-row{display:grid;grid-template-columns:1fr 2fr auto;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .budget-row:last-child{border-bottom:none;}
+  .budget-proj{font-size:13px;min-width:0;}
+  .budget-proj .code{display:inline-block;background:var(--navy-900);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9.5px;padding:2px 6px;border-radius:4px;margin-right:6px;}
+  .budget-proj .pname{font-weight:600;color:var(--navy-900);}
+  .budget-proj .pbadge{display:block;margin-top:4px;}
+  .budget-bar-track{height:18px;background:var(--grey-bg);border-radius:5px;overflow:hidden;}
+  .budget-bar-fill{height:100%;background:var(--green);}
+  .budget-figs{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-align:right;white-space:nowrap;}
+  .budget-figs b{color:var(--ink);}
+  .budget-figs .pertlink{display:block;margin-top:6px;}
+
+  table.dash-table{width:100%;border-collapse:collapse;font-size:12px;}
+  table.dash-table th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;padding:8px;border-bottom:1px solid var(--line);}
+  table.dash-table td{padding:8px;border-bottom:1px solid var(--line);}
+  table.dash-table tr:last-child td{border-bottom:none;}
+  table.dash-table td.num{font-family:'IBM Plex Mono',monospace;text-align:right;white-space:nowrap;}
+
+  @media (max-width:820px){
+    .dash-stats{grid-template-columns:1fr 1fr;}
+    .donut-card{grid-column:1/3;}
+    .budget-row{grid-template-columns:1fr;}
+    .budget-figs{text-align:left;}
+    .add-grid{grid-template-columns:1fr;}
+    .ops-strip{grid-template-columns:repeat(2,1fr);}
+    .p-head{grid-template-columns:40px 1fr auto 22px;}
+    .p-head .sched-badge{grid-column:2/4;justify-self:start;margin-top:4px;}
+    .p-bar-wrap{display:none;}
+    table.stages, table.stages thead, table.stages tbody, table.stages th, table.stages td, table.stages tr,
+    table.comp-table, table.comp-table thead, table.comp-table tbody, table.comp-table th, table.comp-table td, table.comp-table tr{display:block;}
+    table.stages thead, table.comp-table thead{display:none;}
+    table.stages tr, table.comp-table tr{border-bottom:1px solid var(--line);padding:10px 0;}
+    table.stages td, table.comp-table td{border-bottom:none;padding:4px 0;}
+    .flow-wrap{max-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ops">
+  <div class="ops-inner">
+    <div class="ops-top">
+      <div>
+        <p class="ops-eyebrow"> &middot; Technical Services &middot; </p>
+        <h1 class="ops-title">ASUMP 2026-27 Procurement </h1>
+        <p class="ops-sub">Live tracker for 7 ASUMP 2026-27 projects across Technical Services, OCTOPUS &amp; Communications &middot; components, floated GeM tenders &amp; schedule risk in one place</p>
+      </div>
+      <button class="lock-btn locked" id="lockBtn">&#128274; View only</button>
+    </div>
+    <div class="ops-strip">
+      <div class="ops-cell" id="cell-target">
+        <div class="label">Internal Target</div>
+        <div class="value" id="targetDays">&mdash;</div>
+        <div class="sub">by 31.10.2026 (PERT plan)</div>
+      </div>
+      <div class="ops-cell" id="cell-deadline">
+        <div class="label">MHA / SNA SPARSH Deadline</div>
+        <div class="value" id="deadlineDays">&mdash;</div>
+        <div class="sub">funds to be utilised by 31.12.2026</div>
+      </div>
+      <div class="ops-cell">
+        <div class="label">Overall Progress</div>
+        <div class="value" id="overallPct">0%</div>
+        <div class="sub" id="overallSub">0 / 0 stages complete</div>
+      </div>
+      <div class="ops-cell" id="cell-slip">
+        <div class="label">Schedule Slip</div>
+        <div class="value" id="slipDays">0d</div>
+        <div class="sub">cumulative delay, completed stages</div>
+      </div>
+      <div class="ops-cell" id="cell-atrisk">
+        <div class="label">At Risk / Blocked</div>
+        <div class="value" id="atRiskCount">0</div>
+        <div class="sub">stages overdue or blocked now</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabnav">
+  <div class="tabnav-inner">
+    <button class="tab-btn active" id="tabbtn-dashboard" onclick="showTab('dashboard')">Dashboard</button>
+    <button class="tab-btn" id="tabbtn-pert" onclick="showTab('pert')">Project PERT Charts</button>
+    <button class="tab-btn" id="tabbtn-entry" onclick="showTab('entry')">Data Entry</button>
+  </div>
+</div>
+
+<div class="wrap body-pad">
+  <div class="banner" id="loadBanner">Loading saved progress&hellip;</div>
+  <div class="mode-banner view" id="modeBanner"></div>
+
+  <div id="page-dashboard" class="page"></div>
+  <div id="page-pert" class="page" style="display:none"></div>
+  <div id="page-entry" class="page" style="display:none"></div>
+
+  <div class="foot">
+    <span id="savedStamp">Not yet saved</span>
+    <span>Components &amp; bid data as floated on GeM, 29.07&ndash;03.08.2026</span>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'asump_tracker_v2';
+const EDIT_PASSWORD = 'TS-ASUMP-2026';
+const TARGET_DATE = new Date('2026-10-31T23:59:59');
+const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
+
+const STAGE_NAMES = [
+  'Technical specifications finalized',
+  'Bid published on GeM / e-procurement',
+  'Bid submission window',
+  'Bid opening & technical evaluation',
+  'Financial evaluation & PO/WO issue',
+  'Equipment supply & delivery',
+  'Bill submission & payment processing'
+];
+// Fallback plan for tenders without a tracked GeM bid document (e.g. CCTNS, floated on apeprocurement)
+const GENERIC_PLAN_DMY = ['28.07.2026','03.08.2026','20.08.2026','28.08.2026','01.09.2026','15.10.2026','31.10.2026'];
+
+const COLOR_MAP = { ontime:'#2E6B4E', late:'#B23A34', progress:'#3D6A9E', atrisk:'#B9832C', blocked:'#7A4B8C', pending:'#C9C2AF' };
+const BG_MAP = { ontime:'var(--green-bg)', late:'var(--red-bg)', progress:'#EAF1FA', atrisk:'var(--amber-bg)', blocked:'#F3E9F5', pending:'var(--grey-bg)' };
+const BORDER_MAP = { ontime:'#B7D6C2', late:'#E7C1BD', progress:'#BCD4EE', atrisk:'#E3C888', blocked:'#D9BEDF', pending:'var(--line)' };
+const STATUS_LABEL = { pending:'Not started', progress:'In progress', blocked:'Blocked', done:'Completed' };
+const STATUS_ORDER = ['pending','progress','blocked','done'];
+
+function freshStages(defaults){
+  // defaults: array of {status, note} length 7 (note optional)
+  return defaults.map(d => ({ status: d.status, note: d.note || '', date: d.date || '' }));
+}
+
+// ---------------------------------------------------------------------
+// DEFAULT DATA, reflecting the 27.07.2026 committee minutes, the
+// Projects & Components breakdown, and the 4 GeM bids floated so far.
+// ---------------------------------------------------------------------
+const DEFAULT_PROJECTS = [
+  {
+    id:'cctns', code:'P-01', name:'CCTNS 2026-27',
+    officer:'T. Anoj Kumar, RSI / J. Kalpana, SI', amount:'8.00',
+    context:'Data migration to CCTNS 2.0, rollout &amp; stabilisation across all units, and development of existing EeCOPS modules. Tender floated on the strength of HPC approval dt. 24.06.2026, currently <b>on hold</b> pending NCRB clarification on CCTNS 2.0 rollout timelines and customisations.',
+    components:[
+      { name:'Data migration to CCTNS 2.0', qty:'1 pack', cost:'8.00 Cr (combined)', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
+      { name:'Rollout & stabilisation across all units', qty:'1 pack', cost:'&mdash;', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
+      { name:'EeCOPS module development', qty:'1 pack', cost:'&mdash;', method:'GeM Portal / apeprocurement', bidRef:'cctns-tender' },
+    ],
+    bids:[
+      {
+        id:'cctns-tender', isGeneric:true,
+        bidNumber:'Tender floated via apeprocurement portal (pre-GeM tracking)',
+        note:'No GeM bid document tracked for this tender yet.',
+        stages: freshStages([
+          {status:'done'},
+          {status:'done'},
+          {status:'blocked', note:'Bid submission paused &ndash; awaiting NCRB reply on CCTNS 2.0 timelines/customisation'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
+  {
+    id:'cctv', code:'P-02', name:'CCTV Cameras, Centralized Dashboard & VMS',
+    officer:'K. Sreekanth, RI', amount:'46.60',
+    context:'Committee approved floating tenders for 40 new Police Stations, additional cameras/HDDs and workstation/UPS upgrades for the existing 1001 stations, VMS/HMS, district-state dashboards, and 2KVA power backup. Three component tenders have been floated on GeM so far.',
+    components:[
+      { name:'CCTV establishment in 40 uncovered Police Stations (camera, NVR, switch, cabling, UPS, rack, LED, misc.)', qty:'40 PS', cost:'6.22 Cr', method:'GeM Portal', bidRef:'cctv-40ps' },
+      { name:'Additional cameras for existing Police Stations', qty:'2,002', cost:'2.40 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
+      { name:'Additional 8TB surveillance HDD for existing PSs', qty:'1,001', cost:'5.21 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
+      { name:'Client workstation with monitor', qty:'1,041', cost:'14.05 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
+      { name:'Line-interactive UPS (600VA) for workstations', qty:'1,041', cost:'0.83 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
+      { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'9.52 Cr', method:'GeM Portal', bidRef:null },
+      { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.06 Cr', method:'GeM Portal', bidRef:null },
+      { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'7.01 Cr', method:'GeM Portal', bidRef:null },
+    ],
+    bids:[
+      {
+        id:'cctv-40ps', isGeneric:false,
+        bidNumber:'GEM/2026/B/7864670', dated:'03.08.2026', bidEndDate:'18.08.2026', bidOpeningDate:'18.08.2026',
+        deliveryDays:45, emdAmount:1244000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'Camera for CCTV System (V3) &times; 440', 'Camera for CCTV System (V3) &times; 40', '64 Channel NVR with 128TB storage &times; 40',
+                '24 Port PoE Switch 190W &times; 40', 'CAT6 UTP Cable &times; 35,200 m', '2KVA Online UPS (8-hr backup) &times; 40',
+                '15U Rack with Fan &times; 40', '43" LED TV for Monitoring &times; 40', 'Misc. Materials &amp; Installation &times; 40',
+                'Note: MII purchase preference applies (Class-I/II local suppliers only, up to L1+20%)' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'cctv-cam', isGeneric:false,
+        bidNumber:'GEM/2026/B/7856888', dated:'31.07.2026', bidEndDate:'17.08.2026', bidOpeningDate:'17.08.2026',
+        deliveryDays:45, emdAmount:1522000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'Camera for CCTV System (V3) &times; 2,002', 'Surveillance Hard Disks &times; 1,001' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'cctv-ws', isGeneric:false,
+        bidNumber:'GEM/2026/B/7868510', dated:'03.08.2026', bidEndDate:'17.08.2026', bidOpeningDate:'17.08.2026',
+        deliveryDays:45, emdAmount:2976000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'Fixed Computer Workstation &times; 1,041', 'Line Interactive UPS with AVR &times; 1,041' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
+  {
+    id:'kavach', code:'P-03', name:'AP KAVACH',
+    officer:'K. Satish, IC', amount:'10.00',
+    context:'Extension of AP SMART COPS (ASUMP 2025-26). Manpower component dropped, timeline compressed to 4 months; Enterprise GIS swapped for open-source; two new AI modules added. Revised specs approved by the Committee &ndash; no component has been floated as a GeM tender yet.',
+    components:[
+      { name:'AI-Enabled Crime Analytics', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'AI-powered criminal case management & legal workflow automation', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'GIS-based crime mapping & spatial intelligence', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'AI-based policing', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'AI model governance & capability development', qty:'1 pack', cost:'0.50 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'AI tools for investigation & intelligence', qty:'1 pack', cost:'2.50 Cr', method:'GeM Portal / online', bidRef:null },
+    ],
+    bids:[]
+  },
+  {
+    id:'datacentre', code:'P-04', name:'Integrated Cyber Defence & Security Infra (Data Centre Upgradation)',
+    officer:'M. Mohan, IC', amount:'9.21',
+    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation & security software. Nearly the entire package went out as a single combined GeM tender.',
+    components:[
+      { name:'Next-Gen Firewall', qty:'2', cost:'1.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'L3 Switch (48-port, 10G/25G)', qty:'2', cost:'1.18 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Web Application Firewall & LTM (Load Balancer)', qty:'2', cost:'1.56 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'AI server with GPUs (H200 / RTX 6000 class)', qty:'1', cost:'2.70 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Datacentre client workstations', qty:'8', cost:'0.36 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'42U physical rack, fully loaded', qty:'6', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Network miscellaneous work (cabling, patch panels, tools)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:null },
+      { name:'HCI / private cloud software', qty:'1 pack', cost:'0.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Windows Server OS licences', qty:'10 pack', cost:'0.12 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Windows Server VDI licence', qty:'1 pack', cost:'0.05 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Visual Studio 2026 Professional', qty:'1 pack', cost:'0.04 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'SQL Server 2025 Standard + CAL', qty:'1 pack', cost:'0.07 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'SSL certificate', qty:'1 pack', cost:'0.01 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Network monitoring tool suite (NPM/SAM/DPA)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Backup software (Veeam)', qty:'2 pack', cost:'0.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'Antivirus (50 licences)', qty:'1 pack', cost:'0.02 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+    ],
+    bids:[
+      {
+        id:'dc-bid', isGeneric:false,
+        bidNumber:'GEM/2026/B/7851769', dated:'29.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
+        deliveryDays:45, emdAmount:1842000, emdLabel:'₹15,20,400 (Hardware) + ₹3,21,600 (Software)', consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'Firewall Next Gen &times; 2', 'L3 Switch &times; 2', 'Load Balancer &times; 2', 'AI Servers &times; 1', 'Workstation &times; 8',
+                'Server Rack &times; 6', 'Miscellaneous &times; 1', 'Infrastructure HCI &times; 1', 'OS Server OS &times; 10', 'VDI &times; 1',
+                'Development IDE &times; 1', 'Database &times; 1', 'Security SSL Certificate &times; 1', 'Network Monitoring Tool &times; 1',
+                'Backup Software &times; 2', 'Antivirus &times; 1' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
+  {
+    id:'ueccr', code:'P-05', name:'Unified Emergency Command & Control Response Centre (UECCR)',
+    officer:'M. Hemalatha, DSP', amount:'9.76',
+    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. One GeM tender has been floated so far for the laptop/desktop/display portion.',
+    components:[
+      { name:'Mobile Data Terminals (field officer units, 2020 EOL replacement)', qty:'2,100', cost:'7.56 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Standby power backup (60 KVA generator + AMF panel)', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Uninterrupted power backup (40 KVA online UPS)', qty:'1', cost:'0.07 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Video wall', qty:'1', cost:'0.38 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Workstations (desktops/laptops for supervisory positions)', qty:'16', cost:'0.18 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
+      { name:'Desktop systems for helpline operations (1972/1093/Shakti SOS)', qty:'74', cost:'0.73 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
+      { name:'Managed distribution switches (L3 PoE)', qty:'4', cost:'0.06 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Uplink switches', qty:'4', cost:'0.04 Cr', method:'GeM Portal', bidRef:null },
+      { name:'IP telephony units', qty:'8', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Structured LAN & electrical cabling', qty:'3', cost:'0.06 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Ergonomic operator seating replacement', qty:'50', cost:'0.05 Cr', method:'GeM Portal', bidRef:null },
+      { name:'File storage & misc. network accessories', qty:'1', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
+      { name:'55" display at District level', qty:'28', cost:'0.17 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
+      { name:'Modular operator workstation pods', qty:'50', cost:'0.10 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Supervisory office tables', qty:'20', cost:'0.03 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Modular training/briefing table', qty:'1', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Chairs (operator/conference/supervisory)', qty:'100', cost:'0.10 Cr', method:'GeM Portal', bidRef:null },
+      { name:'24x7 precision air-conditioning (2-ton tower AC)', qty:'6', cost:'0.05 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Integrated security monitoring (CCTV)', qty:'1', cost:'0.02 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Secure access management system', qty:'2', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Dedicated operational landline connectivity', qty:'1', cost:'0.003 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Secure mobile locker units', qty:'4', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
+    ],
+    bids:[
+      {
+        id:'ueccr-bid', isGeneric:false,
+        bidNumber:'GEM/2026/B/7854388', dated:'30.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
+        deliveryDays:45, emdAmount:220000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'High End Laptop - Notebook &times; 16', 'High End Desktop Computer &times; 74', 'Professional Large Format Display &times; 28' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
+  {
+    id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
+    officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems (₹7.20 Cr); Phase II is security &amp; mission-critical communication equipment (₹3.62 Cr). Estimated project cost is <b>₹10.81 Cr</b> against a sanctioned/approved amount of <b>₹9.21 Cr</b> &ndash; components will need to be prioritised to fit the approved sanction. No tender has been floated yet.',
+    components:[
+      { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Advanced Life Support Evacuation System (ambulance + medical equipment)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'1.54 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.28 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Portable Explosive Detector', qty:'3', cost:'0.99 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Wireless Mesh Network Radios (400 MHz) with accessories', qty:'1 lot', cost:'0.34 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Tactical personnel tracking: dispatch SW licence, console &amp; GPS for 20 UHF radios', qty:'1', cost:'0.07 Cr', method:'GeM (PAC Bid)', bidRef:null },
+      { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.12 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:null },
+    ],
+    bids:[]
+  },
+  {
+    id:'cad', code:'P-07', name:'Project CAD (Communication Aided for Disasters)',
+    officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'9.45',
+    context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. No tender has been floated yet.',
+    components:[
+      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:null },
+      { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Radio over IP (RoIP) Gateway, 4-port (1/district &times; 12 districts)', qty:'12', cost:'0.18 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Network Integration Router (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
+      { name:'96" LED Video Wall Dashboard Unit for State HQ', qty:'1', cost:'0.04 Cr', method:'GeM Portal', bidRef:null },
+    ],
+    bids:[]
+  },
+];
+
+let projects = null;
+let openStatePert = {};
+let openStateEntry = {};
+let addFormOpen = {};
+let editMode = false;
+let currentTab = 'dashboard';
+
+function cloneDefaults(){ return JSON.parse(JSON.stringify(DEFAULT_PROJECTS)); }
+function isoToDMY(iso){ if(!iso) return ''; const [y,m,d] = iso.split('-'); return d+'.'+m+'.'+y; }
+
+function parseDMY(str){
+  if(!str) return null;
+  const m = String(str).trim().match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+  if(!m) return null;
+  const d = new Date(+m[3], +m[2]-1, +m[1]);
+  return isNaN(d.getTime()) ? null : d;
+}
+function fmtDMY(d){ const p = n => String(n).padStart(2,'0'); return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear(); }
+function addDays(d, n){ return new Date(d.getTime() + n*86400000); }
+function diffDays(a, b){ return Math.round((a.getTime() - b.getTime()) / 86400000); }
+function today0(){ const t = new Date(); t.setHours(0,0,0,0); return t; }
+
+const EMD_PERCENT = 0.02; // GeM EMD is 2% of estimated tender value on these bids
+function formatINR(x){
+  x = Math.round(x).toString();
+  let lastThree = x.substring(x.length-3);
+  let otherNumbers = x.substring(0,x.length-3);
+  if(otherNumbers !== '') lastThree = ',' + lastThree;
+  otherNumbers = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+  return '₹' + otherNumbers + lastThree;
+}
+function crFmt(rupees){ return '₹' + (rupees/1e7).toFixed(2) + ' Cr'; }
+function tenderValueOf(bid){ return bid.emdAmount ? bid.emdAmount / EMD_PERCENT : null; }
+
+// Builds the 7-stage plan (name + baseline planned date) for a bid.
+// Real GeM bids derive dates from their actual milestones; the generic
+// fallback uses the committee's original PERT chart dates.
+function buildPlan(bid){
+  if(bid.isGeneric){
+    return STAGE_NAMES.map((name,i)=>({ name, planned: parseDMY(GENERIC_PLAN_DMY[i]) }));
+  }
+  const dated = parseDMY(bid.dated);
+  const bidEnd = parseDMY(bid.bidEndDate);
+  const opening = parseDMY(bid.bidOpeningDate);
+  const evalDate = addDays(opening, 10);
+  const poDate = addDays(opening, 20);
+  const supplyDate = addDays(poDate, bid.deliveryDays || 45);
+  const billDate = addDays(supplyDate, 30);
+  return [
+    { name: STAGE_NAMES[0], planned: dated },
+    { name: STAGE_NAMES[1], planned: dated },
+    { name: STAGE_NAMES[2], planned: bidEnd },
+    { name: STAGE_NAMES[3], planned: evalDate },
+    { name: STAGE_NAMES[4], planned: poDate },
+    { name: STAGE_NAMES[5], planned: supplyDate },
+    { name: STAGE_NAMES[6], planned: billDate },
+  ];
+}
+
+// Cascading delay engine: a completed stage that finishes after its plan
+// pushes every later stage's planned date forward by the same number of days.
+function computeStageSchedule(stages, plan){
+  const now = today0();
+  let shiftDays = 0;
+  const stagesOut = [];
+  stages.forEach((s, i)=>{
+    const cascadedPlanned = addDays(plan[i].planned, shiftDays);
+    const entered = parseDMY(s.date);
+    let entry = { cascadedPlanned, shiftedFromBaseline: shiftDays !== 0, baselinePlanned: plan[i].planned };
+
+    if(s.status === 'done'){
+      const actual = entered || cascadedPlanned;
+      const delayDays = diffDays(actual, cascadedPlanned);
+      entry.actual = actual; entry.delayDays = delayDays; entry.hasActualDate = !!entered;
+      entry.colorState = delayDays > 0 ? 'late' : 'ontime';
+      shiftDays = Math.max(0, shiftDays + delayDays);
+    } else if(s.status === 'blocked'){
+      entry.colorState = 'blocked';
+      entry.delayDays = now > cascadedPlanned ? diffDays(now, cascadedPlanned) : 0;
+    } else if(s.status === 'progress'){
+      const overdue = now > cascadedPlanned;
+      entry.colorState = overdue ? 'atrisk' : 'progress';
+      entry.delayDays = overdue ? diffDays(now, cascadedPlanned) : 0;
+    } else {
+      const overdue = now > cascadedPlanned;
+      entry.colorState = overdue ? 'atrisk' : 'pending';
+      entry.delayDays = overdue ? diffDays(now, cascadedPlanned) : 0;
+    }
+    stagesOut.push(entry);
+  });
+  const atRisk = stagesOut.filter(e => e.colorState === 'atrisk' || e.colorState === 'blocked').length;
+  return { stagesOut, totalShift: shiftDays, atRisk };
+}
+
+function renderFlow(plan, schedule){
+  return schedule.stagesOut.map((e, i)=>{
+    const cs = e.colorState;
+    let statusText;
+    if(cs === 'ontime') statusText = 'Completed on time' + (e.hasActualDate ? ' &middot; ' + fmtDMY(e.actual) : '');
+    else if(cs === 'late') statusText = 'Completed ' + e.delayDays + 'd late' + (e.hasActualDate ? ' &middot; ' + fmtDMY(e.actual) : '');
+    else if(cs === 'progress') statusText = 'In progress &middot; on track';
+    else if(cs === 'atrisk') statusText = e.delayDays + 'd overdue';
+    else if(cs === 'blocked') statusText = 'Blocked' + (e.delayDays > 0 ? ' &middot; ' + e.delayDays + 'd overdue' : '');
+    else statusText = 'Not started';
+    const arrow = i < schedule.stagesOut.length - 1
+      ? `<div class="flow-arrow" style="background:${COLOR_MAP[cs]}"></div><div class="flow-arrow-head" style="border-top-color:${COLOR_MAP[cs]}"></div>`
+      : '';
+    return `<div class="flow-box" style="background:${BG_MAP[cs]};border-color:${BORDER_MAP[cs]}">
+        <div class="flow-num" style="background:${COLOR_MAP[cs]}">${i+1}</div>
+        <div class="flow-content">
+          <div class="flow-name">${plan[i].name}</div>
+          <div class="flow-meta">Plan: ${fmtDMY(e.cascadedPlanned)}${e.shiftedFromBaseline ? ' <span class="shifted">(shifted from ' + fmtDMY(e.baselinePlanned) + ')</span>' : ''}</div>
+          <div class="flow-status" style="color:${COLOR_MAP[cs]}">${statusText}</div>
+        </div>
+      </div>${arrow}`;
+  }).join('');
+}
+
+function scheduleBadge(schedule, hasBids){
+  if(!hasBids) return { text:'Not yet tendered', bg:'var(--grey-bg)', border:'var(--line)', color:'var(--grey-txt)' };
+  if(schedule.atRisk > 0) return { text: schedule.atRisk + (schedule.atRisk===1?' stage':' stages') + ' at risk', bg: BG_MAP.atrisk, border: BORDER_MAP.atrisk, color: COLOR_MAP.atrisk };
+  if(schedule.totalShift > 0) return { text: 'Delayed ' + schedule.totalShift + 'd', bg: BG_MAP.late, border: BORDER_MAP.late, color: COLOR_MAP.late };
+  return { text: 'On schedule', bg: BG_MAP.ontime, border: BORDER_MAP.ontime, color: COLOR_MAP.ontime };
+}
+
+// ---------------------------------------------------------------------
+// Persistence (shared across everyone who opens this tracker)
+// ---------------------------------------------------------------------
+async function loadState(){
+  const banner = document.getElementById('loadBanner');
+  try{
+    const res = await window.storage.get(STORAGE_KEY, true);
+    if(res && res.value){
+      projects = JSON.parse(res.value);
+      banner.innerHTML = '<b>Loaded</b> &mdash; showing the latest saved progress (shared by everyone viewing this tracker).';
+    } else {
+      projects = cloneDefaults();
+      banner.innerHTML = '<b>Starting fresh</b> &mdash; defaults loaded from the committee minutes, components list and floated GeM bids.';
+    }
+  }catch(e){
+    projects = cloneDefaults();
+    banner.innerHTML = '<b>Starting fresh</b> &mdash; defaults loaded from the committee minutes, components list and floated GeM bids.';
+  }
+  setTimeout(()=>{ banner.classList.add('hidden'); }, 4000);
+
+  try{ editMode = sessionStorage.getItem('asump_edit_mode') === '1'; }catch(e){ editMode = false; }
+  updateLockUI();
+  render();
+}
+
+let saveTimer=null;
+function saveState(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(projects), true);
+      document.getElementById('savedStamp').textContent = 'Saved ' + new Date().toLocaleTimeString();
+    }catch(e){
+      document.getElementById('savedStamp').textContent = 'Save failed \u2013 changes kept locally only';
+    }
+  }, 350);
+}
+
+function daysUntil(d){ return Math.ceil((d - new Date()) / 86400000); }
+function fmtDays(n){ if(n < 0) return Math.abs(n) + 'd overdue'; if(n === 0) return 'Today'; return n + 'd left'; }
+
+// ---------------------------------------------------------------------
+// Edit lock
+// ---------------------------------------------------------------------
+function updateLockUI(){
+  const btn = document.getElementById('lockBtn');
+  const banner = document.getElementById('modeBanner');
+  if(editMode){
+    btn.textContent = '\u{1F513} Edit mode \u2013 tap to lock';
+    btn.className = 'lock-btn unlocked';
+    banner.className = 'mode-banner edit';
+    banner.innerHTML = '<b>Edit mode is on.</b> Changes you make save immediately and become visible to everyone viewing this tracker.';
+  } else {
+    btn.textContent = '\u{1F512} View only';
+    btn.className = 'lock-btn locked';
+    banner.className = 'mode-banner view';
+    banner.innerHTML = 'You are in <b>view-only</b> mode. Ask the nodal officer to unlock editing to update statuses, dates or notes.';
+  }
+}
+document.getElementById('lockBtn').addEventListener('click', ()=>{
+  if(editMode){
+    editMode = false;
+    try{ sessionStorage.removeItem('asump_edit_mode'); }catch(e){}
+    updateLockUI(); render();
+  } else {
+    const pw = prompt('Enter the edit password to unlock editing for this tracker:');
+    if(pw === null) return;
+    if(pw === EDIT_PASSWORD){
+      editMode = true;
+      try{ sessionStorage.setItem('asump_edit_mode','1'); }catch(e){}
+      updateLockUI(); render();
+    } else {
+      alert('Incorrect password. You remain in view-only mode.');
+    }
+  }
+});
+
+// ---------------------------------------------------------------------
+// Shared summary computation, used by all three pages
+// ---------------------------------------------------------------------
+function computeSummary(){
+  let totalStages=0, totalDone=0, totalSlip=0, totalAtRisk=0, totalTenderedValue=0, totalSanctionedCr=0;
+  const perProject = projects.map((p, pi)=>{
+    const bidSchedules = p.bids.map(b => ({ bid:b, plan: buildPlan(b), schedule: computeStageSchedule(b.stages, buildPlan(b)) }));
+    let pStages=0, pDone=0, pTenderedValue=0, pSlip=0, pAtRisk=0;
+    bidSchedules.forEach(bs=>{
+      pStages += bs.schedule.stagesOut.length;
+      pDone += bs.schedule.stagesOut.filter(e=>e.colorState==='ontime'||e.colorState==='late').length;
+      pSlip += bs.schedule.totalShift;
+      pAtRisk += bs.schedule.atRisk;
+      const tv = tenderValueOf(bs.bid);
+      if(tv) pTenderedValue += tv;
+    });
+    totalStages += pStages; totalDone += pDone; totalSlip += pSlip; totalAtRisk += pAtRisk; totalTenderedValue += pTenderedValue;
+    totalSanctionedCr += parseFloat(p.amount) || 0;
+    const hasBids = p.bids.length > 0;
+    const badge = scheduleBadge({ totalShift: pSlip, atRisk: pAtRisk }, hasBids);
+    const tenderedCount = p.components.filter(c=>c.bidRef).length;
+    return { p, pi, bidSchedules, pStages, pDone, pTenderedValue, pSlip, pAtRisk, badge, hasBids, tenderedCount };
+  });
+  return { totalStages, totalDone, totalSlip, totalAtRisk, totalTenderedValue, totalSanctionedCr, perProject };
+}
+
+function renderCompRows(p){
+  return p.components.map(c=>{
+    const bid = p.bids.find(b=>b.id===c.bidRef);
+    const chip = bid
+      ? `<a href="#bid-${bid.id}" class="tender-chip yes" onclick="showTab('pert')">Tendered &middot; ${bid.isGeneric ? 'in progress' : bid.bidNumber}</a>`
+      : `<span class="tender-chip no">Not yet floated</span>`;
+    return `<tr>
+      <td class="comp-name">${c.name}</td>
+      <td class="comp-qty">${c.qty}</td>
+      <td class="comp-qty">${c.cost}</td>
+      <td class="comp-qty">${c.method}</td>
+      <td>${chip}</td>
+    </tr>`;
+  }).join('');
+}
+
+function bidHeadAndMeta(b){
+  const headInfo = b.isGeneric
+    ? `<div class="bid-num">${b.bidNumber}</div><div class="bid-dates">${b.note||''}</div>`
+    : `<div class="bid-num">${b.bidNumber}</div><div class="bid-dates">Published ${b.dated} &middot; Bid end ${b.bidEndDate} &middot; Opening ${b.bidOpeningDate}</div>`;
+  const itemsHtml = b.items && b.items.length ? b.items.join(' &middot; ') : '';
+  const emdDisplay = b.emdLabel || (b.emdAmount ? formatINR(b.emdAmount) : '\u2014');
+  const tv = tenderValueOf(b);
+  const metaHtml = b.isGeneric ? '' : `<div class="bid-meta">
+      <span>EMD: <b>${emdDisplay}</b></span>
+      ${tv ? `<span>Est. tender value (EMD &divide; 2%): <b>${crFmt(tv)}</b></span>` : ''}
+      <span>Delivery: <b>${b.deliveryDays} days from PO</b></span>
+      <span>Consignee: <b>${b.consignee}</b></span>
+    </div>`;
+  return { headInfo, itemsHtml, metaHtml };
+}
+
+function projectHeadHtml(pi, entry, isOpen, dataToggleTarget){
+  const { p, pStages, pDone, badge, bidSchedules } = entry;
+  const allStageColors = bidSchedules.flatMap(bs=>bs.schedule.stagesOut.map(e=>e.colorState));
+  const segs = allStageColors.length
+    ? allStageColors.map(cs=>`<div class="p-bar-seg" style="flex:1;background:${COLOR_MAP[cs]}"></div>`).join('')
+    : `<div class="p-bar-seg" style="flex:1;background:var(--grey-bg)"></div>`;
+  return `
+    <div class="p-head" data-toggle="${dataToggleTarget}">
+      <div class="badge">${p.code}</div>
+      <div class="p-title">
+        <div class="p-name">${p.name}</div>
+        <div class="p-officer">${p.officer}</div>
+      </div>
+      <div class="p-amt"><div class="n">₹${p.amount} Cr</div><div class="l">Sanctioned</div></div>
+      <div class="sched-badge" style="background:${badge.bg};border:1px solid ${badge.border};color:${badge.color}">${badge.text}</div>
+      <div class="p-bar-wrap">
+        <div class="p-bar-track">${segs}</div>
+        <div class="p-bar-pct">${pDone}/${pStages||0} stages${pStages?'':' &middot; n/a'}</div>
+      </div>
+      <div class="chev">&#9656;</div>
+    </div>
+    <div class="p-context">${p.context}</div>
+  `;
+}
+
+// ---------------------------------------------------------------------
+// PAGE 1 — Dashboard: overall budget allocation vs. projects in pipeline
+// ---------------------------------------------------------------------
+function renderDashboardPage(summary){
+  const container = document.getElementById('page-dashboard');
+  const totalTenderedCr = summary.totalTenderedValue / 1e7;
+  const totalSanctionedCr = summary.totalSanctionedCr;
+  const totalRemainingCr = Math.max(0, totalSanctionedCr - totalTenderedCr);
+  const overallPct = totalSanctionedCr ? Math.min(100, (totalTenderedCr/totalSanctionedCr)*100) : 0;
+  const maxSanctioned = Math.max(...projects.map(p=>parseFloat(p.amount)||0), 1);
+
+  const rows = summary.perProject.map(entry=>{
+    const { p, pTenderedValue, badge } = entry;
+    const sanctionedCr = parseFloat(p.amount) || 0;
+    const tenderedCr = pTenderedValue / 1e7;
+    const barWidthPct = (sanctionedCr / maxSanctioned) * 100;
+    const fillPct = sanctionedCr ? Math.min(100, (tenderedCr / sanctionedCr) * 100) : 0;
+    return `<div class="budget-row">
+      <div class="budget-proj">
+        <span class="code">${p.code}</span><span class="pname">${p.name}</span>
+        <span class="pbadge sched-badge" style="background:${badge.bg};border:1px solid ${badge.border};color:${badge.color}">${badge.text}</span>
+      </div>
+      <div style="width:${barWidthPct}%;min-width:40%">
+        <div class="budget-bar-track"><div class="budget-bar-fill" style="width:${fillPct}%"></div></div>
+      </div>
+      <div class="budget-figs">
+        <b>${crFmt(pTenderedValue||0)}</b> tendered of <b>₹${sanctionedCr.toFixed(2)} Cr</b> sanctioned
+        <a href="#" class="pertlink tender-chip yes" onclick="goToPert('${p.id}');return false;">View PERT chart &rarr;</a>
+      </div>
+    </div>`;
+  }).join('');
+
+  const tableRows = summary.perProject.map(entry=>{
+    const { p, pTenderedValue, tenderedCount, badge } = entry;
+    const sanctionedCr = parseFloat(p.amount)||0;
+    const tenderedCr = pTenderedValue/1e7;
+    const remainingCr = Math.max(0, sanctionedCr - tenderedCr);
+    return `<tr>
+      <td>${p.code} &middot; ${p.name}</td>
+      <td class="num">₹${sanctionedCr.toFixed(2)} Cr</td>
+      <td class="num">${crFmt(pTenderedValue||0)}</td>
+      <td class="num">₹${remainingCr.toFixed(2)} Cr</td>
+      <td class="num">${tenderedCount}/${p.components.length}</td>
+      <td><span class="sched-badge" style="background:${badge.bg};border:1px solid ${badge.border};color:${badge.color}">${badge.text}</span></td>
+    </tr>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="label">Total Sanctioned</div>
+        <div class="value">₹${totalSanctionedCr.toFixed(2)} Cr</div>
+      </div>
+      <div class="stat-card tendered">
+        <div class="label">Tendered so far </div>
+        <div class="value">${crFmt(summary.totalTenderedValue||0)}</div>
+      </div>
+      <div class="stat-card remaining">
+        <div class="label">Still in Pipeline</div>
+        <div class="value">₹${totalRemainingCr.toFixed(2)} Cr</div>
+      </div>
+      <div class="donut-card">
+        <div class="donut" style="background:conic-gradient(var(--green) 0% ${overallPct}%, var(--grey-bg) ${overallPct}% 100%)">
+          <div class="donut-hole">
+            <div class="pct">${overallPct.toFixed(0)}%</div>
+            <div class="lbl">Tendered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-section-title">Budget allocation vs. projects in pipeline</div>
+    <div class="budget-panel">${rows}</div>
+
+    <div class="dash-section-title">Project-wise summary</div>
+    <table class="dash-table">
+      <thead><tr><th>Project</th><th style="text-align:right">Sanctioned</th><th style="text-align:right">Tendered</th><th style="text-align:right">Pipeline remaining</th><th style="text-align:right">Components tendered</th><th>Schedule status</th></tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table>
+  `;
+}
+
+// ---------------------------------------------------------------------
+// PAGE 2 — Project-wise PERT charts (read-only flow diagrams)
+// ---------------------------------------------------------------------
+function renderPertPage(summary){
+  const container = document.getElementById('page-pert');
+  const legend = `<div class="legend">
+    <span class="lg-title">Flow chart key</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#2E6B4E"></span>Completed on time</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#B23A34"></span>Completed late / overdue</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#3D6A9E"></span>In progress, on track</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#B9832C"></span>At risk (due date passed)</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#7A4B8C"></span>Blocked</span>
+    <span class="lg-item"><span class="lg-dot" style="background:#C9C2AF"></span>Not started</span>
+  </div>`;
+  const toolbar = `<div class="toolbar">
+    <div class="tt">Project-wise PERT Charts</div>
+    <div class="actions">
+      <button class="mini" onclick="expandAllPert(true)">Expand all</button>
+      <button class="mini" onclick="expandAllPert(false)">Collapse all</button>
+    </div>
+  </div>`;
+
+  const cards = summary.perProject.map(entry=>{
+    const { p, pi, bidSchedules } = entry;
+    const isOpen = openStatePert[p.id] ?? (pi===0);
+    const bidCards = bidSchedules.map(bs=>{
+      const { headInfo, itemsHtml, metaHtml } = bidHeadAndMeta(bs.bid);
+      return `<div class="bid-card" id="bid-${bs.bid.id}">
+        <div class="bid-head">${headInfo}</div>
+        ${itemsHtml ? `<div class="bid-items"><b>Items:</b> ${itemsHtml}</div>` : ''}
+        ${metaHtml}
+        <div class="flow-heading">Schedule flow</div>
+        <div class="flow-wrap">${renderFlow(bs.plan, bs.schedule)}</div>
+      </div>`;
+    }).join('');
+    return `<div class="project${isOpen?' open':''}" id="proj-pert-${p.id}">
+      ${projectHeadHtml(pi, entry, isOpen, 'pert-'+p.id)}
+      <div class="p-body">
+        <div class="section-label">Components &amp; procurement packages</div>
+        <table class="comp-table">
+          <thead><tr><th>Component</th><th style="width:70px">Qty</th><th style="width:90px">Est. cost</th><th style="width:110px">Method</th><th style="width:150px">Tender status</th></tr></thead>
+          <tbody>${renderCompRows(p)}</tbody>
+        </table>
+        <div class="section-label">Floated tenders &amp; schedule</div>
+        ${bidCards || '<div class="no-tender-note">No tender has been floated for this project yet.</div>'}
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = legend + toolbar + cards;
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const id = el.getAttribute('data-toggle').replace(/^pert-/, '');
+      openStatePert[id] = !(openStatePert[id] ?? false);
+      render();
+    });
+  });
+}
+
+// ---------------------------------------------------------------------
+// PAGE 3 — Data entry (editable stage tables + add/remove tenders)
+// ---------------------------------------------------------------------
+function renderEntryPage(summary){
+  const container = document.getElementById('page-entry');
+  const toolbar = `<div class="toolbar">
+    <div class="tt">Sanctioned Projects &middot; ₹${summary.totalSanctionedCr.toFixed(2)} Cr Total <span style="color:var(--ink-soft);font-weight:500;text-transform:none;letter-spacing:0;">${summary.totalTenderedValue ? ('&middot; ' + crFmt(summary.totalTenderedValue) + ' tendered so far (from EMD @ 2%)') : ''}</span></div>
+    <div class="actions">
+      <button class="mini" onclick="expandAllEntry(true)">Expand all</button>
+      <button class="mini" onclick="expandAllEntry(false)">Collapse all</button>
+      <button class="mini" id="resetBtn" onclick="resetAll()" style="display:${editMode?'':'none'}">Reset to defaults</button>
+    </div>
+  </div>`;
+
+  const cards = summary.perProject.map(entry=>{
+    const { p, pi, bidSchedules, tenderedCount, pTenderedValue } = entry;
+    const isOpen = openStateEntry[p.id] ?? (pi===0);
+
+    const bidCards = bidSchedules.map(bs=>{
+      const b = bs.bid, plan = bs.plan, schedule = bs.schedule;
+      const bidIndex = p.bids.indexOf(b);
+      const { headInfo, itemsHtml, metaHtml } = bidHeadAndMeta(b);
+      const delBtn = editMode ? `<button class="mini bid-del" onclick="deleteBid(${pi},${bidIndex})">Remove</button>` : '';
+      return `<div class="bid-card" id="entry-bid-${b.id}">
+        <div class="bid-head">${headInfo}${delBtn}</div>
+        ${itemsHtml ? `<div class="bid-items"><b>Items:</b> ${itemsHtml}</div>` : ''}
+        ${metaHtml}
+        <table class="stages">
+          <thead><tr>
+            <th style="width:22px"></th><th>Stage</th><th>Planned</th>
+            <th style="width:140px">Status</th><th style="width:130px">Actual / target date</th><th>Notes</th>
+          </tr></thead>
+          <tbody>
+            ${b.stages.map((s,si)=>{
+              const numClass = s.status==='done'?'done':(s.status==='progress'?'progress':(s.status==='blocked'?'blocked':''));
+              return `<tr>
+                <td><div class="stage-num ${numClass}">${si+1}</div></td>
+                <td><div class="stage-name">${plan[si].name}</div></td>
+                <td class="stage-plan">${fmtDMY(plan[si].planned)}</td>
+                <td>
+                  <select class="status-sel st-${s.status}" data-pi="${pi}" data-bi="${bidIndex}" data-si="${si}" ${editMode?'':'disabled'}>
+                    ${STATUS_ORDER.map(st=>`<option value="${st}" ${st===s.status?'selected':''}>${STATUS_LABEL[st]}</option>`).join('')}
+                  </select>
+                </td>
+                <td><input type="text" class="date-in" placeholder="DD.MM.YYYY" value="${s.date||''}" data-pi="${pi}" data-bi="${bidIndex}" data-si="${si}" data-field="date" ${editMode?'':'disabled'}></td>
+                <td><textarea class="note-in" rows="1" placeholder="Add a note&hellip;" data-pi="${pi}" data-bi="${bidIndex}" data-si="${si}" data-field="note" ${editMode?'':'disabled'}>${s.note||''}</textarea></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>`;
+    }).join('');
+
+    const addForm = editMode ? `
+        <div class="add-tender-toggle"><button class="mini" onclick="toggleAddForm('${p.id}')">+ Add tender</button></div>
+        <div id="add-form-${p.id}" style="display:${addFormOpen[p.id] ? 'block':'none'}">
+          <div class="add-tender-card">
+            <div class="section-label" style="margin-top:0">Add a new tender</div>
+            <div class="add-grid">
+              <label>Bid number / reference
+                <input type="text" id="new-bidnum-${pi}" placeholder="GEM/2026/B/xxxxxxx">
+              </label>
+              <label class="checkbox-label"><input type="checkbox" id="new-isgem-${pi}" checked onchange="toggleGemFields(${pi})"> Floated on GeM (tracks bid end/opening dates)</label>
+            </div>
+            <div class="add-grid" id="gem-fields-${pi}">
+              <label>Published / dated<input type="date" id="new-dated-${pi}"></label>
+              <label>Bid end date<input type="date" id="new-bidend-${pi}"></label>
+              <label>Bid opening date<input type="date" id="new-opening-${pi}"></label>
+              <label>Delivery days (from PO)<input type="number" id="new-delivery-${pi}" value="45"></label>
+              <label>EMD amount (₹)<input type="number" id="new-emd-${pi}" placeholder="e.g. 1522000"></label>
+              <label>Consignee<input type="text" id="new-consignee-${pi}" placeholder="O/o DIG (Technical Services)..."></label>
+            </div>
+            <label>Items covered (one per line) / or a short note if not on GeM
+              <textarea id="new-items-${pi}" rows="2" placeholder="Item name x Qty"></textarea>
+            </label>
+            <div class="section-label">Which components does this tender cover?</div>
+            <div class="comp-checks">
+              ${p.components.map((c,ci)=>`<label class="checkbox-label"><input type="checkbox" class="comp-check-${pi}" value="${ci}"> ${c.name}</label>`).join('')}
+            </div>
+            <div class="add-actions">
+              <button class="mini" onclick="submitNewBid(${pi})">Save tender</button>
+              <button class="mini" onclick="toggleAddForm('${p.id}')">Cancel</button>
+            </div>
+          </div>
+        </div>` : '';
+
+    return `<div class="project${isOpen?' open':''}">
+      ${projectHeadHtml(pi, entry, isOpen, 'entry-'+p.id)}
+      <div class="p-tender-sub">${tenderedCount} of ${p.components.length} procurement packages tendered so far${pTenderedValue ? ' &middot; &asymp; ' + crFmt(pTenderedValue) + ' tendered (from EMD @ 2%), of ₹' + p.amount + ' Cr sanctioned' : ''}</div>
+      <div class="p-body">
+        <div class="section-label">Components &amp; procurement packages</div>
+        <table class="comp-table">
+          <thead><tr><th>Component</th><th style="width:70px">Qty</th><th style="width:90px">Est. cost</th><th style="width:110px">Method</th><th style="width:150px">Tender status</th></tr></thead>
+          <tbody>${renderCompRows(p)}</tbody>
+        </table>
+        <div class="section-label">Floated tenders &amp; schedule</div>
+        ${bidCards || '<div class="no-tender-note">No tender has been floated for this project yet.</div>'}
+        ${addForm}
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = toolbar + cards;
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const id = el.getAttribute('data-toggle').replace(/^entry-/, '');
+      openStateEntry[id] = !(openStateEntry[id] ?? false);
+      render();
+    });
+  });
+  container.querySelectorAll('.status-sel').forEach(el=>{
+    el.addEventListener('change', ()=>{
+      if(!editMode) return;
+      const pi = +el.getAttribute('data-pi'), bi = +el.getAttribute('data-bi'), si = +el.getAttribute('data-si');
+      projects[pi].bids[bi].stages[si].status = el.value;
+      saveState(); render();
+    });
+  });
+  container.querySelectorAll('.date-in, .note-in').forEach(el=>{
+    el.addEventListener('input', ()=>{
+      if(!editMode) return;
+      const pi = +el.getAttribute('data-pi'), bi = +el.getAttribute('data-bi'), si = +el.getAttribute('data-si'), field = el.getAttribute('data-field');
+      projects[pi].bids[bi].stages[si][field] = el.value;
+      saveState();
+    });
+    el.addEventListener('click', e=>e.stopPropagation());
+  });
+}
+
+// ---------------------------------------------------------------------
+// Top-level render dispatcher + tab switching
+// ---------------------------------------------------------------------
+function render(){
+  const summary = computeSummary();
+
+  const targetDays = daysUntil(TARGET_DATE);
+  const deadlineDays = daysUntil(DEADLINE_DATE);
+  document.getElementById('targetDays').textContent = fmtDays(targetDays);
+  document.getElementById('deadlineDays').textContent = fmtDays(deadlineDays);
+  document.getElementById('cell-target').className = 'ops-cell' + (targetDays<14?' warn':'') + (targetDays<0?' crit':'');
+  document.getElementById('cell-deadline').className = 'ops-cell' + (deadlineDays<30?' warn':'') + (deadlineDays<0?' crit':'');
+  const overallPct = summary.totalStages ? Math.round((summary.totalDone/summary.totalStages)*100) : 0;
+  document.getElementById('overallPct').textContent = overallPct + '%';
+  document.getElementById('overallSub').textContent = summary.totalDone + ' / ' + summary.totalStages + ' stages complete';
+  document.getElementById('slipDays').textContent = summary.totalSlip + 'd';
+  document.getElementById('cell-slip').className = 'ops-cell' + (summary.totalSlip>0?' crit':'');
+  document.getElementById('atRiskCount').textContent = summary.totalAtRisk;
+  document.getElementById('cell-atrisk').className = 'ops-cell' + (summary.totalAtRisk>0?' warn':'');
+
+  renderDashboardPage(summary);
+  renderPertPage(summary);
+  renderEntryPage(summary);
+  showTab(currentTab);
+}
+
+function showTab(tab){
+  currentTab = tab;
+  ['dashboard','pert','entry'].forEach(t=>{
+    document.getElementById('page-'+t).style.display = (t===tab) ? '' : 'none';
+    document.getElementById('tabbtn-'+t).classList.toggle('active', t===tab);
+  });
+}
+
+function goToPert(id){
+  openStatePert[id] = true;
+  showTab('pert');
+  setTimeout(()=>{
+    const el = document.getElementById('proj-pert-'+id);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 0);
+}
+
+function expandAllPert(state){ projects.forEach(p=>{ openStatePert[p.id] = state; }); render(); }
+function expandAllEntry(state){ projects.forEach(p=>{ openStateEntry[p.id] = state; }); render(); }
+
+function toggleAddForm(id){
+  if(!editMode) return;
+  addFormOpen[id] = !(addFormOpen[id] || false);
+  render();
+}
+
+function toggleGemFields(pi){
+  const isGem = document.getElementById('new-isgem-'+pi).checked;
+  document.getElementById('gem-fields-'+pi).style.display = isGem ? '' : 'none';
+}
+
+function submitNewBid(pi){
+  if(!editMode) return;
+  const p = projects[pi];
+  const bidNumEl = document.getElementById('new-bidnum-'+pi);
+  const bidNum = bidNumEl.value.trim();
+  if(!bidNum){ alert('Please enter a bid number or reference before saving.'); return; }
+  const isGem = document.getElementById('new-isgem-'+pi).checked;
+  const newId = 'bid-' + Date.now();
+  const defaultStages = freshStages([
+    {status:'done'}, {status:'done'}, {status:'progress'},
+    {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+  ]);
+  let bid;
+  if(isGem){
+    const datedIso = document.getElementById('new-dated-'+pi).value;
+    const endIso = document.getElementById('new-bidend-'+pi).value;
+    const openIso = document.getElementById('new-opening-'+pi).value;
+    if(!datedIso || !endIso || !openIso){ alert('Please fill in the published, bid end and bid opening dates.'); return; }
+    bid = {
+      id:newId, isGeneric:false, bidNumber:bidNum,
+      dated:isoToDMY(datedIso), bidEndDate:isoToDMY(endIso), bidOpeningDate:isoToDMY(openIso),
+      deliveryDays: +document.getElementById('new-delivery-'+pi).value || 45,
+      emdAmount: +document.getElementById('new-emd-'+pi).value || 0,
+      consignee: document.getElementById('new-consignee-'+pi).value.trim() || '\u2014',
+      items: document.getElementById('new-items-'+pi).value.split('\n').map(s=>s.trim()).filter(Boolean),
+      stages: defaultStages
+    };
+  } else {
+    bid = {
+      id:newId, isGeneric:true, bidNumber:bidNum,
+      note: document.getElementById('new-items-'+pi).value.trim(),
+      stages: defaultStages
+    };
+  }
+  p.bids.push(bid);
+  document.querySelectorAll('.comp-check-'+pi+':checked').forEach(chk=>{
+    p.components[+chk.value].bidRef = newId;
+  });
+  addFormOpen[p.id] = false;
+  openStateEntry[p.id] = true;
+  saveState();
+  render();
+}
+
+async function deleteBid(pi, bi){
+  if(!editMode) return;
+  const p = projects[pi];
+  const bid = p.bids[bi];
+  if(!confirm('Remove tender "' + bid.bidNumber + '" and un-link it from its components? This cannot be undone.')) return;
+  p.components.forEach(c=>{ if(c.bidRef === bid.id) c.bidRef = null; });
+  p.bids.splice(bi, 1);
+  saveState();
+  render();
+}
+
+async function resetAll(){
+  if(!editMode) return;
+  if(!confirm('Reset all statuses, dates and notes back to defaults for everyone viewing this tracker? This cannot be undone.')) return;
+  projects = cloneDefaults();
+  try{
+    await window.storage.set(STORAGE_KEY, JSON.stringify(projects), true);
+    document.getElementById('savedStamp').textContent = 'Saved ' + new Date().toLocaleTimeString();
+  }catch(e){
+    document.getElementById('savedStamp').textContent = 'Save failed \u2013 changes kept locally only';
+  }
+  render();
+}
+
+loadState();
+setInterval(()=>{
+  document.getElementById('targetDays').textContent = fmtDays(daysUntil(TARGET_DATE));
+  document.getElementById('deadlineDays').textContent = fmtDays(daysUntil(DEADLINE_DATE));
+}, 60000);
+</script>
+
+</body>
+</html>
