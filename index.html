@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v5';
+const STORAGE_KEY = 'asump_tracker_v7';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -386,7 +386,7 @@ const DEFAULT_PROJECTS = [
       { name:'AI server with GPUs (H200 / RTX 6000 class)', qty:'1', cost:'2.70 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Datacentre client workstations', qty:'8', cost:'0.36 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'42U physical rack, fully loaded', qty:'6', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
-      { name:'Network miscellaneous work (cabling, patch panels, tools)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Network miscellaneous work (cabling, patch panels, tools)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'HCI / private cloud software', qty:'1 pack', cost:'0.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Windows Server OS licences', qty:'10 pack', cost:'0.12 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Windows Server VDI licence', qty:'1 pack', cost:'0.05 Cr', method:'GeM Portal', bidRef:'dc-bid' },
@@ -416,16 +416,16 @@ const DEFAULT_PROJECTS = [
   {
     id:'ueccr', code:'P-05', name:'Unified Emergency Command & Control Response Centre (UECCR)',
     officer:'M. Hemalatha, DSP', amount:'9.76',
-    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. One GeM tender has been floated so far for the laptop/desktop/display portion.',
+    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. Two GeM tenders have been floated so far: one for the laptop/desktop/display portion, and a second (GEM/2026/B/7875015, dated 07.08.2026) bunching MDT replacement (procured under the Smartphones (V3) GeM category), the video wall, standby/UPS power backup and the managed distribution/uplink switches.',
     components:[
-      { name:'Mobile Data Terminals (field officer units, 2020 EOL replacement)', qty:'2,100', cost:'7.56 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Standby power backup (60 KVA generator + AMF panel)', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Uninterrupted power backup (40 KVA online UPS)', qty:'1', cost:'0.07 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Video wall', qty:'1', cost:'0.38 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Mobile Data Terminals (field officer units, 2020 EOL replacement)', qty:'2,100', cost:'7.56 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
+      { name:'Standby power backup (60 KVA generator + AMF panel)', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
+      { name:'Uninterrupted power backup (40 KVA online UPS)', qty:'1', cost:'0.07 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
+      { name:'Video wall', qty:'1', cost:'0.38 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
       { name:'Workstations (desktops/laptops for supervisory positions)', qty:'16', cost:'0.18 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
       { name:'Desktop systems for helpline operations (1972/1093/Shakti SOS)', qty:'74', cost:'0.73 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
-      { name:'Managed distribution switches (L3 PoE)', qty:'4', cost:'0.06 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Uplink switches', qty:'4', cost:'0.04 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Managed distribution switches (L3 PoE)', qty:'4', cost:'0.06 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
+      { name:'Uplink switches', qty:'4', cost:'0.04 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
       { name:'IP telephony units', qty:'8', cost:'0.01 Cr', method:'GeM Portal', bidRef:null },
       { name:'Structured LAN & electrical cabling', qty:'3', cost:'0.06 Cr', method:'GeM Portal', bidRef:null },
       { name:'Ergonomic operator seating replacement', qty:'50', cost:'0.05 Cr', method:'GeM Portal', bidRef:null },
@@ -447,6 +447,17 @@ const DEFAULT_PROJECTS = [
         bidNumber:'GEM/2026/B/7854388', dated:'30.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
         deliveryDays:45, emdAmount:220000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
         items:[ 'High End Laptop - Notebook &times; 16', 'High End Desktop Computer &times; 74', 'Professional Large Format Display &times; 28' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'ueccr-bid2', isGeneric:false,
+        bidNumber:'GEM/2026/B/7875015', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
+        deliveryDays:45, emdAmount:1640000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        items:[ 'Smartphones/MDT (V3) &times; 2100', 'Active LED Video Wall &times; 1', 'Standby Power Backup System with AMF &times; 1',
+                'Uninterrupted Power Backup System &times; 1', 'Managed Distribution Switches &times; 4', 'Managed Uplink Switches &times; 4' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
@@ -560,9 +571,9 @@ const DEFAULT_PROJECTS = [
     officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'9.45',
     context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated. <b>Note:</b> ₹33.90 Lakh of DMR Tier II radio/HH sets included in that tender\u2019s Schedule 1 has been reallocated to the <b>STRIKE</b> project\u2019s budget &ndash; see STRIKE for that tender entry.',
     components:[
-      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
-      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
-      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
