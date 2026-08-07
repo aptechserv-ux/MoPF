@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v8';
+const STORAGE_KEY = 'asump_tracker_v9';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -495,11 +495,11 @@ const DEFAULT_PROJECTS = [
   {
     id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
     officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
-    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Six component tenders have been floated so far, incl. a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender, and a combined GeM bid (GEM/2026/B/7884346) covering the Anti Drone System, Dispatch Core Application Software for UHF Radios, ROIP Devices with Server, POC MCX Gateway with Server, and Helmet Mounted Cameras with Server.',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Seven component tenders have been floated so far, incl. a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender, a combined GeM bid (GEM/2026/B/7884346) covering the Anti Drone System, Dispatch Core Application Software for UHF Radios, ROIP Devices with Server, POC MCX Gateway with Server, and Helmet Mounted Cameras with Server, and a GeM bid (GEM/2026/B/7881785) for the Commando Endurance Training Module with Modular Storage Unit.',
     components:[
       { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
       { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:'strike-cetm' },
       { name:'Advanced Life Support Evacuation System + Advance Emergency Life Support medical equipment (Type-D)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
       { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-goggles' },
       { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
@@ -513,6 +513,16 @@ const DEFAULT_PROJECTS = [
       { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
     ],
     bids:[
+      {
+        id:'strike-cetm', isGeneric:false,
+        bidNumber:'GEM/2026/B/7881785', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
+        deliveryDays:60, emdAmount:125000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Commando Endurance Training Module with Modular Storage Unit &times; 1' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
       {
         id:'strike-goggles', isGeneric:false,
         bidNumber:'GEM/2026/B/7871519', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
