@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v9';
+const STORAGE_KEY = 'asump_tracker_v10';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -313,23 +313,24 @@ function freshStages(defaults){
 const DEFAULT_PROJECTS = [
   {
     id:'cctv', code:'P-02', name:'CCTV Cameras, Centralized Dashboard & VMS',
-    officer:'K. Sreekanth, RI', amount:'46.60',
-    context:'Committee approved floating tenders for 40 new Police Stations, additional cameras/HDDs and workstation/UPS upgrades for the existing 1001 stations, VMS/HMS, district-state dashboards, and 2KVA power backup. Three component tenders have been floated on GeM so far.',
+    officer:'K. Sreekanth, RI', amount:'54.99',
+    context:'Committee approved floating tenders for 40 new Police Stations, additional cameras/HDDs and workstation/UPS upgrades for the existing 1001 stations, VMS/HMS, district-state dashboards, and 2KVA power backup. Three component tenders have been floated on GeM so far. MHA has since sanctioned an additional ₹8.39 Cr towards GST charges on the CCTV cameras, Centralized Dashboard &amp; VMS package, taking the project total to ₹54.99 Cr. Est. cost below is GST-inclusive. Corrigenda have also been issued revising EMD amounts on all three floated bids.',
     components:[
-      { name:'CCTV establishment in 40 uncovered Police Stations (camera, NVR, switch, cabling, UPS, rack, LED, misc.)', qty:'40 PS', cost:'6.22 Cr', method:'GeM Portal', bidRef:'cctv-40ps' },
-      { name:'Additional cameras for existing Police Stations', qty:'2,002', cost:'2.40 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
-      { name:'Additional 8TB surveillance HDD for existing PSs', qty:'1,001', cost:'5.21 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
-      { name:'Client workstation with monitor', qty:'1,041', cost:'14.05 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
-      { name:'Line-interactive UPS (600VA) for workstations', qty:'1,041', cost:'0.83 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
-      { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'9.52 Cr', method:'GeM Portal', bidRef:null },
-      { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.06 Cr', method:'GeM Portal', bidRef:null },
-      { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'7.01 Cr', method:'GeM Portal', bidRef:null },
+      { name:'CCTV establishment in 40 uncovered Police Stations (camera, NVR, switch, cabling, UPS, rack, LED, misc.)', qty:'40 PS', cost:'7.34 Cr', method:'GeM Portal', bidRef:'cctv-40ps' },
+      { name:'Additional cameras for existing Police Stations', qty:'2,002', cost:'2.83 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
+      { name:'Additional 8TB surveillance HDD for existing PSs', qty:'1,001', cost:'6.15 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
+      { name:'Client workstation with monitor', qty:'1,041', cost:'16.58 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
+      { name:'Line-interactive UPS (600VA) for workstations', qty:'1,041', cost:'0.98 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
+      { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'11.23 Cr', method:'GeM Portal', bidRef:null },
+      { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.25 Cr', method:'GeM Portal', bidRef:null },
+      { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'8.27 Cr', method:'GeM Portal', bidRef:null },
     ],
     bids:[
       {
         id:'cctv-40ps', isGeneric:false,
         bidNumber:'GEM/2026/B/7864670', dated:'03.08.2026', bidEndDate:'18.08.2026', bidOpeningDate:'18.08.2026',
-        deliveryDays:45, emdAmount:1244000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        deliveryDays:45, emdAmount:1468000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        valueBasis:'Corrigendum GEM/2026/B/7864670-C1 dated 07.08.2026: EMD revised from ₹12,44,000 to ₹14,68,000.',
         items:[ 'Camera for CCTV System (V3) &times; 440', 'Camera for CCTV System (V3) &times; 40', '64 Channel NVR with 128TB storage &times; 40',
                 '24 Port PoE Switch 190W &times; 40', 'CAT6 UTP Cable &times; 35,200 m', '2KVA Online UPS (8-hr backup) &times; 40',
                 '15U Rack with Fan &times; 40', '43" LED TV for Monitoring &times; 40', 'Misc. Materials &amp; Installation &times; 40',
@@ -342,7 +343,8 @@ const DEFAULT_PROJECTS = [
       {
         id:'cctv-cam', isGeneric:false,
         bidNumber:'GEM/2026/B/7856888', dated:'31.07.2026', bidEndDate:'17.08.2026', bidOpeningDate:'17.08.2026',
-        deliveryDays:45, emdAmount:1522000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        deliveryDays:45, emdAmount:1796000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        valueBasis:'Corrigendum GEM/2026/B/7856888-C1 dated 07.08.2026: EMD revised from ₹15,22,000 to ₹17,96,000.',
         items:[ 'Camera for CCTV System (V3) &times; 2,002', 'Surveillance Hard Disks &times; 1,001' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
@@ -352,7 +354,8 @@ const DEFAULT_PROJECTS = [
       {
         id:'cctv-ws', isGeneric:false,
         bidNumber:'GEM/2026/B/7868510', dated:'03.08.2026', bidEndDate:'17.08.2026', bidOpeningDate:'17.08.2026',
-        deliveryDays:45, emdAmount:2976000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        deliveryDays:45, emdAmount:3512000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        valueBasis:'Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.',
         items:[ 'Fixed Computer Workstation &times; 1,041', 'Line Interactive UPS with AVR &times; 1,041' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
@@ -377,13 +380,13 @@ const DEFAULT_PROJECTS = [
   },
   {
     id:'datacentre', code:'P-04', name:'Integrated Cyber Defence & Security Infra (Data Centre Upgradation)',
-    officer:'M. Mohan, IC', amount:'9.21',
-    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation & security software. Nearly the entire package went out as a single combined GeM tender.',
+    officer:'M. Mohan, IC', amount:'16.21',
+    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation &amp; security software (₹9.21 Cr, IT components). MHA has since sanctioned an additional ₹2.70 Cr for a second AI server with GPUs (qty revised 1&rarr;2 vide corrigendum GEM/2026/B/7851769-C2) and a separate ₹4.30 Cr for Non-IT components (power, cooling &amp; civil/infra works) &ndash; taking the project total to ₹16.21 Cr. The IT-components package (incl. both AI servers) went out as a single combined GeM tender; the Non-IT components are yet to be tendered.',
     components:[
       { name:'Next-Gen Firewall', qty:'2', cost:'1.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'L3 Switch (48-port, 10G/25G)', qty:'2', cost:'1.18 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Web Application Firewall & LTM (Load Balancer)', qty:'2', cost:'1.56 Cr', method:'GeM Portal', bidRef:'dc-bid' },
-      { name:'AI server with GPUs (H200 / RTX 6000 class)', qty:'1', cost:'2.70 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'AI server with GPUs (H200 / RTX 6000 class)', qty:'2', cost:'5.40 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Datacentre client workstations', qty:'8', cost:'0.36 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'42U physical rack, fully loaded', qty:'6', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Network miscellaneous work (cabling, patch panels, tools)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
@@ -396,13 +399,26 @@ const DEFAULT_PROJECTS = [
       { name:'Network monitoring tool suite (NPM/SAM/DPA)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Backup software (Veeam)', qty:'2 pack', cost:'0.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Antivirus (50 licences)', qty:'1 pack', cost:'0.02 Cr', method:'GeM Portal', bidRef:'dc-bid' },
+      { name:'350 kVA Oil Cooled Stabilizer', qty:'1', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
+      { name:'160 kVA Generator', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
+      { name:'120 kVA UPS (1/2-hr backup)', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
+      { name:'125 kVA Generator', qty:'1', cost:'0.14 Cr', method:'GeM Portal', bidRef:null },
+      { name:'60 kVA UPS &ndash; 1-hr backup (dedicated to NOC room)', qty:'2', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
+      { name:'40 kVA UPS &ndash; 1-hr backup (floor-wise, ground/1st/2nd/3rd)', qty:'4', cost:'0.44 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Power equipment: Main &amp; Mini AMF panels, changeover panel, 300 sq.mm Al 4-core power cable', qty:'1 set', cost:'0.58 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Power equipment: electrical lights, power points, DBs, cabling &amp; industrial sockets', qty:'1 set', cost:'0.125 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Cooling equipment: 10TR PAC, air boosters, air curtains, tower AC', qty:'1 set', cost:'0.946 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Non-IT infra systems: containment zone, temperature monitoring, IMS software, biometric access, CCTV, fire suppression, water-leak &amp; smoke detection', qty:'1 set', cost:'0.36 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Cable trays, false ceiling, raised floor, FR doors, room flooring', qty:'1 set', cost:'0.22 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Civil infrastructure works (generator beds, DC renovation, transformer foundation, trenching, interiors, earth pits)', qty:'1 set', cost:'0.40 Cr', method:'GeM Portal', bidRef:null },
     ],
     bids:[
       {
         id:'dc-bid', isGeneric:false,
         bidNumber:'GEM/2026/B/7851769', dated:'29.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
-        deliveryDays:45, emdAmount:1842000, emdLabel:'₹15,20,400 (Hardware) + ₹3,21,600 (Software)', consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
-        items:[ 'Firewall Next Gen &times; 2', 'L3 Switch &times; 2', 'Load Balancer &times; 2', 'AI Servers &times; 1', 'Workstation &times; 8',
+        deliveryDays:45, emdAmount:2382000, emdLabel:'₹20,60,400 (Hardware, revised) + ₹3,21,600 (Software)', consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        valueBasis:'Corrigendum GEM/2026/B/7851769-C2 dated 07.08.2026: Hardware EMD revised from ₹15,20,400 to ₹20,60,400; AI Servers with 2-GPUs quantity revised from 1 No. to 2 Nos. (additional ₹2.70 Cr sanctioned by MHA for the second unit); minor spec clarifications to L3 switch transceivers and WAF also issued.',
+        items:[ 'Firewall Next Gen &times; 2', 'L3 Switch &times; 2', 'Load Balancer &times; 2', 'AI Servers (2-GPU) &times; 2', 'Workstation &times; 8',
                 'Server Rack &times; 6', 'Miscellaneous &times; 1', 'Infrastructure HCI &times; 1', 'OS Server OS &times; 10', 'VDI &times; 1',
                 'Development IDE &times; 1', 'Database &times; 1', 'Security SSL Certificate &times; 1', 'Network Monitoring Tool &times; 1',
                 'Backup Software &times; 2', 'Antivirus &times; 1' ],
@@ -416,7 +432,7 @@ const DEFAULT_PROJECTS = [
   {
     id:'ueccr', code:'P-05', name:'Unified Emergency Command & Control Response Centre (UECCR)',
     officer:'M. Hemalatha, DSP', amount:'9.76',
-    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. Two GeM tenders have been floated so far: one for the laptop/desktop/display portion, and a second (GEM/2026/B/7875015, dated 07.08.2026) bunching MDT replacement (procured under the Smartphones (V3) GeM category), the video wall, standby/UPS power backup and the managed distribution/uplink switches.',
+    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. Two GeM tenders have been floated so far &ndash; one for the laptop/desktop/display portion, and a second combined tender for MDTs/smartphones, video wall, power backup and switches.',
     components:[
       { name:'Mobile Data Terminals (field officer units, 2020 EOL replacement)', qty:'2,100', cost:'7.56 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
       { name:'Standby power backup (60 KVA generator + AMF panel)', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
@@ -455,9 +471,8 @@ const DEFAULT_PROJECTS = [
       {
         id:'ueccr-bid2', isGeneric:false,
         bidNumber:'GEM/2026/B/7875015', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
-        deliveryDays:45, emdAmount:1640000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
-        items:[ 'Smartphones/MDT (V3) &times; 2100', 'Active LED Video Wall &times; 1', 'Standby Power Backup System with AMF &times; 1',
-                'Uninterrupted Power Backup System &times; 1', 'Managed Distribution Switches &times; 4', 'Managed Uplink Switches &times; 4' ],
+        deliveryDays:45, emdAmount:1640000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
+        items:[ 'Smartphones (V3) (Q2) &times; 2,100', 'Active LED Video Wall', 'Standby Power Backup System with AMF', 'Uninterrupted Power Backup System', 'Managed Distribution Switches', 'Managed Uplink Switches' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
@@ -495,34 +510,24 @@ const DEFAULT_PROJECTS = [
   {
     id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
     officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
-    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Seven component tenders have been floated so far, incl. a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender, a combined GeM bid (GEM/2026/B/7884346) covering the Anti Drone System, Dispatch Core Application Software for UHF Radios, ROIP Devices with Server, POC MCX Gateway with Server, and Helmet Mounted Cameras with Server, and a GeM bid (GEM/2026/B/7881785) for the Commando Endurance Training Module with Modular Storage Unit.',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Seven component tenders have been floated so far, incl. a combined bid for Anti-Drone System/Dispatch Core Application SW/ROIP Devices/PoC MCX Gateway/Helmet Mounted Cameras, a separate CETM bid, and a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender.',
     components:[
       { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
       { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
       { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:'strike-cetm' },
       { name:'Advanced Life Support Evacuation System + Advance Emergency Life Support medical equipment (Type-D)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
       { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-goggles' },
-      { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
-      { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
+      { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'strike-comms' },
+      { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'GeM Portal', bidRef:null },
       { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'0.56 Cr', method:'GeM Portal', bidRef:'strike-nljd' },
       { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-dsmd' },
       { name:'Portable Explosive Detector (Hand Held Explosive Detector)', qty:'3', cost:'0.39 Cr', method:'GeM Portal', bidRef:'strike-evd' },
       { name:'DMR Tier-II VHF Radios (handheld/base/repeater) with accessories', qty:'80', cost:'0.339 Cr', method:'GeM Portal', bidRef:'strike-dmr' },
-      { name:'Tactical personnel tracking: dispatch SW licence, console &amp; GPS for 20 UHF radios', qty:'1', cost:'0.07 Cr', method:'GeM (PAC Bid)', bidRef:'strike-combo2' },
-      { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.21 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
-      { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:'strike-combo2' },
+      { name:'Tactical personnel tracking: dispatch SW licence, console &amp; GPS for 20 UHF radios', qty:'1', cost:'0.07 Cr', method:'GeM (PAC Bid)', bidRef:'strike-comms' },
+      { name:'Multi-target comms: ROIP devices, SIM routers, RoIP server, PoC/MCX gateway', qty:'1 lot', cost:'0.21 Cr', method:'GeM Portal', bidRef:'strike-comms' },
+      { name:'Helmet Mounted Cameras (Day &amp; Night Vision) + high-end video server', qty:'40 + 1', cost:'0.27 Cr', method:'GeM Portal', bidRef:'strike-comms' },
     ],
     bids:[
-      {
-        id:'strike-cetm', isGeneric:false,
-        bidNumber:'GEM/2026/B/7881785', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
-        deliveryDays:60, emdAmount:125000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
-        items:[ 'Commando Endurance Training Module with Modular Storage Unit &times; 1' ],
-        stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
-        ])
-      },
       {
         id:'strike-goggles', isGeneric:false,
         bidNumber:'GEM/2026/B/7871519', dated:'03.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
@@ -575,13 +580,20 @@ const DEFAULT_PROJECTS = [
         ])
       },
       {
-        id:'strike-combo2', isGeneric:false,
+        id:'strike-comms', isGeneric:false,
         bidNumber:'GEM/2026/B/7884346', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
-        deliveryDays:30, emdAmount:135000,
-        emdLabel:'₹55,000 (Anti Drone System) + ₹10,000 (Dispatch Core App SW) + ₹9,000 (ROIP Devices w/ Server) + ₹21,000 (POC MCX Gateway w/ Server) + ₹40,000 (Helmet Mounted Cameras w/ Server)',
-        consignee:'Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban',
-        items:[ 'Anti Drone System &times; 1', 'Dispatch Core Application Software for UHF Radios &times; 1',
-                'ROIP Devices with Server &times; 1', 'POC MCX Gateway with Server &times; 1', 'Helmet Mounted Cameras with Server &times; 1' ],
+        deliveryDays:30, emdAmount:135000, emdLabel:'₹55,000 (Anti Drone) + ₹10,000 (Dispatch SW) + ₹9,000 (ROIP) + ₹21,000 (PoC MCX) + ₹40,000 (Helmet Cameras)', consignee:'Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban',
+        items:[ 'Anti Drone System &times; 1', 'Dispatch Core Application Software for UHF Radios &times; 1', 'ROIP Devices with Server &times; 1', 'PoC MCX Gateway with Server &times; 1', 'Helmet Mounted Cameras with Server &times; 1' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-cetm', isGeneric:false,
+        bidNumber:'GEM/2026/B/7881785', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
+        deliveryDays:60, emdAmount:125000, consignee:'Pragada Raju, O/o Addl. DGP Operations, OCTOPUS, Vaddeswaram, Tadepalli, Guntur',
+        items:[ 'Commando Endurance Training Module with Modular Storage Unit &times; 1' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
@@ -594,9 +606,9 @@ const DEFAULT_PROJECTS = [
     officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'9.45',
     context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated. <b>Note:</b> ₹33.90 Lakh of DMR Tier II radio/HH sets included in that tender\u2019s Schedule 1 has been reallocated to the <b>STRIKE</b> project\u2019s budget &ndash; see STRIKE for that tender entry.',
     components:[
-      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
-      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
-      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
+      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
       { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
