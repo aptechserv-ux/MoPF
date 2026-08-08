@@ -278,7 +278,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v10';
+const STORAGE_KEY = 'asump_tracker_v13';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -322,8 +322,8 @@ const DEFAULT_PROJECTS = [
       { name:'Client workstation with monitor', qty:'1,041', cost:'16.58 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
       { name:'Line-interactive UPS (600VA) for workstations', qty:'1,041', cost:'0.98 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
       { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'11.23 Cr', method:'GeM Portal', bidRef:null },
-      { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.25 Cr', method:'GeM Portal', bidRef:null },
-      { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'8.27 Cr', method:'GeM Portal', bidRef:null },
+      { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.25 Cr', method:'GeM Portal', bidRef:'cctv-dist-ws' },
+      { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'8.27 Cr', method:'GeM Portal', bidRef:'cctv-ups-1001' },
     ],
     bids:[
       {
@@ -361,13 +361,34 @@ const DEFAULT_PROJECTS = [
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
+      },
+      {
+        id:'cctv-ups-1001', isGeneric:false,
+        bidNumber:'GEM/2026/B/7892732', dated:'07.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:45, emdAmount:1654000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri',
+        items:[ 'Online UPS (&ge;10 KVA) with Battery, conforming to IS 16242 (Part 1) &times; 1,001' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'cctv-dist-ws', isGeneric:false,
+        bidNumber:'GEM/2026/B/7892821', dated:'07.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:45, emdAmount:208000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri',
+        valueBasis:'Covers the workstation and line-interactive UPS portion of the 31 District/State-HQ dashboard sets (31 each); the 55" LED display portion of this component is not part of this bid.',
+        items:[ 'Fixed Computer Workstation &times; 31', 'Line Interactive UPS with AVR &times; 31' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
       }
     ]
   },
   {
     id:'kavach', code:'P-03', name:'AP KAVACH',
-    officer:'K. Satish, IC', amount:'10.00',
-    context:'Extension of AP SMART COPS (ASUMP 2025-26). Manpower component dropped, timeline compressed to 4 months; Enterprise GIS swapped for open-source; two new AI modules added. Revised specs approved by the Committee &ndash; no component has been floated as a GeM tender yet.',
+    officer:'K. Satish, IC', amount:'12.70',
+    context:'Extension of AP SMART COPS (ASUMP 2025-26). Manpower component dropped, timeline compressed to 4 months; Enterprise GIS swapped for open-source; two new AI modules added. Revised specs approved by the Committee &ndash; the six AI/GIS modules are yet to be floated as GeM tenders. Project value revised to <b>₹12.70 Cr</b> to include a ₹2.70 Cr compute Server &ndash; this Server is procured under the ICDSI (Integrated Cyber Defence &amp; Security Infra / Data Centre Upgradation, P-04) combined GeM tender rather than as a separate KAVACH tender; see Data Centre Upgradation for that tender entry.',
     components:[
       { name:'AI-Enabled Crime Analytics', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
       { name:'AI-powered criminal case management & legal workflow automation', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
@@ -375,13 +396,26 @@ const DEFAULT_PROJECTS = [
       { name:'AI-based policing', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
       { name:'AI model governance & capability development', qty:'1 pack', cost:'0.50 Cr', method:'GeM Portal / online', bidRef:null },
       { name:'AI tools for investigation & intelligence', qty:'1 pack', cost:'2.50 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'Server (AI Server with GPUs, compute for KAVACH modules) &ndash; procured under ICDSI', qty:'1', cost:'2.70 Cr', method:'GeM Portal (via ICDSI/P-04 combined tender)', bidRef:'kavach-server' },
     ],
-    bids:[]
+    bids:[
+      {
+        id:'kavach-server', isGeneric:true,
+        bidNumber:'GEM/2026/B/7851769-C2 (Server component, apportioned) &middot; AI Server with GPUs',
+        note:'Floated as part of the ICDSI/Data Centre Upgradation (P-04) combined GeM tender (GEM/2026/B/7851769), whose corrigendum -C2 raised the AI Server with GPUs quantity from 1 to 2. The second unit (₹2.70 Cr) is for KAVACH\\u2019s compute needs and has been reallocated here from P-04.',
+        tenderValueOverride:27000000,
+        valueBasis:'Value taken as the ₹2.70 Cr apportioned to KAVACH out of the AI Server with GPUs line in GEM/2026/B/7851769 (post corrigendum -C2); no separate EMD was raised for this portion &ndash; it shares the tender\\u2019s EMD, shown under Data Centre Upgradation.',
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
   },
   {
     id:'datacentre', code:'P-04', name:'Integrated Cyber Defence & Security Infra (Data Centre Upgradation)',
-    officer:'M. Mohan, IC', amount:'16.21',
-    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation &amp; security software (₹9.21 Cr, IT components). MHA has since sanctioned an additional ₹2.70 Cr for a second AI server with GPUs (qty revised 1&rarr;2 vide corrigendum GEM/2026/B/7851769-C2) and a separate ₹4.30 Cr for Non-IT components (power, cooling &amp; civil/infra works) &ndash; taking the project total to ₹16.21 Cr. The IT-components package (incl. both AI servers) went out as a single combined GeM tender; the Non-IT components are yet to be tendered.',
+    officer:'M. Mohan, IC', amount:'13.51',
+    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation &amp; security software (₹9.21 Cr, IT components) plus a separate ₹4.30 Cr for Non-IT components (power, cooling &amp; civil/infra works) &ndash; project total ₹13.51 Cr. A corrigendum (GEM/2026/B/7851769-C2) additionally raised the AI Server with GPUs quantity from 1 to 2 within the same combined GeM tender; the second unit\\u2019s ₹2.70 Cr is funded under and counted against the KAVACH (P-03) project budget, not ICDSI\\u2019s &ndash; see KAVACH for that entry. The IT-components package (incl. both AI servers) went out as a single combined GeM tender; the Non-IT components are yet to be tendered.',
     components:[
       { name:'Next-Gen Firewall', qty:'2', cost:'1.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'L3 Switch (48-port, 10G/25G)', qty:'2', cost:'1.18 Cr', method:'GeM Portal', bidRef:'dc-bid' },
@@ -417,7 +451,8 @@ const DEFAULT_PROJECTS = [
         id:'dc-bid', isGeneric:false,
         bidNumber:'GEM/2026/B/7851769', dated:'29.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
         deliveryDays:45, emdAmount:2382000, emdLabel:'₹20,60,400 (Hardware, revised) + ₹3,21,600 (Software)', consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
-        valueBasis:'Corrigendum GEM/2026/B/7851769-C2 dated 07.08.2026: Hardware EMD revised from ₹15,20,400 to ₹20,60,400; AI Servers with 2-GPUs quantity revised from 1 No. to 2 Nos. (additional ₹2.70 Cr sanctioned by MHA for the second unit); minor spec clarifications to L3 switch transceivers and WAF also issued.',
+        valueAdjustment:-27000000,
+        valueBasis:'Corrigendum GEM/2026/B/7851769-C2 dated 07.08.2026: Hardware EMD revised from ₹15,20,400 to ₹20,60,400; AI Servers with 2-GPUs quantity revised from 1 No. to 2 Nos. (additional ₹2.70 Cr sanctioned by MHA for the second unit); minor spec clarifications to L3 switch transceivers and WAF also issued. The second AI server\\u2019s ₹2.70 Cr value has been reallocated to the KAVACH (P-03) project &ndash; adjusted out of this tender\\u2019s counted value accordingly.',
         items:[ 'Firewall Next Gen &times; 2', 'L3 Switch &times; 2', 'Load Balancer &times; 2', 'AI Servers (2-GPU) &times; 2', 'Workstation &times; 8',
                 'Server Rack &times; 6', 'Miscellaneous &times; 1', 'Infrastructure HCI &times; 1', 'OS Server OS &times; 10', 'VDI &times; 1',
                 'Development IDE &times; 1', 'Database &times; 1', 'Security SSL Certificate &times; 1', 'Network Monitoring Tool &times; 1',
