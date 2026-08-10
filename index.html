@@ -98,6 +98,8 @@
   .tender-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:12px;white-space:nowrap;display:inline-block;text-decoration:none;}
   .tender-chip.yes{background:var(--green-bg);color:var(--green);border:1px solid #B7D6C2;}
   .tender-chip.no{background:var(--grey-bg);color:var(--grey-txt);border:1px solid var(--line);}
+  .tender-chip.direct{background:var(--amber-bg);color:var(--amber);border:1px solid #E3C888;}
+  .tender-chip.cancelled{background:var(--red-bg);color:var(--red);border:1px solid #E7C1BD;}
 
   .bid-card{border:1px solid var(--line);border-left:4px solid var(--steel);border-radius:8px;padding:14px 16px;margin:10px 0 18px;background:#FCFBF8;}
   .bid-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
@@ -278,7 +280,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v13';
+const STORAGE_KEY = 'asump_tracker_v16';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -321,7 +323,7 @@ const DEFAULT_PROJECTS = [
       { name:'Additional 8TB surveillance HDD for existing PSs', qty:'1,001', cost:'6.15 Cr', method:'GeM Portal', bidRef:'cctv-cam' },
       { name:'Client workstation with monitor', qty:'1,041', cost:'16.58 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
       { name:'Line-interactive UPS (600VA) for workstations', qty:'1,041', cost:'0.98 Cr', method:'GeM Portal', bidRef:'cctv-ws' },
-      { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'11.23 Cr', method:'GeM Portal', bidRef:null },
+      { name:'VMS solution incl. HMS software & server', qty:'1 pack', cost:'11.23 Cr', method:'GeM Portal', bidRef:'cctv-vms' },
       { name:'CCTV dashboards at District & State level (workstation, UPS, 55" LED)', qty:'31 sets', cost:'1.25 Cr', method:'GeM Portal', bidRef:'cctv-dist-ws' },
       { name:'2KVA online UPS power backup (8-hr)', qty:'1,001', cost:'8.27 Cr', method:'GeM Portal', bidRef:'cctv-ups-1001' },
     ],
@@ -382,23 +384,47 @@ const DEFAULT_PROJECTS = [
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
+      },
+      {
+        id:'cctv-vms', isGeneric:false,
+        bidNumber:'GeM Portal (bid number not specified in source)', dated:'08.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
+        deliveryDays:45, emdAmount:2246000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        valueBasis:'Consignee and delivery days assumed consistent with sibling CCTV/VMS bids &ndash; not explicitly stated in source. Tender value (₹22,46,000 &divide; 2% = ₹11.23 Cr) matches the VMS solution component cost exactly.',
+        items:[ 'VMS Solution incl. HMS Software &amp; Server &times; 1 pack' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
       }
     ]
   },
   {
     id:'kavach', code:'P-03', name:'AP KAVACH',
     officer:'K. Satish, IC', amount:'12.70',
-    context:'Extension of AP SMART COPS (ASUMP 2025-26). Manpower component dropped, timeline compressed to 4 months; Enterprise GIS swapped for open-source; two new AI modules added. Revised specs approved by the Committee &ndash; the six AI/GIS modules are yet to be floated as GeM tenders. Project value revised to <b>₹12.70 Cr</b> to include a ₹2.70 Cr compute Server &ndash; this Server is procured under the ICDSI (Integrated Cyber Defence &amp; Security Infra / Data Centre Upgradation, P-04) combined GeM tender rather than as a separate KAVACH tender; see Data Centre Upgradation for that tender entry.',
+    context:'Extension of AP SMART COPS (ASUMP 2025-26). Manpower component dropped, timeline compressed to 4 months; Enterprise GIS swapped for open-source; two new AI modules added. Revised specs approved by the Committee &ndash; all six AI/GIS modules have now been floated as a single combined QCBS consultancy tender. Project value revised to <b>₹12.70 Cr</b> to include a ₹2.70 Cr compute Server &ndash; this Server is procured under the ICDSI (Integrated Cyber Defence &amp; Security Infra / Data Centre Upgradation, P-04) combined GeM tender rather than as a separate KAVACH tender; see Data Centre Upgradation for that tender entry.',
     components:[
-      { name:'AI-Enabled Crime Analytics', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
-      { name:'AI-powered criminal case management & legal workflow automation', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
-      { name:'GIS-based crime mapping & spatial intelligence', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
-      { name:'AI-based policing', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal / online', bidRef:null },
-      { name:'AI model governance & capability development', qty:'1 pack', cost:'0.50 Cr', method:'GeM Portal / online', bidRef:null },
-      { name:'AI tools for investigation & intelligence', qty:'1 pack', cost:'2.50 Cr', method:'GeM Portal / online', bidRef:null },
+      { name:'AI-Enabled Crime Analytics', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
+      { name:'AI-powered criminal case management & legal workflow automation', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
+      { name:'GIS-based crime mapping & spatial intelligence', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
+      { name:'AI-based policing', qty:'1 pack', cost:'1.75 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
+      { name:'AI model governance & capability development', qty:'1 pack', cost:'0.50 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
+      { name:'AI tools for investigation & intelligence', qty:'1 pack', cost:'2.50 Cr', method:'GeM Portal (QCBS)', bidRef:'kavach-svc' },
       { name:'Server (AI Server with GPUs, compute for KAVACH modules) &ndash; procured under ICDSI', qty:'1', cost:'2.70 Cr', method:'GeM Portal (via ICDSI/P-04 combined tender)', bidRef:'kavach-server' },
     ],
     bids:[
+      {
+        id:'kavach-svc', isGeneric:true,
+        bidNumber:'GEM/2026/B/7895776 &middot; Hiring of Consultants &ndash; Design, Development &amp; Deployment along with Maintenance of AP KAVACH',
+        note:'QCBS (Technical:Financial weightage 70:30, min. qualifying technical score 70/100). Bid end 24.08.2026 10:00 AM &middot; Bid opening 24.08.2026 10:30 AM &middot; Offer validity 180 days from bid end. Interview &amp; presentation at 3rd Floor, AP Police Tech Tower, Mangalagiri. Consignee: Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri.',
+        emdAmount:2000000,
+        tenderValueOverride:100000000,
+        valueBasis:'Estimated Bid Value (inclusive of all taxes) of ₹10.00 Cr as stated in the GeM bid document; EMD (₹20,00,000) works out to exactly 2% of this value. Covers all six AI/GIS software modules in a single combined consultancy tender.',
+        contractPeriod:'3 years 1 day',
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
       {
         id:'kavach-server', isGeneric:true,
         bidNumber:'GEM/2026/B/7851769-C2 (Server component, apportioned) &middot; AI Server with GPUs',
@@ -518,7 +544,7 @@ const DEFAULT_PROJECTS = [
   {
     id:'cctns', code:'P-01', name:'CCTNS 2026-27',
     officer:'T. Anoj Kumar, RSI / J. Kalpana, SI', amount:'8.00',
-    context:'Selection of System Integrator for migration to the CCTNS 2.0 platform, state-specific customisation, additional module development (incl. EeCOPS), and application maintenance. NIT C.No.01/CCTNS2.0/PCS&S/AP/2026 has been called on apeprocurement; the tender is formally floated and counted as <b>tendered</b>, but is currently <b>on hold</b> pending NCRB clarification on CCTNS 2.0 rollout timelines/customisations &ndash; schedule sale/bid closing has been extended to 25.08.2026 to accommodate this.',
+    context:'Selection of System Integrator for migration to the CCTNS 2.0 platform, state-specific customisation, additional module development (incl. EeCOPS), and application maintenance. NIT C.No.01/CCTNS2.0/PCS&S/AP/2026 was called on apeprocurement, but has since been <b>cancelled</b>. Project remains sanctioned at ₹8.00 Cr pending a fresh tender.',
     components:[
       { name:'Data migration to CCTNS 2.0', qty:'1 pack', cost:'8.00 Cr (combined)', method:'apeprocurement (QCBS)', bidRef:'cctns-tender' },
       { name:'Rollout & stabilisation across all units', qty:'1 pack', cost:'&mdash;', method:'apeprocurement (QCBS)', bidRef:'cctns-tender' },
@@ -526,17 +552,17 @@ const DEFAULT_PROJECTS = [
     ],
     bids:[
       {
-        id:'cctns-tender', isGeneric:true,
+        id:'cctns-tender', isGeneric:true, cancelled:true,
         bidNumber:'C.No.01/CCTNS2.0/PCS&S/AP/2026 &middot; Selection of System Integrator for Migration to CCTNS 2.0',
-        note:'Schedule sale opening 07.07.2026 &middot; Pre-bid meeting 13.07.2026 &middot; Schedule sale/bid closing <b>extended to 25.08.2026</b> (originally 06.08.2026) &middot; Technical bid opening 07.08.2026 &middot; Price bid 14.08.2026. Selection: QCBS (Technical 70% / Financial 30%). Contract on hold pending NCRB clarification on CCTNS 2.0 rollout timelines/customisation.',
+        note:'<b>CANCELLED.</b> Schedule sale opening 07.07.2026 &middot; Pre-bid meeting 13.07.2026 &middot; Schedule sale/bid closing had been extended to 25.08.2026 (originally 06.08.2026) while on hold pending NCRB clarification on CCTNS 2.0 rollout timelines/customisation; the tender has now been cancelled rather than proceeding. A fresh tender is expected to be floated in due course.',
         emdAmount:4800000,
         tenderValueOverride:80000000,
-        valueBasis:'Contract value taken as the full ₹8.00 Cr sanction for this project &ndash; this is a QCBS services tender under GFR 2017 (36-month SI contract, extendable 24 months), so EMD is a fixed departmental figure and not 2% of contract value as on GeM.',
+        valueBasis:'Contract value taken as the full ₹8.00 Cr sanction for this project &ndash; this was a QCBS services tender under GFR 2017 (36-month SI contract, extendable 24 months), so EMD was a fixed departmental figure and not 2% of contract value as on GeM. Not counted towards tendered-value totals since the tender is cancelled.',
         contractPeriod:'36 months (design/development/deployment + maintenance), extendable 24 months',
         stages: freshStages([
           {status:'done'},
           {status:'done'},
-          {status:'blocked', note:'Bid submission window extended to 25.08.2026 &ndash; still on hold awaiting NCRB reply on CCTNS 2.0 timelines/customisation'},
+          {status:'blocked', note:'Tender CANCELLED &ndash; was on hold pending NCRB clarification, extended to 25.08.2026, then withdrawn'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       }
@@ -545,15 +571,15 @@ const DEFAULT_PROJECTS = [
   {
     id:'strike', code:'P-06', name:'STRIKE (Strategic Tactical Response & Intervention for Counter Engagement)',
     officer:'OCTOPUS (nodal officer not specified in source documents)', amount:'9.21',
-    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. Seven component tenders have been floated so far, incl. a combined bid for Anti-Drone System/Dispatch Core Application SW/ROIP Devices/PoC MCX Gateway/Helmet Mounted Cameras, a separate CETM bid, and a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender.',
+    context:'Two-phase project for OCTOPUS: Phase I is tactical training infrastructure &amp; anti-drone systems; Phase II is security &amp; mission-critical communication equipment. Revised costing (per office note Rc. No. S2/40/AP/OCTO/2026) brings the project cost to <b>₹9.2095 Cr</b>, matching the sanctioned/approved amount of <b>₹9.21 Cr</b> almost exactly &ndash; no further prioritisation needed. All fourteen component lines are now covered: nine component tenders have been floated (incl. a combined bid for Anti-Drone System/Dispatch Core Application SW/ROIP Devices/PoC MCX Gateway/Helmet Mounted Cameras, a separate CETM bid, a ₹33.90 Lakh DMR Tier-II radio/HH set order reallocated here from Project CAD\u2019s combined Communications tender, and two AP e-Procurement Works (NCB) tenders for civil construction of the CQB Tactical House and Vertical Training System at the newly allotted OCTOPUS land in Nulakapeta, Undavalli (M), Guntur District); the remaining two &ndash; the Advanced Life Support Evacuation System/medical equipment and the Anti-Drone RF/GNSS Jamming Gun &ndash; are being procured by direct purchase order on DGP approval rather than competitive tender.',
     components:[
-      { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Modular CQB Tactical House (incl. installation &amp; site prep)', qty:'1', cost:'3.80 Cr', method:'AP e-Procurement (Works, NCB)', bidRef:'strike-cqb' },
+      { name:'Modular Tactical Vertical Training System with climbing equipment (incl. site prep)', qty:'1', cost:'1.72 Cr', method:'AP e-Procurement (Works, NCB)', bidRef:'strike-training' },
       { name:'Commando Endurance Training Module with modular storage units', qty:'1', cost:'0.63 Cr', method:'GeM Portal', bidRef:'strike-cetm' },
-      { name:'Advanced Life Support Evacuation System + Advance Emergency Life Support medical equipment (Type-D)', qty:'1', cost:'0.51 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Advanced Life Support Evacuation System + Advance Emergency Life Support medical equipment (Type-D)', qty:'1', cost:'0.51 Cr', method:'Direct Order (DGP Approval)', bidRef:'strike-direct-medical' },
       { name:'Commando Tactical Goggles', qty:'250', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-goggles' },
       { name:'Anti-Drone Handheld RF Detector', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'strike-comms' },
-      { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'GeM Portal', bidRef:null },
+      { name:'Anti-Drone RF/GNSS Jamming Gun', qty:'2', cost:'0.29 Cr', method:'Direct Order (DGP Approval)', bidRef:'strike-direct-jamming' },
       { name:'Non-Linear Junction Detector (NLJD)', qty:'7', cost:'0.56 Cr', method:'GeM Portal', bidRef:'strike-nljd' },
       { name:'Deep Search Metal Detector (DSMD)', qty:'7', cost:'0.18 Cr', method:'GeM Portal', bidRef:'strike-dsmd' },
       { name:'Portable Explosive Detector (Hand Held Explosive Detector)', qty:'3', cost:'0.39 Cr', method:'GeM Portal', bidRef:'strike-evd' },
@@ -632,6 +658,50 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-training', isGeneric:true,
+        bidNumber:'Tender ID 975467 &middot; IFB No. A20/2026-27 &middot; Construction of Modular Tactical Vertical Training System and Equipment',
+        note:'AP e-Procurement (Works, OPEN &ndash; NCB, Percentage rate) &middot; at newly allotted OCTOPUS land, Nulakapeta, Undavalli (M), Guntur District. Bid document download start 08.08.2026 2:00 PM &middot; Bid submission closing 17.08.2026 5:00 PM.',
+        tenderValueOverride:6418057,
+        valueBasis:'Contract value taken as the Estimated Contract/IBM Value of ₹64,18,057 stated in the tender notice.',
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-cqb', isGeneric:true,
+        bidNumber:'Construction of Modular Close Quarter Battle (CQB) Tactical House',
+        note:'AP e-Procurement (Works) &middot; at newly allotted OCTOPUS land, Nulakapeta, Undavalli (M), Guntur District. Floated 08.08.2026 &middot; Bid submission closing 17.08.2026 5:00 PM. Tender ID / IFB number not specified in source.',
+        tenderValueOverride:26361296,
+        valueBasis:'Contract value taken as the estimated amount of ₹2,63,61,296 stated for this work.',
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-direct-medical', isGeneric:true, directOrder:true,
+        bidNumber:'Direct Order (DGP Approval) &middot; Advanced Life Support Evacuation System + Advance Emergency Life Support Medical Equipment (Type-D)',
+        note:'Per Project STRIKE team, this item is not being routed through a competitive GeM/e-Procurement tender &ndash; it will be procured by direct purchase order on approval of the DGP.',
+        tenderValueOverride:5100000,
+        valueBasis:'Value taken as the ₹51.00 Lakh sanctioned cost per Project STRIKE costing (Sl. No. 4).',
+        stages: freshStages([
+          {status:'done'}, {status:'done', note:'N/A &ndash; direct order, no competitive bidding'}, {status:'done', note:'N/A &ndash; direct order, no competitive bidding'},
+          {status:'progress', note:'DGP approval for direct order awaited'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'strike-direct-jamming', isGeneric:true, directOrder:true,
+        bidNumber:'Direct Order (DGP Approval) &middot; Anti-Drone RF/GNSS Jamming Gun',
+        note:'Per Project STRIKE team, this item is not being routed through a competitive GeM/e-Procurement tender &ndash; it will be procured by direct purchase order on approval of the DGP.',
+        tenderValueOverride:2850000,
+        valueBasis:'Value taken as the ₹28.50 Lakh sanctioned cost per Project STRIKE costing (2 &times; ₹14,25,000, Sl. No. 6b).',
+        stages: freshStages([
+          {status:'done'}, {status:'done', note:'N/A &ndash; direct order, no competitive bidding'}, {status:'done', note:'N/A &ndash; direct order, no competitive bidding'},
+          {status:'progress', note:'DGP approval for direct order awaited'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
     ]
@@ -795,7 +865,8 @@ function renderFlow(plan, schedule){
   }).join('');
 }
 
-function scheduleBadge(schedule, hasBids){
+function scheduleBadge(schedule, hasBids, allCancelled){
+  if(allCancelled) return { text:'Cancelled', bg:'var(--red-bg)', border:'#E7C1BD', color:'var(--red)' };
   if(!hasBids) return { text:'Not yet tendered', bg:'var(--grey-bg)', border:'var(--line)', color:'var(--grey-txt)' };
   if(schedule.atRisk > 0) return { text: schedule.atRisk + (schedule.atRisk===1?' stage':' stages') + ' at risk', bg: BG_MAP.atrisk, border: BORDER_MAP.atrisk, color: COLOR_MAP.atrisk };
   if(schedule.totalShift > 0) return { text: 'Delayed ' + schedule.totalShift + 'd', bg: BG_MAP.late, border: BORDER_MAP.late, color: COLOR_MAP.late };
@@ -892,14 +963,16 @@ function computeSummary(){
       pDone += bs.schedule.stagesOut.filter(e=>e.colorState==='ontime'||e.colorState==='late').length;
       pSlip += bs.schedule.totalShift;
       pAtRisk += bs.schedule.atRisk;
+      if(bs.bid.cancelled) return;
       const tv = tenderValueOf(bs.bid);
       if(tv) pTenderedValue += tv;
     });
     totalStages += pStages; totalDone += pDone; totalSlip += pSlip; totalAtRisk += pAtRisk; totalTenderedValue += pTenderedValue;
     totalSanctionedCr += parseFloat(p.amount) || 0;
     const hasBids = p.bids.length > 0;
-    const badge = scheduleBadge({ totalShift: pSlip, atRisk: pAtRisk }, hasBids);
-    const tenderedCount = p.components.filter(c=>c.bidRef).length;
+    const allCancelled = hasBids && p.bids.every(b=>b.cancelled);
+    const badge = scheduleBadge({ totalShift: pSlip, atRisk: pAtRisk }, hasBids, allCancelled);
+    const tenderedCount = p.components.filter(c=>c.bidRef && !(p.bids.find(b=>b.id===c.bidRef)||{}).cancelled).length;
     return { p, pi, bidSchedules, pStages, pDone, pTenderedValue, pSlip, pAtRisk, badge, hasBids, tenderedCount };
   });
   return { totalStages, totalDone, totalSlip, totalAtRisk, totalTenderedValue, totalSanctionedCr, perProject };
@@ -909,7 +982,11 @@ function renderCompRows(p){
   return p.components.map(c=>{
     const bid = p.bids.find(b=>b.id===c.bidRef);
     const chip = bid
-      ? `<a href="#bid-${bid.id}" class="tender-chip yes" onclick="showTab('pert')">Tendered &middot; ${bid.isGeneric ? 'in progress' : bid.bidNumber}</a>`
+      ? (bid.cancelled
+          ? `<a href="#bid-${bid.id}" class="tender-chip cancelled" onclick="showTab('pert')">Cancelled</a>`
+          : (bid.directOrder
+              ? `<a href="#bid-${bid.id}" class="tender-chip direct" onclick="showTab('pert')">Direct Order &middot; DGP Approval</a>`
+              : `<a href="#bid-${bid.id}" class="tender-chip yes" onclick="showTab('pert')">Tendered &middot; ${bid.isGeneric ? 'in progress' : bid.bidNumber}</a>`))
       : `<span class="tender-chip no">Not yet floated</span>`;
     return `<tr>
       <td class="comp-name">${c.name}</td>
