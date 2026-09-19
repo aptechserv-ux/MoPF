@@ -297,7 +297,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v19';
+const STORAGE_KEY = 'asump_tracker_v20';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -357,7 +357,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Sarmort Tech & Infra Pvt Ltd', l1Price:'7,32,97,760', finOpenDate:'18.09.2026' }
       },
       {
         id:'cctv-cam', isGeneric:false,
@@ -368,7 +369,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Sarmort Tech & Infra Pvt Ltd', l1Price:'8,97,69,680', finOpenDate:'18.09.2026' }
       },
       {
         id:'cctv-ws', isGeneric:false,
@@ -389,7 +391,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Techser Power Solutions Pvt Ltd', l1Price:'6,48,46,782', finOpenDate:'18.09.2026' }
       },
       {
         id:'cctv-dist-ws', isGeneric:false,
@@ -411,7 +414,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Sarmort Tech & Infra Pvt Ltd', l1Price:'11,15,40,708' }
       }
     ]
   },
@@ -503,7 +507,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Xtreme ICT Private Limited', l1Price:'102219900', finOpenDate:'18.09.2026' }
       },
       {
         id:'dc-nonit', isGeneric:false,
@@ -554,7 +559,8 @@ const DEFAULT_PROJECTS = [
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
           {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
-        ])
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Transline Technologies Ltd', l1Price:'1,09,97,600' }
       },
       {
         id:'ueccr-bid2', isGeneric:false,
@@ -562,9 +568,10 @@ const DEFAULT_PROJECTS = [
         deliveryDays:45, emdAmount:1640000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
         items:[ 'Smartphones (V3) (Q2) &times; 2,100', 'Active LED Video Wall', 'Standby Power Backup System with AMF', 'Uninterrupted Power Backup System', 'Managed Distribution Switches', 'Managed Uplink Switches' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
-        ])
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
+        ]),
+        fin:{ bidders:'3', l1Vendor:'Mouktik Consulting Services Pvt Ltd', l1Price:'7,89,64,328' }
       }
     ]
   },
@@ -932,25 +939,74 @@ function scheduleBadge(schedule, hasBids, allCancelled){
 // ---------------------------------------------------------------------
 // Persistence (shared across everyone who opens this tracker)
 // ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// Persistence
+//  1) Inside the Claude preview: shared window.storage (as before).
+//  2) On GitHub Pages: data lives in tracker-data.json in the repo. An editor connects a
+//     GitHub token once (kept only in that browser) and every change is committed
+//     automatically. Viewers just read the file.
+//  3) Editor without a token: changes are kept on that device only.
+// ---------------------------------------------------------------------
+const GH_OWNER = 'aptechserv-ux', GH_REPO = 'MoPF', GH_PATH = 'tracker-data.json';
+const GH_TOKEN_KEY = 'asump_gh_token';
+const LOCAL_KEY = 'asump_tracker_local_v20';
+const SAVE_DELAY_MS = 2000;
+let loadedSavedAt = null, lastSha = null;
+
+function ghToken(){ try{ return localStorage.getItem(GH_TOKEN_KEY) || ''; }catch(e){ return ''; } }
+function ghHeaders(t){ return { 'Authorization':'Bearer ' + t, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' }; }
+function ghUrl(){ return 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_PATH; }
+function b64enc(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin);
+}
+function b64dec(b64){
+  const bin = atob(String(b64).replace(/\s/g, ''));
+  return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+}
+async function ghGetFile(t){
+  const r = await fetch(ghUrl() + '?t=' + Date.now(), { headers: ghHeaders(t), cache:'no-store' });
+  if(r.status === 404) return null;
+  if(!r.ok) throw new Error('GitHub error ' + r.status);
+  return r.json();
+}
+function mergeDefaults(list){
+  // keep saved progress, but add any project that exists in the defaults and not in the saved data
+  const have = new Set(list.map(p => p.id));
+  cloneDefaults().forEach(dp => { if(!have.has(dp.id)) list.push(dp); });
+  return list;
+}
+
 async function loadState(){
   const banner = document.getElementById('loadBanner');
+  let loaded = null, source = '';
   try{
-    const res = await window.storage.get(STORAGE_KEY, true);
-    if(res && res.value){
-      projects = JSON.parse(res.value);
-      // Merge in any projects added to the defaults after this state was saved
-      // (e.g. P-08), so existing progress is kept and new projects appear.
-      const have = new Set(projects.map(p=>p.id));
-      cloneDefaults().forEach(dp=>{ if(!have.has(dp.id)) projects.push(dp); });
-      banner.innerHTML = '<b>Loaded</b> &mdash; showing the latest saved progress (shared by everyone viewing this tracker).';
+    if(window.storage){
+      const res = await window.storage.get(STORAGE_KEY, true);
+      if(res && res.value){ loaded = JSON.parse(res.value); source = 'shared storage'; }
+    } else if(ghToken()){
+      const f = await ghGetFile(ghToken());
+      if(f){ const d = JSON.parse(b64dec(f.content)); loaded = d.projects; loadedSavedAt = d.savedAt || null; lastSha = f.sha; source = 'GitHub'; }
     } else {
-      projects = cloneDefaults();
-      banner.innerHTML = '<b>Starting fresh</b> &mdash; defaults loaded from the committee minutes, components list and floated GeM bids.';
+      const r = await fetch(GH_PATH + '?t=' + Date.now(), { cache:'no-store' });
+      if(r.ok){ const d = await r.json(); loaded = d.projects; loadedSavedAt = d.savedAt || null; source = 'GitHub'; }
     }
-  }catch(e){
+  }catch(e){ /* fall through to local backup / defaults */ }
+  if(!loaded){
+    try{
+      const l = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null');
+      if(l && l.projects){ loaded = l.projects; source = 'this device'; }
+    }catch(e){}
+  }
+  if(loaded){
+    projects = mergeDefaults(loaded);
+    banner.innerHTML = '<b>Loaded</b> &mdash; showing the latest saved progress (from ' + source + ').';
+  } else {
     projects = cloneDefaults();
     banner.innerHTML = '<b>Starting fresh</b> &mdash; defaults loaded from the committee minutes, components list and floated GeM bids.';
   }
+  banner.classList.remove('hidden');
   setTimeout(()=>{ banner.classList.add('hidden'); }, 4000);
 
   try{ editMode = sessionStorage.getItem('asump_edit_mode') === '1'; }catch(e){ editMode = false; }
@@ -958,17 +1014,87 @@ async function loadState(){
   render();
 }
 
-let saveTimer=null;
+// Commit the current data to tracker-data.json in the GitHub repo.
+async function ghPush(){
+  const t = ghToken();
+  const remote = await ghGetFile(t);
+  let sha = null;
+  if(remote){
+    sha = remote.sha;
+    let rd = null; try{ rd = JSON.parse(b64dec(remote.content)); }catch(e){}
+    const mine = (lastSha && remote.sha === lastSha) || (!lastSha && rd && rd.savedAt && rd.savedAt === loadedSavedAt);
+    if(!mine && rd && rd.projects){
+      const overwrite = confirm('Someone else has saved newer changes to this tracker since you opened it.\n\nOK = overwrite theirs with your version\nCancel = drop your last change and load their version');
+      if(!overwrite){
+        projects = mergeDefaults(rd.projects); loadedSavedAt = rd.savedAt || null; lastSha = remote.sha;
+        render();
+        return 'reloaded';
+      }
+    }
+  }
+  const payload = { version:1, savedAt:new Date().toISOString(), projects };
+  const body = { message:'Tracker update ' + payload.savedAt, content: b64enc(JSON.stringify(payload, null, 1)) };
+  if(sha) body.sha = sha;
+  const r = await fetch(ghUrl(), { method:'PUT', headers: Object.assign({ 'Content-Type':'application/json' }, ghHeaders(t)), body: JSON.stringify(body) });
+  if(r.status === 401) throw new Error('token rejected or expired \u2013 reconnect');
+  if(r.status === 403 || r.status === 404) throw new Error('token has no write access to the repository');
+  if(!r.ok) throw new Error('GitHub error ' + r.status + ' \u2013 will retry on your next change');
+  const j = await r.json();
+  lastSha = j.content && j.content.sha; loadedSavedAt = payload.savedAt;
+  return 'ok';
+}
+
+function setStamp(t){ document.getElementById('savedStamp').textContent = t; }
+let saveTimer = null, saving = false, saveAgain = false;
 function saveState(){
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(async ()=>{
-    try{
+  setStamp('Unsaved changes\u2026');
+  saveTimer = setTimeout(doSave, window.storage ? 350 : SAVE_DELAY_MS);
+}
+async function doSave(){
+  if(saving){ saveAgain = true; return; }
+  saving = true;
+  const stamp = new Date().toLocaleTimeString();
+  try{
+    if(window.storage){
       await window.storage.set(STORAGE_KEY, JSON.stringify(projects), true);
-      document.getElementById('savedStamp').textContent = 'Saved ' + new Date().toLocaleTimeString();
-    }catch(e){
-      document.getElementById('savedStamp').textContent = 'Save failed \u2013 changes kept locally only';
+      setStamp('Saved ' + stamp);
+    } else {
+      // always keep a local backup on this device as well
+      try{ localStorage.setItem(LOCAL_KEY, JSON.stringify({ savedAt:new Date().toISOString(), projects })); }catch(e){}
+      if(ghToken()){
+        const res = await ghPush();
+        setStamp(res === 'ok' ? 'Saved to GitHub ' + stamp : 'Loaded the other editor\u2019s newer version');
+      } else {
+        setStamp('Saved on this device only \u2013 connect GitHub auto-save (edit mode banner) to save for everyone');
+      }
     }
-  }, 350);
+  }catch(e){
+    setStamp('Save failed \u2013 ' + (e && e.message ? e.message : 'unknown error') + ' (changes kept on this device)');
+  }
+  saving = false;
+  if(saveAgain){ saveAgain = false; doSave(); }
+}
+
+async function connectGitHub(){
+  const t = (prompt('Paste your GitHub fine-grained access token.\n\nIt must have "Contents: Read and write" on the ' + GH_OWNER + '/' + GH_REPO + ' repository only. It is stored only in this browser, never in the tracker file.') || '').trim();
+  if(!t) return;
+  try{
+    const r = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO, { headers: ghHeaders(t) });
+    if(!r.ok) throw new Error('GitHub replied ' + r.status + ' \u2013 check the token and that it has access to ' + GH_OWNER + '/' + GH_REPO);
+    const j = await r.json();
+    if(j.permissions && j.permissions.push === false) throw new Error('this token can read but not write \u2013 give it "Contents: Read and write"');
+    localStorage.setItem(GH_TOKEN_KEY, t);
+    await loadState();
+    setStamp('GitHub auto-save connected');
+  }catch(e){
+    alert('Could not connect: ' + (e && e.message ? e.message : e));
+  }
+}
+function disconnectGitHub(){
+  try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(e){}
+  lastSha = null;
+  updateLockUI();
 }
 
 function daysUntil(d){ return Math.ceil((d - new Date()) / 86400000); }
@@ -977,6 +1103,11 @@ function fmtDays(n){ if(n < 0) return Math.abs(n) + 'd overdue'; if(n === 0) ret
 // ---------------------------------------------------------------------
 // Edit lock
 // ---------------------------------------------------------------------
+function saveModeHtml(){
+  if(window.storage) return 'Changes you make save immediately and become visible to everyone viewing this tracker.';
+  if(ghToken()) return 'Auto-save is <b>on</b>: every change is saved to GitHub (' + GH_PATH + ') and shows for everyone on refresh. <a href="#" onclick="disconnectGitHub();return false;">Disconnect this browser</a>';
+  return 'Auto-save is <b>not connected</b> &ndash; changes stay on this device only. <a href="#" onclick="connectGitHub();return false;">Connect GitHub auto-save</a>';
+}
 function updateLockUI(){
   const btn = document.getElementById('lockBtn');
   const banner = document.getElementById('modeBanner');
@@ -984,7 +1115,7 @@ function updateLockUI(){
     btn.textContent = '\u{1F513} Edit mode \u2013 tap to lock';
     btn.className = 'lock-btn unlocked';
     banner.className = 'mode-banner edit';
-    banner.innerHTML = '<b>Edit mode is on.</b> Changes you make save immediately and become visible to everyone viewing this tracker.';
+    banner.innerHTML = '<b>Edit mode is on.</b> ' + saveModeHtml();
   } else {
     btn.textContent = '\u{1F512} View only';
     btn.className = 'lock-btn locked';
@@ -1643,12 +1774,7 @@ async function resetAll(){
   if(!editMode) return;
   if(!confirm('Reset all statuses, dates and notes back to defaults for everyone viewing this tracker? This cannot be undone.')) return;
   projects = cloneDefaults();
-  try{
-    await window.storage.set(STORAGE_KEY, JSON.stringify(projects), true);
-    document.getElementById('savedStamp').textContent = 'Saved ' + new Date().toLocaleTimeString();
-  }catch(e){
-    document.getElementById('savedStamp').textContent = 'Save failed \u2013 changes kept locally only';
-  }
+  saveState();
   render();
 }
 
