@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-19T17:38:23.028Z",
+ "savedAt": "2026-09-19T17:38:29.288Z",
  "projects": [
   {
    "id": "cctv",
@@ -569,7 +569,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Vendor": "Xtreme ICT Private Limited "
+     }
     }
    ]
   },
