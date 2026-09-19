@@ -280,7 +280,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v17';
+const STORAGE_KEY = 'asump_tracker_v18';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -338,8 +338,8 @@ const DEFAULT_PROJECTS = [
                 '15U Rack with Fan &times; 40', '43" LED TV for Monitoring &times; 40', 'Misc. Materials &amp; Installation &times; 40',
                 'Note: MII purchase preference applies (Class-I/II local suppliers only, up to L1+20%)' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -349,8 +349,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Corrigendum GEM/2026/B/7856888-C1 dated 07.08.2026: EMD revised from ₹15,22,000 to ₹17,96,000.',
         items:[ 'Camera for CCTV System (V3) &times; 2,002', 'Surveillance Hard Disks &times; 1,001' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -360,8 +360,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.',
         items:[ 'Fixed Computer Workstation &times; 1,041', 'Line Interactive UPS with AVR &times; 1,041' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'blocked', note:'Tender was cancelled as Bidders quoted wrong model. Awaiting instructions from MHA for revised specifications.'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -370,8 +370,8 @@ const DEFAULT_PROJECTS = [
         deliveryDays:45, emdAmount:1654000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri',
         items:[ 'Online UPS (&ge;10 KVA) with Battery, conforming to IS 16242 (Part 1) &times; 1,001' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -381,8 +381,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Covers the workstation and line-interactive UPS portion of the 31 District/State-HQ dashboard sets (31 each); the 55" LED display portion of this component is not part of this bid.',
         items:[ 'Fixed Computer Workstation &times; 31', 'Line Interactive UPS with AVR &times; 31' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -392,8 +392,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Consignee and delivery days assumed consistent with sibling CCTV/VMS bids &ndash; not explicitly stated in source. Tender value (₹22,46,000 &divide; 2% = ₹11.23 Cr) matches the VMS solution component cost exactly.',
         items:[ 'VMS Solution incl. HMS Software &amp; Server &times; 1 pack' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       }
     ]
@@ -421,19 +421,19 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Estimated Bid Value (inclusive of all taxes) of ₹10.00 Cr as stated in the GeM bid document; EMD (₹20,00,000) works out to exactly 2% of this value. Covers all six AI/GIS software modules in a single combined consultancy tender.',
         contractPeriod:'3 years 1 day',
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'done'}, {status:'done'}, {status:'blocked', date:'18.09.2026', note:'Tender needs to be refloated through APTS'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
         id:'kavach-server', isGeneric:true,
         bidNumber:'GEM/2026/B/7851769-C2 (Server component, apportioned) &middot; AI Server with GPUs',
-        note:'Floated as part of the ICDSI/Data Centre Upgradation (P-04) combined GeM tender (GEM/2026/B/7851769), whose corrigendum -C2 raised the AI Server with GPUs quantity from 1 to 2. The second unit (₹2.70 Cr) is for KAVACH\\u2019s compute needs and has been reallocated here from P-04.',
+        note:'Floated as part of the ICDSI/Data Centre Upgradation (P-04) combined GeM tender (GEM/2026/B/7851769), whose corrigendum -C2 raised the AI Server with GPUs quantity from 1 to 2. The second unit (₹2.70 Cr) is for KAVACH\u2019s compute needs and has been reallocated here from P-04.',
         tenderValueOverride:27000000,
-        valueBasis:'Value taken as the ₹2.70 Cr apportioned to KAVACH out of the AI Server with GPUs line in GEM/2026/B/7851769 (post corrigendum -C2); no separate EMD was raised for this portion &ndash; it shares the tender\\u2019s EMD, shown under Data Centre Upgradation.',
+        valueBasis:'Value taken as the ₹2.70 Cr apportioned to KAVACH out of the AI Server with GPUs line in GEM/2026/B/7851769 (post corrigendum -C2); no separate EMD was raised for this portion &ndash; it shares the tender\u2019s EMD, shown under Data Centre Upgradation.',
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
         ])
       }
     ]
@@ -441,7 +441,7 @@ const DEFAULT_PROJECTS = [
   {
     id:'datacentre', code:'P-04', name:'Integrated Cyber Defence & Security Infra (Data Centre Upgradation)',
     officer:'M. Mohan, IC', amount:'13.51',
-    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation &amp; security software (₹9.21 Cr, IT components) plus a separate ₹4.30 Cr for Non-IT components (power, cooling &amp; civil/infra works) &ndash; project total ₹13.51 Cr. A corrigendum (GEM/2026/B/7851769-C2) additionally raised the AI Server with GPUs quantity from 1 to 2 within the same combined GeM tender; the second unit\\u2019s ₹2.70 Cr is funded under and counted against the KAVACH (P-03) project budget, not ICDSI\\u2019s &ndash; see KAVACH for that entry. The IT-components package (incl. both AI servers) went out as a single combined GeM tender; the Non-IT components are yet to be tendered.',
+    context:'End-of-life 2020 Data Centre equipment replacement &ndash; NGFW, WAF/LTM, L3 switches, AI server, client workstations, racks, virtualisation &amp; security software (₹9.21 Cr, IT components) plus a separate ₹4.30 Cr for Non-IT components (power, cooling &amp; civil/infra works) &ndash; project total ₹13.51 Cr. A corrigendum (GEM/2026/B/7851769-C2) additionally raised the AI Server with GPUs quantity from 1 to 2 within the same combined GeM tender; the second unit\u2019s ₹2.70 Cr is funded under and counted against the KAVACH (P-03) project budget, not ICDSI\u2019s &ndash; see KAVACH for that entry. The IT-components package (incl. both AI servers) went out as a single combined GeM tender; the Non-IT components (₹4.30 Cr) have since been floated as a separate GeM tender (GEM/2026/B/7976598).',
     components:[
       { name:'Next-Gen Firewall', qty:'2', cost:'1.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'L3 Switch (48-port, 10G/25G)', qty:'2', cost:'1.18 Cr', method:'GeM Portal', bidRef:'dc-bid' },
@@ -459,18 +459,18 @@ const DEFAULT_PROJECTS = [
       { name:'Network monitoring tool suite (NPM/SAM/DPA)', qty:'1 pack', cost:'0.10 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Backup software (Veeam)', qty:'2 pack', cost:'0.60 Cr', method:'GeM Portal', bidRef:'dc-bid' },
       { name:'Antivirus (50 licences)', qty:'1 pack', cost:'0.02 Cr', method:'GeM Portal', bidRef:'dc-bid' },
-      { name:'350 kVA Oil Cooled Stabilizer', qty:'1', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
-      { name:'160 kVA Generator', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
-      { name:'120 kVA UPS (1/2-hr backup)', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
-      { name:'125 kVA Generator', qty:'1', cost:'0.14 Cr', method:'GeM Portal', bidRef:null },
-      { name:'60 kVA UPS &ndash; 1-hr backup (dedicated to NOC room)', qty:'2', cost:'0.24 Cr', method:'GeM Portal', bidRef:null },
-      { name:'40 kVA UPS &ndash; 1-hr backup (floor-wise, ground/1st/2nd/3rd)', qty:'4', cost:'0.44 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Power equipment: Main &amp; Mini AMF panels, changeover panel, 300 sq.mm Al 4-core power cable', qty:'1 set', cost:'0.58 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Power equipment: electrical lights, power points, DBs, cabling &amp; industrial sockets', qty:'1 set', cost:'0.125 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Cooling equipment: 10TR PAC, air boosters, air curtains, tower AC', qty:'1 set', cost:'0.946 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Non-IT infra systems: containment zone, temperature monitoring, IMS software, biometric access, CCTV, fire suppression, water-leak &amp; smoke detection', qty:'1 set', cost:'0.36 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Cable trays, false ceiling, raised floor, FR doors, room flooring', qty:'1 set', cost:'0.22 Cr', method:'GeM Portal', bidRef:null },
-      { name:'Civil infrastructure works (generator beds, DC renovation, transformer foundation, trenching, interiors, earth pits)', qty:'1 set', cost:'0.40 Cr', method:'GeM Portal', bidRef:null },
+      { name:'350 kVA Oil Cooled Stabilizer', qty:'1', cost:'0.25 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'160 kVA Generator', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'120 kVA UPS (1/2-hr backup)', qty:'2', cost:'0.30 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'125 kVA Generator', qty:'1', cost:'0.14 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'60 kVA UPS &ndash; 1-hr backup (dedicated to NOC room)', qty:'2', cost:'0.24 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'40 kVA UPS &ndash; 1-hr backup (floor-wise, ground/1st/2nd/3rd)', qty:'4', cost:'0.44 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Power equipment: Main &amp; Mini AMF panels, changeover panel, 300 sq.mm Al 4-core power cable', qty:'1 set', cost:'0.58 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Power equipment: electrical lights, power points, DBs, cabling &amp; industrial sockets', qty:'1 set', cost:'0.125 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Cooling equipment: 10TR PAC, air boosters, air curtains, tower AC', qty:'1 set', cost:'0.946 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Non-IT infra systems: containment zone, temperature monitoring, IMS software, biometric access, CCTV, fire suppression, water-leak &amp; smoke detection', qty:'1 set', cost:'0.36 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Cable trays, false ceiling, raised floor, FR doors, room flooring', qty:'1 set', cost:'0.22 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
+      { name:'Civil infrastructure works (generator beds, DC renovation, transformer foundation, trenching, interiors, earth pits)', qty:'1 set', cost:'0.40 Cr', method:'GeM Portal', bidRef:'dc-nonit' },
     ],
     bids:[
       {
@@ -478,11 +478,21 @@ const DEFAULT_PROJECTS = [
         bidNumber:'GEM/2026/B/7851769', dated:'29.07.2026', bidEndDate:'14.08.2026', bidOpeningDate:'14.08.2026',
         deliveryDays:45, emdAmount:2382000, emdLabel:'₹20,60,400 (Hardware, revised) + ₹3,21,600 (Software)', consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
         valueAdjustment:-27000000,
-        valueBasis:'Corrigendum GEM/2026/B/7851769-C2 dated 07.08.2026: Hardware EMD revised from ₹15,20,400 to ₹20,60,400; AI Servers with 2-GPUs quantity revised from 1 No. to 2 Nos. (additional ₹2.70 Cr sanctioned by MHA for the second unit); minor spec clarifications to L3 switch transceivers and WAF also issued. The second AI server\\u2019s ₹2.70 Cr value has been reallocated to the KAVACH (P-03) project &ndash; adjusted out of this tender\\u2019s counted value accordingly.',
+        valueBasis:'Corrigendum GEM/2026/B/7851769-C2 dated 07.08.2026: Hardware EMD revised from ₹15,20,400 to ₹20,60,400; AI Servers with 2-GPUs quantity revised from 1 No. to 2 Nos. (additional ₹2.70 Cr sanctioned by MHA for the second unit); minor spec clarifications to L3 switch transceivers and WAF also issued. The second AI server\u2019s ₹2.70 Cr value has been reallocated to the KAVACH (P-03) project &ndash; adjusted out of this tender\u2019s counted value accordingly.',
         items:[ 'Firewall Next Gen &times; 2', 'L3 Switch &times; 2', 'Load Balancer &times; 2', 'AI Servers (2-GPU) &times; 2', 'Workstation &times; 8',
                 'Server Rack &times; 6', 'Miscellaneous &times; 1', 'Infrastructure HCI &times; 1', 'OS Server OS &times; 10', 'VDI &times; 1',
                 'Development IDE &times; 1', 'Database &times; 1', 'Security SSL Certificate &times; 1', 'Network Monitoring Tool &times; 1',
                 'Backup Software &times; 2', 'Antivirus &times; 1' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
+        ])
+      },
+      {
+        id:'dc-nonit', isGeneric:false,
+        bidNumber:'GEM/2026/B/7976598', dated:'03.09.2026', bidEndDate:'18.09.2026', bidOpeningDate:'19.09.2026',
+        deliveryDays:45, emdAmount:860000, consignee:'\u2014',
+        items:[],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'progress'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
@@ -525,8 +535,8 @@ const DEFAULT_PROJECTS = [
         deliveryDays:45, emdAmount:220000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
         items:[ 'High End Laptop - Notebook &times; 16', 'High End Desktop Computer &times; 74', 'Professional Large Format Display &times; 28' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -535,8 +545,8 @@ const DEFAULT_PROJECTS = [
         deliveryDays:45, emdAmount:1640000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
         items:[ 'Smartphones (V3) (Q2) &times; 2,100', 'Active LED Video Wall', 'Standby Power Backup System with AMF', 'Uninterrupted Power Backup System', 'Managed Distribution Switches', 'Managed Uplink Switches' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'progress'},
-          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'done'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       }
     ]
@@ -560,9 +570,7 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Contract value taken as the full ₹8.00 Cr sanction for this project &ndash; this was a QCBS services tender under GFR 2017 (36-month SI contract, extendable 24 months), so EMD was a fixed departmental figure and not 2% of contract value as on GeM. Not counted towards tendered-value totals since the tender is cancelled.',
         contractPeriod:'36 months (design/development/deployment + maintenance), extendable 24 months',
         stages: freshStages([
-          {status:'done'},
-          {status:'done'},
-          {status:'blocked', note:'Tender CANCELLED &ndash; was on hold pending NCRB clarification, extended to 25.08.2026, then withdrawn'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tender CANCELLED . to be floated through APTS'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       }
