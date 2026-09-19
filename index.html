@@ -155,6 +155,21 @@
   .add-actions{display:flex;gap:8px;}
   .bid-del{margin-left:auto;color:var(--red) !important;border-color:#E7C1BD !important;}
 
+  /* ---------- FINANCIAL BID & PO ---------- */
+  .fin-panel{margin:12px 0 6px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;margin-top:8px;}
+  .fin-grid label{display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .fin-grid input{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;border:1px solid var(--line);border-radius:5px;padding:6px 8px;color:var(--ink);background:#fff;width:100%;}
+  .fin-grid input:disabled{background:var(--grey-bg);opacity:.85;}
+  .fin-hint{font-size:10.5px;color:var(--ink-soft);margin-top:8px;font-family:'IBM Plex Mono',monospace;line-height:1.5;}
+  .fin-view{margin:12px 0 4px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;background:#FFFDF7;}
+  .fin-view .bid-meta + .bid-meta{margin-top:6px;}
+  .fin-below{color:var(--green);font-weight:600;} .fin-above{color:var(--red);font-weight:600;}
+  .dash-stats2{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:-10px 0 26px;}
+  .stat-card .sub{font-size:11px;color:var(--ink-soft);margin-top:4px;font-family:'IBM Plex Mono',monospace;line-height:1.4;}
+  .stat-card.over .value{color:var(--red);}
+  .stat-card.under .value{color:var(--green);}
+
   /* ---------- TAB NAVIGATION ---------- */
   .tabnav{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;}
   .tabnav-inner{max-width:1180px;margin:0 auto;display:flex;padding:0 28px;overflow-x:auto;}
@@ -212,6 +227,8 @@
     table.stages tr, table.comp-table tr{border-bottom:1px solid var(--line);padding:10px 0;}
     table.stages td, table.comp-table td{border-bottom:none;padding:4px 0;}
     .flow-wrap{max-width:100%;}
+    .fin-grid{grid-template-columns:1fr 1fr;}
+    .dash-stats2{grid-template-columns:1fr;margin-top:0;}
   }
 </style>
 </head>
@@ -280,7 +297,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v18';
+const STORAGE_KEY = 'asump_tracker_v19';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -360,8 +377,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.',
         items:[ 'Fixed Computer Workstation &times; 1,041', 'Line Interactive UPS with AVR &times; 1,041' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'done'},
-          {status:'done'}, {status:'blocked', note:'Tender was cancelled as Bidders quoted wrong model. Awaiting instructions from MHA for revised specifications.'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tender cancelled as Bidders quoted wrong models. Awaiting MHA revised specifications.'},
+          {status:'pending'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -381,8 +398,8 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Covers the workstation and line-interactive UPS portion of the 31 District/State-HQ dashboard sets (31 each); the 55" LED display portion of this component is not part of this bid.',
         items:[ 'Fixed Computer Workstation &times; 31', 'Line Interactive UPS with AVR &times; 31' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'done'},
-          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tednder cancelled as Bidders quoted wrong models. Awaiting revised specifications from MHA.'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
       {
@@ -421,7 +438,7 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Estimated Bid Value (inclusive of all taxes) of ₹10.00 Cr as stated in the GeM bid document; EMD (₹20,00,000) works out to exactly 2% of this value. Covers all six AI/GIS software modules in a single combined consultancy tender.',
         contractPeriod:'3 years 1 day',
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'blocked', date:'18.09.2026', note:'Tender needs to be refloated through APTS'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Bid to be floated through APTS.'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
@@ -433,7 +450,7 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Value taken as the ₹2.70 Cr apportioned to KAVACH out of the AI Server with GPUs line in GEM/2026/B/7851769 (post corrigendum -C2); no separate EMD was raised for this portion &ndash; it shares the tender\u2019s EMD, shown under Data Centre Upgradation.',
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
-          {status:'done'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
         ])
       }
     ]
@@ -545,8 +562,8 @@ const DEFAULT_PROJECTS = [
         deliveryDays:45, emdAmount:1640000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
         items:[ 'Smartphones (V3) (Q2) &times; 2,100', 'Active LED Video Wall', 'Standby Power Backup System with AMF', 'Uninterrupted Power Backup System', 'Managed Distribution Switches', 'Managed Uplink Switches' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'done'},
-          {status:'done'}, {status:'progress', date:'18.09.2026'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       }
     ]
@@ -570,7 +587,7 @@ const DEFAULT_PROJECTS = [
         valueBasis:'Contract value taken as the full ₹8.00 Cr sanction for this project &ndash; this was a QCBS services tender under GFR 2017 (36-month SI contract, extendable 24 months), so EMD was a fixed departmental figure and not 2% of contract value as on GeM. Not counted towards tendered-value totals since the tender is cancelled.',
         contractPeriod:'36 months (design/development/deployment + maintenance), extendable 24 months',
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tender CANCELLED . to be floated through APTS'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tender CANCELLED &ndash; was on hold pending NCRB clarification, extended to 25.08.2026, then withdrawn'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       }
@@ -804,6 +821,13 @@ function formatINR(x){
   return '₹' + otherNumbers + lastThree;
 }
 function crFmt(rupees){ return '₹' + (rupees/1e7).toFixed(2) + ' Cr'; }
+function crOrDash(v){ return v ? crFmt(v) : '\u2014'; }
+function parseAmt(x){
+  if(x === null || x === undefined || x === '') return null;
+  const n = parseFloat(String(x).replace(/[^0-9.]/g,''));
+  return isNaN(n) || n <= 0 ? null : n;
+}
+function esc(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function tenderValueOf(bid){
   if(bid.tenderValueOverride) return bid.tenderValueOverride;
   if(!bid.emdAmount) return null;
@@ -991,9 +1015,13 @@ document.getElementById('lockBtn').addEventListener('click', ()=>{
 // ---------------------------------------------------------------------
 function computeSummary(){
   let totalStages=0, totalDone=0, totalSlip=0, totalAtRisk=0, totalTenderedValue=0, totalSanctionedCr=0;
+  let totalL1=0, totalPO=0, totalCommitted=0, totalEstPriced=0, totalL1n=0, totalPOn=0, totalLiveBids=0;
+  let totalSaving=0, totalGross=0, totalExcess=0, totalGrossN=0, totalExcessN=0;
   const perProject = projects.map((p, pi)=>{
     const bidSchedules = p.bids.map(b => ({ bid:b, plan: buildPlan(b), schedule: computeStageSchedule(b.stages, buildPlan(b)) }));
     let pStages=0, pDone=0, pTenderedValue=0, pSlip=0, pAtRisk=0;
+    let pL1=0, pPO=0, pCommitted=0, pEstPriced=0, pL1n=0, pPOn=0, pLive=0;
+    let pSaving=0, pGross=0, pExcess=0, pGrossN=0, pExcessN=0;
     bidSchedules.forEach(bs=>{
       pStages += bs.schedule.stagesOut.length;
       pDone += bs.schedule.stagesOut.filter(e=>e.colorState==='ontime'||e.colorState==='late').length;
@@ -1002,16 +1030,30 @@ function computeSummary(){
       if(bs.bid.cancelled) return;
       const tv = tenderValueOf(bs.bid);
       if(tv) pTenderedValue += tv;
+      // Financial bid & PO (entered separately from the EMD-based estimate)
+      const f = bs.bid.fin || {};
+      const l1 = parseAmt(f.l1Price), po = parseAmt(f.poValue);
+      pLive++;
+      if(l1){ pL1 += l1; pL1n++; }
+      if(po){ pPO += po; pPOn++; }
+      const sv = bidSaving(bs.bid);
+      if(sv){
+        pCommitted += sv.price; pEstPriced += sv.base; pSaving += sv.saving;
+        if(sv.saving > 0){ pGross += sv.saving; pGrossN++; }
+        else if(sv.saving < 0){ pExcess += -sv.saving; pExcessN++; }
+      }
     });
+    totalL1 += pL1; totalPO += pPO; totalCommitted += pCommitted; totalEstPriced += pEstPriced; totalL1n += pL1n; totalPOn += pPOn; totalLiveBids += pLive;
+    totalSaving += pSaving; totalGross += pGross; totalExcess += pExcess; totalGrossN += pGrossN; totalExcessN += pExcessN;
     totalStages += pStages; totalDone += pDone; totalSlip += pSlip; totalAtRisk += pAtRisk; totalTenderedValue += pTenderedValue;
     totalSanctionedCr += parseFloat(p.amount) || 0;
     const hasBids = p.bids.length > 0;
     const allCancelled = hasBids && p.bids.every(b=>b.cancelled);
     const badge = scheduleBadge({ totalShift: pSlip, atRisk: pAtRisk }, hasBids, allCancelled);
     const tenderedCount = p.components.filter(c=>c.bidRef && !(p.bids.find(b=>b.id===c.bidRef)||{}).cancelled).length;
-    return { p, pi, bidSchedules, pStages, pDone, pTenderedValue, pSlip, pAtRisk, badge, hasBids, tenderedCount };
+    return { p, pi, bidSchedules, pStages, pDone, pTenderedValue, pSlip, pAtRisk, badge, hasBids, tenderedCount, pL1, pPO, pCommitted, pEstPriced, pL1n, pPOn, pLive, pSaving, pGross, pExcess, pGrossN, pExcessN };
   });
-  return { totalStages, totalDone, totalSlip, totalAtRisk, totalTenderedValue, totalSanctionedCr, perProject };
+  return { totalStages, totalDone, totalSlip, totalAtRisk, totalTenderedValue, totalSanctionedCr, totalL1, totalPO, totalCommitted, totalEstPriced, totalL1n, totalPOn, totalLiveBids, totalSaving, totalGross, totalExcess, totalGrossN, totalExcessN, perProject };
 }
 
 function renderCompRows(p){
@@ -1064,6 +1106,82 @@ function bidHeadAndMeta(b){
     </div>${b.valueBasis ? `<div class="bid-dates" style="margin-top:4px">${b.valueBasis}</div>` : ''}`;
   }
   return { headInfo, itemsHtml, metaHtml };
+}
+
+// Saving vs. approved cost for one tender. Approved cost = optional override, else the
+// estimated tender value. Price = PO value if entered, else L1 price. Positive = saving.
+function bidSaving(b){
+  const f = b.fin || {};
+  const price = parseAmt(f.poValue) || parseAmt(f.l1Price);
+  const base = parseAmt(f.approvedCost) || tenderValueOf(b);
+  if(!price || !base) return null;
+  const saving = base - price;
+  return { base, price, saving, pct: Math.abs(saving) / base * 100, basis: parseAmt(f.poValue) ? 'PO' : 'L1' };
+}
+function savingHtml(b){
+  const sv = bidSaving(b);
+  if(!sv) return '';
+  const amt = formatINR(Math.abs(sv.saving)) + ' (' + crFmt(Math.abs(sv.saving)) + ')';
+  if(sv.saving > 0) return '<span class="fin-below">Saving: ' + amt + ' &middot; ' + sv.pct.toFixed(1) + '% below approved ' + crFmt(sv.base) + ' (on ' + sv.basis + ' price)</span>';
+  if(sv.saving < 0) return '<span class="fin-above">Excess over approved: ' + amt + ' &middot; ' + sv.pct.toFixed(1) + '% above approved ' + crFmt(sv.base) + ' (on ' + sv.basis + ' price)</span>';
+  return '<span>At approved cost ' + crFmt(sv.base) + '</span>';
+}
+
+const FIN_FIELDS = [
+  ['bidders','Bidders participated (no.)','e.g. 4'],
+  ['l1Vendor','L1 bidder','Vendor name'],
+  ['l1Price','L1 / financial bid price (\u20B9)','e.g. 1,23,45,000'],
+  ['finOpenDate','Financial bid opened','DD.MM.YYYY'],
+  ['poNumber','PO / WO number','PO no.'],
+  ['poDate','PO / WO date','DD.MM.YYYY'],
+  ['poValue','PO / WO value (\u20B9)','e.g. 1,20,00,000'],
+  ['poVendor','PO issued to','Vendor name'],
+  ['approvedCost','Approved cost \u2013 override (\u20B9)','blank = estimate'],
+];
+
+// Read-only summary of the financial bid + PO for a tender (empty if nothing entered)
+function finSummaryHtml(b){
+  const f = b.fin || {};
+  const l1 = parseAmt(f.l1Price), po = parseAmt(f.poValue);
+  if(!(f.bidders || f.l1Vendor || l1 || f.finOpenDate || f.poNumber || f.poDate || po || f.poVendor || f.approvedCost)) return '';
+  const est = parseAmt(f.approvedCost) || tenderValueOf(b);
+  const cmp = (v)=>{
+    if(!v || !est) return '';
+    const pct = (v - est) / est * 100;
+    return pct <= 0
+      ? ' <span class="fin-below">(' + Math.abs(pct).toFixed(1) + '% below approved)</span>'
+      : ' <span class="fin-above">(' + pct.toFixed(1) + '% above approved)</span>';
+  };
+  const line1 = [
+    f.bidders ? `<span>Bidders: <b>${esc(f.bidders)}</b></span>` : '',
+    f.l1Vendor ? `<span>L1 bidder: <b>${esc(f.l1Vendor)}</b></span>` : '',
+    l1 ? `<span>L1 price: <b>${formatINR(l1)} (${crFmt(l1)})</b>${cmp(l1)}</span>` : '',
+    f.finOpenDate ? `<span>Fin. bid opened: <b>${esc(f.finOpenDate)}</b></span>` : '',
+  ].filter(Boolean).join('');
+  const line2 = [
+    f.poNumber ? `<span>PO/WO no.: <b>${esc(f.poNumber)}</b></span>` : '',
+    f.poDate ? `<span>PO/WO date: <b>${esc(f.poDate)}</b></span>` : '',
+    po ? `<span>PO/WO value: <b>${formatINR(po)} (${crFmt(po)})</b>${cmp(po)}</span>` : '',
+    f.poVendor ? `<span>Issued to: <b>${esc(f.poVendor)}</b></span>` : '',
+  ].filter(Boolean).join('');
+  return `<div class="fin-view"><div class="flow-heading" style="margin-top:0">Financial bid &amp; PO</div>
+    ${line1 ? `<div class="bid-meta">${line1}</div>` : ''}
+    ${line2 ? `<div class="bid-meta">${line2}</div>` : ''}
+    ${savingHtml(b) ? `<div class="bid-meta">${savingHtml(b)}</div>` : ''}
+  </div>`;
+}
+
+// Editable financial bid + PO panel (Data Entry page)
+function finEditHtml(pi, bi, b){
+  const f = b.fin || {};
+  return `<div class="fin-panel">
+    <div class="section-label" style="margin:0">Financial bid &amp; PO</div>
+    <div class="fin-grid">
+      ${FIN_FIELDS.map(([key,label,ph])=>`<label>${label}<input type="text" class="fin-in" data-pi="${pi}" data-bi="${bi}" data-fin="${key}" placeholder="${ph}" value="${esc(f[key]||'')}" ${editMode?'':'disabled'}></label>`).join('')}
+    </div>
+    <div class="fin-hint" id="fs-${pi}-${bi}" style="margin-top:10px;font-size:11.5px">${savingHtml(b)}</div>
+    <div class="fin-hint">Amounts in \u20B9, on the same GST basis as the estimate. Savings are measured against the approved cost (the estimate unless you override it above); a PO value replaces the L1 price once entered. For a tender shared between two projects, enter only this project&rsquo;s share.</div>
+  </div>`;
 }
 
 function projectHeadHtml(pi, entry, isOpen, dataToggleTarget){
@@ -1124,7 +1242,7 @@ function renderDashboardPage(summary){
   }).join('');
 
   const tableRows = summary.perProject.map(entry=>{
-    const { p, pTenderedValue, tenderedCount, badge } = entry;
+    const { p, pTenderedValue, tenderedCount, badge, pL1, pPO, pSaving, pCommitted } = entry;
     const sanctionedCr = parseFloat(p.amount)||0;
     const tenderedCr = pTenderedValue/1e7;
     const remainingCr = Math.max(0, sanctionedCr - tenderedCr);
@@ -1133,6 +1251,9 @@ function renderDashboardPage(summary){
       <td class="num">₹${sanctionedCr.toFixed(2)} Cr</td>
       <td class="num">${crFmt(pTenderedValue||0)}</td>
       <td class="num">₹${remainingCr.toFixed(2)} Cr</td>
+      <td class="num">${crOrDash(pL1)}</td>
+      <td class="num">${crOrDash(pPO)}</td>
+      <td class="num ${pSaving > 0 ? 'fin-below' : (pSaving < 0 ? 'fin-above' : '')}">${pCommitted ? (pSaving < 0 ? '\u2212' : '') + crFmt(Math.abs(pSaving)) : '\u2014'}</td>
       <td class="num">${tenderedCount}/${p.components.length}</td>
       <td><span class="sched-badge" style="background:${badge.bg};border:1px solid ${badge.border};color:${badge.color}">${badge.text}</span></td>
     </tr>`;
@@ -1162,12 +1283,30 @@ function renderDashboardPage(summary){
       </div>
     </div>
 
+    <div class="dash-stats2">
+      <div class="stat-card">
+        <div class="label">L1 prices received</div>
+        <div class="value">${crOrDash(summary.totalL1)}</div>
+        <div class="sub">${summary.totalL1n} of ${summary.totalLiveBids} live tenders have a financial bid entered</div>
+      </div>
+      <div class="stat-card tendered">
+        <div class="label">POs / WOs placed</div>
+        <div class="value">${crOrDash(summary.totalPO)}</div>
+        <div class="sub">${summary.totalPOn} of ${summary.totalLiveBids} live tenders have a PO entered</div>
+      </div>
+      <div class="stat-card ${summary.totalCommitted ? (summary.totalSaving >= 0 ? 'under' : 'over') : ''}">
+        <div class="label">Savings vs. approved cost</div>
+        <div class="value">${summary.totalCommitted ? (summary.totalSaving < 0 ? '\u2212' : '') + crFmt(Math.abs(summary.totalSaving)) : '\u2014'}</div>
+        <div class="sub">${summary.totalCommitted ? ('Net' + (summary.totalSaving < 0 ? ' excess' : ' saving') + ' &middot; saved ' + crFmt(summary.totalGross) + ' on ' + summary.totalGrossN + ' tender(s), excess ' + crFmt(summary.totalExcess) + ' on ' + summary.totalExcessN + ' &middot; ' + (Math.abs(summary.totalSaving) / summary.totalEstPriced * 100).toFixed(1) + '% ' + (summary.totalSaving >= 0 ? 'below' : 'above') + ' approved on priced tenders') : 'Enter L1 prices / POs in Data Entry to see savings'}</div>
+      </div>
+    </div>
+
     <div class="dash-section-title">Budget allocation vs. projects in pipeline</div>
     <div class="budget-panel">${rows}</div>
 
     <div class="dash-section-title">Project-wise summary</div>
     <table class="dash-table">
-      <thead><tr><th>Project</th><th style="text-align:right">Sanctioned</th><th style="text-align:right">Tendered</th><th style="text-align:right">Pipeline remaining</th><th style="text-align:right">Components tendered</th><th>Schedule status</th></tr></thead>
+      <thead><tr><th>Project</th><th style="text-align:right">Sanctioned</th><th style="text-align:right">Tendered</th><th style="text-align:right">Pipeline remaining</th><th style="text-align:right">L1 price</th><th style="text-align:right">PO value</th><th style="text-align:right">Savings / (excess)</th><th style="text-align:right">Components tendered</th><th>Schedule status</th></tr></thead>
       <tbody>${tableRows}</tbody>
     </table>
   `;
@@ -1204,6 +1343,7 @@ function renderPertPage(summary){
         <div class="bid-head">${headInfo}</div>
         ${itemsHtml ? `<div class="bid-items"><b>Items:</b> ${itemsHtml}</div>` : ''}
         ${metaHtml}
+        ${finSummaryHtml(bs.bid)}
         <div class="flow-heading">Schedule flow</div>
         <div class="flow-wrap">${renderFlow(bs.plan, bs.schedule)}</div>
       </div>`;
@@ -1261,6 +1401,7 @@ function renderEntryPage(summary){
         <div class="bid-head">${headInfo}${delBtn}</div>
         ${itemsHtml ? `<div class="bid-items"><b>Items:</b> ${itemsHtml}</div>` : ''}
         ${metaHtml}
+        ${finEditHtml(pi, bidIndex, b)}
         <table class="stages">
           <thead><tr>
             <th style="width:22px"></th><th>Stage</th><th>Planned</th>
@@ -1322,7 +1463,7 @@ function renderEntryPage(summary){
 
     return `<div class="project${isOpen?' open':''}">
       ${projectHeadHtml(pi, entry, isOpen, 'entry-'+p.id)}
-      <div class="p-tender-sub">${tenderedCount} of ${p.components.length} procurement packages tendered so far${pTenderedValue ? ' &middot; &asymp; ' + crFmt(pTenderedValue) + ' tendered (from EMD @ 2%), of ₹' + p.amount + ' Cr sanctioned' : ''}</div>
+      <div class="p-tender-sub">${tenderedCount} of ${p.components.length} procurement packages tendered so far${pTenderedValue ? ' &middot; &asymp; ' + crFmt(pTenderedValue) + ' tendered (from EMD @ 2%), of ₹' + p.amount + ' Cr sanctioned' : ''}${entry.pCommitted ? ' &middot; <span class="' + (entry.pSaving >= 0 ? 'fin-below' : 'fin-above') + '">' + (entry.pSaving >= 0 ? 'savings ' : 'excess ') + crFmt(Math.abs(entry.pSaving)) + '</span>' : ''}</div>
       <div class="p-body">
         <div class="section-label">Components &amp; procurement packages</div>
         <table class="comp-table">
@@ -1362,6 +1503,28 @@ function renderEntryPage(summary){
     });
     el.addEventListener('click', e=>e.stopPropagation());
   });
+  container.querySelectorAll('.fin-in').forEach(el=>{
+    el.addEventListener('input', ()=>{
+      if(!editMode) return;
+      const pi = +el.getAttribute('data-pi'), bi = +el.getAttribute('data-bi'), key = el.getAttribute('data-fin');
+      const bid = projects[pi].bids[bi];
+      bid.fin = bid.fin || {};
+      bid.fin[key] = el.value;
+      saveState();
+      refreshFinViews();
+      const lab = document.getElementById('fs-' + pi + '-' + bi);
+      if(lab) lab.innerHTML = savingHtml(bid);
+    });
+    el.addEventListener('click', e=>e.stopPropagation());
+  });
+}
+
+// Refresh the pages that show financial-bid / PO figures without rebuilding the
+// Data Entry page (which would drop keyboard focus while typing).
+function refreshFinViews(){
+  const sm = computeSummary();
+  renderDashboardPage(sm);
+  renderPertPage(sm);
 }
 
 // ---------------------------------------------------------------------
