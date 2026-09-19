@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-19T17:24:16.478Z",
+ "savedAt": "2026-09-19T17:38:12.375Z",
  "projects": [
   {
    "id": "cctv",
@@ -520,7 +520,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "bidders": "3"
+     }
     },
     {
      "id": "kavach-server",
