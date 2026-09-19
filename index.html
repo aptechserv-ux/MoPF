@@ -223,7 +223,7 @@
       <div>
         <p class="ops-eyebrow"> &middot; Technical Services &middot; </p>
         <h1 class="ops-title">ASUMP 2026-27 Procurement </h1>
-        <p class="ops-sub">Live tracker for 7 ASUMP 2026-27 projects across Technical Services, OCTOPUS &amp; Communications &middot; components, floated GeM tenders &amp; schedule risk in one place</p>
+        <p class="ops-sub">Live tracker for 8 ASUMP 2026-27 projects across Technical Services, OCTOPUS &amp; Communications &middot; components, floated GeM tenders &amp; schedule risk in one place</p>
       </div>
       <button class="lock-btn locked" id="lockBtn">&#128274; View only</button>
     </div>
@@ -275,7 +275,7 @@
 
   <div class="foot">
     <span id="savedStamp">Not yet saved</span>
-    <span>Components &amp; bid data as floated on GeM, 29.07&ndash;03.08.2026</span>
+    <span>Components &amp; bid data as floated on GeM, 29.07&ndash;15.09.2026</span>
   </div>
 </div>
 
@@ -738,6 +738,30 @@ const DEFAULT_PROJECTS = [
       }
     ]
   },
+  {
+    id:'mccp', code:'P-08', name:'Mobile Command Control Post',
+    officer:'Nodal officer not specified in source (consignee: Gurugubelli Ravi Kiran, O/o DIG Technical Services)', amount:'5.60',
+    context:'Two Mobile Command Posts &ndash; fabricated special-purpose vehicles (truck/van) with network command &amp; control software &ndash; procured through a single GeM bid floated 15.09.2026 by the Home Department, AP (buyer: Mangalagiri, beneficiary: O/o IGP Technical Services). <b>Note:</b> the bid document does not state the sanctioned amount or a component-wise cost breakup; the ₹5.60 Cr shown here is the estimated bid value derived from the EMD (₹11,20,000 &divide; 2%) and is a placeholder &ndash; update it once the sanctioned amount is confirmed.',
+    components:[
+      { name:'Mobile Command Post (fabricated special-purpose vehicle on truck/van with network command &amp; control software)', qty:'2', cost:'5.60 Cr (est. from EMD @ 2%)', method:'GeM Portal', bidRef:'mccp-bid' },
+    ],
+    bids:[
+      {
+        id:'mccp-bid', isGeneric:false,
+        bidNumber:'GEM/2026/B/8037075', dated:'15.09.2026', bidEndDate:'30.09.2026', bidOpeningDate:'01.10.2026',
+        deliveryDays:45, emdAmount:1120000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
+        valueBasis:'The bid document gives no estimated value, so tender value = EMD &divide; 2% (assumed, as on the other GeM bids). Offer validity 180 days from bid end. Payment within 45 days of CRAC. Buyer contact: dsp_cctns@appolice.gov.in.',
+        items:[ 'Mobile Command Post &times; 2 (categories: Software for Advance Network Command &amp; Control System; Fabricated Special Purpose Vehicle on Truck/Van)',
+                'Note: Two-packet bid, total-value-wise evaluation; ePBG 3% for 39 months (₹ amount not stated)',
+                'Note: Min. avg. annual turnover ₹2.80 Cr (3 yrs) &middot; 3 yrs past experience &middot; past performance 50% of bid quantity &middot; MSE relaxation on experience &amp; turnover applies; no MSE/MII purchase preference',
+                'Note: Buyer-added ATC document is referenced in the bid but its contents were not available in the source' ],
+        stages: freshStages([
+          {status:'done'}, {status:'done'}, {status:'progress'},
+          {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
+        ])
+      }
+    ]
+  },
 ];
 
 let projects = null;
@@ -882,6 +906,10 @@ async function loadState(){
     const res = await window.storage.get(STORAGE_KEY, true);
     if(res && res.value){
       projects = JSON.parse(res.value);
+      // Merge in any projects added to the defaults after this state was saved
+      // (e.g. P-08), so existing progress is kept and new projects appear.
+      const have = new Set(projects.map(p=>p.id));
+      cloneDefaults().forEach(dp=>{ if(!have.has(dp.id)) projects.push(dp); });
       banner.innerHTML = '<b>Loaded</b> &mdash; showing the latest saved progress (shared by everyone viewing this tracker).';
     } else {
       projects = cloneDefaults();
@@ -1207,6 +1235,7 @@ function renderEntryPage(summary){
     <div class="actions">
       <button class="mini" onclick="expandAllEntry(true)">Expand all</button>
       <button class="mini" onclick="expandAllEntry(false)">Collapse all</button>
+      <button class="mini" onclick="exportData()">Export saved data</button>
       <button class="mini" id="resetBtn" onclick="resetAll()" style="display:${editMode?'':'none'}">Reset to defaults</button>
     </div>
   </div>`;
@@ -1450,6 +1479,23 @@ async function resetAll(){
     document.getElementById('savedStamp').textContent = 'Save failed \u2013 changes kept locally only';
   }
   render();
+}
+
+// Shows the current (saved + edited) data as JSON so it can be copied out and
+// baked into DEFAULT_PROJECTS. Uses a textarea overlay, no file download needed.
+function exportData(){
+  const json = JSON.stringify(projects, null, 1);
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(10,20,36,.6);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;';
+  ov.innerHTML = '<div style="background:#fff;border-radius:10px;padding:16px;width:min(900px,100%);max-height:90vh;display:flex;flex-direction:column;gap:10px;">'
+    + '<div style="font-weight:600">Current tracker data (JSON) &ndash; copy all and paste it to Claude</div>'
+    + '<textarea id="exportBox" readonly style="width:100%;height:55vh;font-family:monospace;font-size:11px;"></textarea>'
+    + '<div style="display:flex;gap:8px"><button class="mini" id="exportCopy">Copy all</button><button class="mini" id="exportClose">Close</button></div></div>';
+  document.body.appendChild(ov);
+  const box = ov.querySelector('#exportBox');
+  box.value = json; box.focus(); box.select();
+  ov.querySelector('#exportCopy').onclick = ()=>{ box.select(); try{ document.execCommand('copy'); }catch(e){} };
+  ov.querySelector('#exportClose').onclick = ()=>ov.remove();
 }
 
 loadState();
