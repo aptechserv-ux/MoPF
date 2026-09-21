@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-21T07:43:29.530Z",
+ "savedAt": "2026-09-21T07:43:53.703Z",
  "projects": [
   {
    "id": "cctv",
@@ -1863,7 +1863,7 @@
       },
       {
        "status": "done",
-       "note": "DGP approval for direct order awaited",
+       "note": "PO Placed",
        "date": ""
       },
       {
