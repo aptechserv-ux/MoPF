@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-21T07:46:42.588Z",
+ "savedAt": "2026-09-21T07:48:40.726Z",
  "projects": [
   {
    "id": "cctv",
@@ -1835,7 +1835,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Price": "26361296"
+     }
     },
     {
      "id": "strike-direct-medical",
