@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-21T07:40:40.184Z",
+ "savedAt": "2026-09-21T07:40:45.397Z",
  "projects": [
   {
    "id": "cctv",
@@ -1787,7 +1787,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Price": "17200000"
+     }
     },
     {
      "id": "strike-cqb",
