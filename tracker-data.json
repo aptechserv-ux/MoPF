@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-21T07:35:13.576Z",
+ "savedAt": "2026-09-21T07:35:52.415Z",
  "projects": [
   {
    "id": "cctv",
@@ -1512,12 +1512,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
