@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-21T07:41:52.024Z",
+ "savedAt": "2026-09-21T07:43:00.936Z",
  "projects": [
   {
    "id": "cctv",
@@ -1881,7 +1881,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Price": "3512000"
+     }
     },
     {
      "id": "strike-direct-jamming",
