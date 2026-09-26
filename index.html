@@ -300,7 +300,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v21';
+const STORAGE_KEY = 'asump_tracker_v22';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -1768,9 +1768,7 @@ async function toggleCancelled(pi, bi){
   if(!editMode) return;
   const p = projects[pi];
   const bid = p.bids[bi];
-  const goingToCancelled = !bid.cancelled;
-  if(goingToCancelled && !confirm('Mark tender "' + bid.bidNumber + '" as cancelled?\n\nIt will stop counting towards this project\'s tendered value, L1/PO totals and "components tendered" count, and the schedule badge will show Cancelled if this was the project\'s only tender. Its stage history is kept, and this can be reversed with Un-cancel.')) return;
-  bid.cancelled = goingToCancelled;
+  bid.cancelled = !bid.cancelled;
   saveState();
   render();
 }
