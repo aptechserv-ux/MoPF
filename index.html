@@ -154,6 +154,9 @@
   .comp-checks{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px;max-height:180px;overflow-y:auto;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;}
   .add-actions{display:flex;gap:8px;}
   .bid-del{margin-left:auto;color:var(--red) !important;border-color:#E7C1BD !important;}
+  .bid-cancel{margin-left:auto;color:var(--amber) !important;border-color:#E3C888 !important;}
+  .bid-cancel.is-cancelled{color:var(--green) !important;border-color:#B7D6C2 !important;}
+  .bid-cancel + .bid-del{margin-left:0;}
 
   /* ---------- FINANCIAL BID & PO ---------- */
   .fin-panel{margin:12px 0 6px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;}
@@ -297,7 +300,7 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'asump_tracker_v20';
+const STORAGE_KEY = 'asump_tracker_v21';
 const EDIT_PASSWORD = 'TS-ASUMP-2026';
 const TARGET_DATE = new Date('2026-10-31T23:59:59');
 const DEADLINE_DATE = new Date('2026-12-31T23:59:59');
@@ -1208,9 +1211,10 @@ function renderCompRows(p){
 }
 
 function bidHeadAndMeta(b){
+  const cancelledChip = b.cancelled ? ' <span class="tender-chip cancelled" style="margin-left:6px">Cancelled</span>' : '';
   const headInfo = b.isGeneric
-    ? `<div class="bid-num">${b.bidNumber}</div><div class="bid-dates">${b.note||''}</div>`
-    : `<div class="bid-num">${b.bidNumber}</div><div class="bid-dates">Published ${b.dated} &middot; Bid end ${b.bidEndDate} &middot; Opening ${b.bidOpeningDate}</div>`;
+    ? `<div class="bid-num">${b.bidNumber}${cancelledChip}</div><div class="bid-dates">${b.note||''}</div>`
+    : `<div class="bid-num">${b.bidNumber}${cancelledChip}</div><div class="bid-dates">Published ${b.dated} &middot; Bid end ${b.bidEndDate} &middot; Opening ${b.bidOpeningDate}</div>`;
   const itemsHtml = b.items && b.items.length ? b.items.join(' &middot; ') : '';
   const emdDisplay = b.emdLabel || (b.emdAmount ? formatINR(b.emdAmount) : '\u2014');
   const tv = tenderValueOf(b);
@@ -1527,9 +1531,10 @@ function renderEntryPage(summary){
       const b = bs.bid, plan = bs.plan, schedule = bs.schedule;
       const bidIndex = p.bids.indexOf(b);
       const { headInfo, itemsHtml, metaHtml } = bidHeadAndMeta(b);
+      const cancelBtn = editMode ? `<button class="mini bid-cancel${b.cancelled?' is-cancelled':''}" onclick="toggleCancelled(${pi},${bidIndex})">${b.cancelled ? 'Un-cancel' : 'Mark cancelled'}</button>` : '';
       const delBtn = editMode ? `<button class="mini bid-del" onclick="deleteBid(${pi},${bidIndex})">Remove</button>` : '';
       return `<div class="bid-card" id="entry-bid-${b.id}">
-        <div class="bid-head">${headInfo}${delBtn}</div>
+        <div class="bid-head">${headInfo}${cancelBtn}${delBtn}</div>
         ${itemsHtml ? `<div class="bid-items"><b>Items:</b> ${itemsHtml}</div>` : ''}
         ${metaHtml}
         ${finEditHtml(pi, bidIndex, b)}
@@ -1755,6 +1760,17 @@ function submitNewBid(pi){
   });
   addFormOpen[p.id] = false;
   openStateEntry[p.id] = true;
+  saveState();
+  render();
+}
+
+async function toggleCancelled(pi, bi){
+  if(!editMode) return;
+  const p = projects[pi];
+  const bid = p.bids[bi];
+  const goingToCancelled = !bid.cancelled;
+  if(goingToCancelled && !confirm('Mark tender "' + bid.bidNumber + '" as cancelled?\n\nIt will stop counting towards this project\'s tendered value, L1/PO totals and "components tendered" count, and the schedule badge will show Cancelled if this was the project\'s only tender. Its stage history is kept, and this can be reversed with Un-cancel.')) return;
+  bid.cancelled = goingToCancelled;
   saveState();
   render();
 }
