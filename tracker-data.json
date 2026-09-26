@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-26T03:14:55.633Z",
+ "savedAt": "2026-09-26T05:45:29.200Z",
  "projects": [
   {
    "id": "cctv",
@@ -245,7 +245,8 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "cancelled": true
     },
     {
      "id": "cctv-ups-1001",
