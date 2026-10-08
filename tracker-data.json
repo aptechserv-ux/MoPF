@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:56:27.357Z",
+ "savedAt": "2026-10-08T02:57:17.812Z",
  "projects": [
   {
    "id": "cctv",
@@ -1222,7 +1222,8 @@
      "fin": {
       "bidders": "3",
       "l1Vendor": "Mouktik Consulting Services Pvt Ltd",
-      "l1Price": "7,89,64,328"
+      "l1Price": "7,89,64,328",
+      "poValue": "67847840"
      }
     },
     {
