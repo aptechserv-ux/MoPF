@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:12:09.676Z",
+ "savedAt": "2026-10-08T02:12:14.366Z",
  "projects": [
   {
    "id": "cctv",
@@ -914,7 +914,7 @@
      "fin": {
       "bidders": "4",
       "l1Vendor": "Grid2CHIP",
-      "l1Price": "",
+      "l1Price": "432",
       "finOpenDate": "01.10.2026",
       "poVendor": "Grid2CHIP",
       "poValue": "41967616"
