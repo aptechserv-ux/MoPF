@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:50:09.036Z",
+ "savedAt": "2026-10-08T02:53:09.307Z",
  "projects": [
   {
    "id": "cctv",
@@ -588,7 +588,7 @@
      "fin": {
       "l1Vendor": "Xtreme ICT Private Limited ",
       "bidders": "3",
-      "l1Price": "26500000",
+      "l1Price": "26540000",
       "finOpenDate": "18.09.2026"
      }
     }
