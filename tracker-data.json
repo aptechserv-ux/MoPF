@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:20:19.875Z",
+ "savedAt": "2026-10-08T02:20:31.586Z",
  "projects": [
   {
    "id": "cctv",
@@ -1263,7 +1263,8 @@
       "l1Vendor": "Sri Laxmi Steel Furniture",
       "poVendor": "Sri Laxmi Steel Furniture",
       "l1Price": "5509176.92",
-      "poValue": "43"
+      "poValue": "4359032",
+      "poDate": "03.1"
      }
     }
    ]
