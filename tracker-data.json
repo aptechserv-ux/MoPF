@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:31:10.378Z",
+ "savedAt": "2026-10-08T02:31:14.822Z",
  "projects": [
   {
    "id": "cctv",
@@ -310,7 +310,8 @@
       "l1Price": "6,48,46,782",
       "finOpenDate": "18.09.2026",
       "poValue": "6,48,46,782",
-      "poVendor": "Techser Power Solutions Pvt Ltd"
+      "poVendor": "Techser Power Solutions Pvt Ltd",
+      "poDate": "18.09.2026"
      }
     },
     {
