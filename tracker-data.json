@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:31:46.615Z",
+ "savedAt": "2026-10-08T02:31:50.250Z",
  "projects": [
   {
    "id": "cctv",
@@ -423,7 +423,8 @@
       "bidders": "3",
       "l1Vendor": "Sarmort Tech & Infra Pvt Ltd",
       "l1Price": "11,15,40,708",
-      "poValue": "11,15,40,708"
+      "poValue": "11,15,40,708",
+      "poVendor": "Sarmort Tech & Infra Pvt Ltd"
      }
     }
    ]
