@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:13:48.869Z",
+ "savedAt": "2026-10-08T02:13:59.023Z",
  "projects": [
   {
    "id": "cctv",
@@ -1143,7 +1143,8 @@
       "bidders": "3",
       "l1Vendor": "Transline Technologies Ltd",
       "l1Price": "1,09,97,600",
-      "poVendor": "Transline Technologies Ltd"
+      "poVendor": "Transline Technologies Ltd",
+      "poValue": "106"
      }
     },
     {
