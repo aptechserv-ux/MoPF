@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T06:00:24.533Z",
+ "savedAt": "2026-10-08T06:00:35.564Z",
  "projects": [
   {
    "id": "cctv",
@@ -1980,7 +1980,8 @@
      "fin": {
       "l1Price": "3512000",
       "poValue": "3510000",
-      "l1Vendor": "SML Mahindra Limited"
+      "l1Vendor": "SML Mahindra Limited",
+      "poDate": "25.08.2026"
      }
     },
     {
