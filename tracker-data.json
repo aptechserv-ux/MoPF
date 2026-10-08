@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:48:46.002Z",
+ "savedAt": "2026-10-08T02:50:09.036Z",
  "projects": [
   {
    "id": "cctv",
@@ -2230,7 +2230,8 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "cancelled": true
     }
    ]
   }
