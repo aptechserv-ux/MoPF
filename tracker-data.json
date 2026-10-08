@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:15:08.387Z",
+ "savedAt": "2026-10-08T02:18:57.125Z",
  "projects": [
   {
    "id": "cctv",
@@ -1006,14 +1006,14 @@
      "qty": "50",
      "cost": "0.05 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "File storage & misc. network accessories",
      "qty": "1",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "55\" display at District level",
@@ -1027,56 +1027,56 @@
      "qty": "50",
      "cost": "0.10 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Supervisory office tables",
      "qty": "20",
      "cost": "0.03 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Modular training/briefing table",
      "qty": "1",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Chairs (operator/conference/supervisory)",
      "qty": "100",
      "cost": "0.10 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "24x7 precision air-conditioning (2-ton tower AC)",
      "qty": "6",
      "cost": "0.05 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Integrated security monitoring (CCTV)",
      "qty": "1",
      "cost": "0.02 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Secure access management system",
      "qty": "2",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Dedicated operational landline connectivity",
      "qty": "1",
      "cost": "0.003 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Secure mobile locker units",
@@ -1209,6 +1209,55 @@
       "l1Vendor": "Mouktik Consulting Services Pvt Ltd",
       "l1Price": "7,89,64,328"
      }
+    },
+    {
+     "id": "bid-1791425932006",
+     "isGeneric": false,
+     "bidNumber": "GEM/2026/B/7974670",
+     "dated": "03.09.2026",
+     "bidEndDate": "20.10.2026",
+     "bidOpeningDate": "21.10.2026",
+     "deliveryDays": 45,
+     "emdAmount": 88000,
+     "consignee": "—",
+     "items": [],
+     "stages": [
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "progress",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      }
+     ]
     }
    ]
   },
