@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-08T02:30:09.830Z",
+ "savedAt": "2026-10-08T02:30:18.929Z",
  "projects": [
   {
    "id": "cctv",
@@ -194,7 +194,8 @@
       "bidders": "3",
       "l1Vendor": "Sarmort Tech & Infra Pvt Ltd",
       "l1Price": "8,97,69,680",
-      "finOpenDate": "18.09.2026"
+      "finOpenDate": "18.09.2026",
+      "poValue": "8,97,69,680"
      }
     },
     {
