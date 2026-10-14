@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-14T10:27:52.047Z",
+ "savedAt": "2026-10-14T10:27:59.350Z",
  "projects": [
   {
    "id": "cctv",
@@ -1932,7 +1932,8 @@
       "l1Price": "26361296",
       "l1Vendor": "Srinivas & Company",
       "poValue": "24439558",
-      "poDate": "05.10.2026"
+      "poDate": "05.10.2026",
+      "poVendor": "Srinivas & Company"
      }
     },
     {
