@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-09-26T03:14:55.633Z",
+ "savedAt": "2026-10-14T09:24:51.251Z",
  "projects": [
   {
    "id": "cctv",
@@ -113,12 +113,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": "18.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -132,7 +132,10 @@
       "bidders": "3",
       "l1Vendor": "Sarmort Tech & Infra Pvt Ltd",
       "l1Price": "7,32,97,760",
-      "finOpenDate": "18.09.2026"
+      "finOpenDate": "18.09.2026",
+      "poValue": "7,32,97,760",
+      "poVendor": "Sarmort Tech & Infra Pvt Ltd",
+      "poDate": "18.09.2026"
      }
     },
     {
@@ -172,12 +175,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": "18.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -191,7 +194,10 @@
       "bidders": "3",
       "l1Vendor": "Sarmort Tech & Infra Pvt Ltd",
       "l1Price": "8,97,69,680",
-      "finOpenDate": "18.09.2026"
+      "finOpenDate": "18.09.2026",
+      "poValue": "8,97,69,680",
+      "poVendor": "Sarmort Tech & Infra Pvt Ltd",
+      "poDate": "18.09.2026"
      }
     },
     {
@@ -213,17 +219,17 @@
       {
        "status": "done",
        "note": "",
-       "date": ""
+       "date": "12.10.2026"
       },
       {
        "status": "done",
        "note": "",
-       "date": ""
+       "date": "13.10.2026"
       },
       {
-       "status": "blocked",
-       "note": "Tender cancelled as Bidders quoted wrong models. Awaiting MHA revised specifications.",
-       "date": ""
+       "status": "progress",
+       "note": "",
+       "date": "24.10.2026"
       },
       {
        "status": "pending",
@@ -245,7 +251,8 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "cancelled": false
     },
     {
      "id": "cctv-ups-1001",
@@ -282,12 +289,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": "18.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -301,7 +308,10 @@
       "bidders": "3",
       "l1Vendor": "Techser Power Solutions Pvt Ltd",
       "l1Price": "6,48,46,782",
-      "finOpenDate": "18.09.2026"
+      "finOpenDate": "18.09.2026",
+      "poValue": "6,48,46,782",
+      "poVendor": "Techser Power Solutions Pvt Ltd",
+      "poDate": "18.09.2026"
      }
     },
     {
@@ -323,17 +333,17 @@
       {
        "status": "done",
        "note": "",
-       "date": ""
+       "date": "12.10.2026"
       },
       {
        "status": "done",
        "note": "",
-       "date": ""
+       "date": "12.10.2026"
       },
       {
-       "status": "blocked",
-       "note": "Tednder cancelled as Bidders quoted wrong models. Awaiting revised specifications from MHA.",
-       "date": ""
+       "status": "progress",
+       "note": "T",
+       "date": "24.10.2026"
       },
       {
        "status": "pending",
@@ -355,7 +365,8 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "cancelled": false
     },
     {
      "id": "cctv-vms",
@@ -393,12 +404,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": "18.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -411,7 +422,10 @@
      "fin": {
       "bidders": "3",
       "l1Vendor": "Sarmort Tech & Infra Pvt Ltd",
-      "l1Price": "11,15,40,708"
+      "l1Price": "11,15,40,708",
+      "poValue": "11,15,40,708",
+      "poVendor": "Sarmort Tech & Infra Pvt Ltd",
+      "poDate": "18.09.2026"
      }
     }
    ]
@@ -524,7 +538,8 @@
      "fin": {
       "bidders": "",
       "l1Vendor": ""
-     }
+     },
+     "cancelled": true
     },
     {
      "id": "kavach-server",
@@ -573,7 +588,7 @@
      "fin": {
       "l1Vendor": "Xtreme ICT Private Limited ",
       "bidders": "3",
-      "l1Price": "26500000",
+      "l1Price": "26540000",
       "finOpenDate": "18.09.2026"
      }
     }
@@ -838,12 +853,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": "18.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -856,8 +871,11 @@
      "fin": {
       "bidders": "3",
       "l1Vendor": "Xtreme ICT Private Limited",
-      "l1Price": "102219900",
-      "finOpenDate": "18.09.2026"
+      "l1Price": "102273500",
+      "finOpenDate": "18.09.2026",
+      "poValue": "88600400",
+      "poVendor": "Xtreme ICT Private Limited",
+      "poDate": "18.09.2026"
      }
     },
     {
@@ -883,6 +901,21 @@
        "date": ""
       },
       {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": "01.10.2026"
+      },
+      {
        "status": "progress",
        "note": "",
        "date": ""
@@ -891,23 +924,17 @@
        "status": "pending",
        "note": "",
        "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "bidders": "4",
+      "l1Vendor": "Grid2CHIP",
+      "l1Price": "43227461",
+      "finOpenDate": "29.09.2026",
+      "poVendor": "Grid2CHIP",
+      "poValue": "41967616",
+      "poDate": "01.10.2026"
+     }
     }
    ]
   },
@@ -994,14 +1021,14 @@
      "qty": "50",
      "cost": "0.05 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "File storage & misc. network accessories",
      "qty": "1",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "55\" display at District level",
@@ -1015,56 +1042,56 @@
      "qty": "50",
      "cost": "0.10 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Supervisory office tables",
      "qty": "20",
      "cost": "0.03 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Modular training/briefing table",
      "qty": "1",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Chairs (operator/conference/supervisory)",
      "qty": "100",
      "cost": "0.10 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "24x7 precision air-conditioning (2-ton tower AC)",
      "qty": "6",
      "cost": "0.05 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Integrated security monitoring (CCTV)",
      "qty": "1",
      "cost": "0.02 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Secure access management system",
      "qty": "2",
      "cost": "0.01 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Dedicated operational landline connectivity",
      "qty": "1",
      "cost": "0.003 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1791425932006"
     },
     {
      "name": "Secure mobile locker units",
@@ -1112,12 +1139,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
-       "date": "18.09.2026"
+       "date": "29.09.2026"
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -1130,7 +1157,11 @@
      "fin": {
       "bidders": "3",
       "l1Vendor": "Transline Technologies Ltd",
-      "l1Price": "1,09,97,600"
+      "l1Price": "1,09,97,600",
+      "poVendor": "Transline Technologies Ltd",
+      "poValue": "1,06,63,200",
+      "poDate": "01.10.2026",
+      "finOpenDate": "29.09.2026"
      }
     },
     {
@@ -1173,12 +1204,12 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       },
@@ -1191,7 +1222,68 @@
      "fin": {
       "bidders": "3",
       "l1Vendor": "Mouktik Consulting Services Pvt Ltd",
-      "l1Price": "7,89,64,328"
+      "l1Price": "7,89,64,328",
+      "poValue": "67847840",
+      "poVendor": "Mouktik Consulting Services Pvt Ltd",
+      "poDate": "29.09.2026",
+      "finOpenDate": "18.09.2026"
+     }
+    },
+    {
+     "id": "bid-1791425932006",
+     "isGeneric": false,
+     "bidNumber": "GEM/2026/B/7974670",
+     "dated": "03.09.2026",
+     "bidEndDate": "20.10.2026",
+     "bidOpeningDate": "21.10.2026",
+     "deliveryDays": 45,
+     "emdAmount": 88000,
+     "consignee": "—",
+     "items": [],
+     "stages": [
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": "03.10.2026"
+      },
+      {
+       "status": "progress",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      }
+     ],
+     "fin": {
+      "bidders": "4",
+      "l1Vendor": "Sri Laxmi Steel Furniture",
+      "poVendor": "Sri Laxmi Steel Furniture",
+      "l1Price": "5509176.92",
+      "poValue": "4359032",
+      "poDate": "03.10.2026"
      }
     }
    ]
@@ -1875,18 +1967,21 @@
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "done",
        "note": "",
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "progress",
        "note": "",
        "date": ""
       }
      ],
      "fin": {
-      "l1Price": "3512000"
+      "l1Price": "3512000",
+      "poValue": "3510000",
+      "l1Vendor": "SML Mahindra Limited",
+      "poDate": "25.08.2026"
      }
     },
     {
@@ -2044,6 +2139,21 @@
        "date": ""
       },
       {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
        "status": "progress",
        "note": "",
        "date": ""
@@ -2052,23 +2162,11 @@
        "status": "pending",
        "note": "",
        "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Price": "27300000"
+     }
     }
    ]
   },
@@ -2118,17 +2216,17 @@
        "date": ""
       },
       {
-       "status": "progress",
+       "status": "done",
        "note": "",
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "done",
        "note": "",
        "date": ""
       },
       {
-       "status": "pending",
+       "status": "blocked",
        "note": "",
        "date": ""
       },
@@ -2142,7 +2240,8 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "cancelled": true
     }
    ]
   }
