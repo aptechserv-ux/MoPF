@@ -378,9 +378,9 @@ const DEFAULT_PROJECTS = [
       {
         id:'cctv-ws', isGeneric:false,
         bidNumber:'GEM/2026/B/7868510', dated:'03.08.2026', bidEndDate:'17.08.2026', bidOpeningDate:'17.08.2026',
-        deliveryDays:45, emdAmount:3512000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
+        deliveryDays:45, emdAmount:3317000, consignee:'O/o DIG (Technical Services), AP Police, Mangalagiri',
         valueBasis:'Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.',
-        items:[ 'Fixed Computer Workstation &times; 1,041', 'Line Interactive UPS with AVR &times; 1,041' ],
+        items:[ 'Fixed Computer Workstation &times; 1,041' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'blocked', note:'Tender cancelled as Bidders quoted wrong models. Awaiting MHA revised specifications.'},
           {status:'pending'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
@@ -400,11 +400,11 @@ const DEFAULT_PROJECTS = [
       {
         id:'cctv-dist-ws', isGeneric:false,
         bidNumber:'GEM/2026/B/7892821', dated:'07.08.2026', bidEndDate:'19.08.2026', bidOpeningDate:'19.08.2026',
-        deliveryDays:45, emdAmount:208000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri',
-        valueBasis:'Covers the workstation and line-interactive UPS portion of the 31 District/State-HQ dashboard sets (31 each); the 55" LED display portion of this component is not part of this bid.',
-        items:[ 'Fixed Computer Workstation &times; 31', 'Line Interactive UPS with AVR &times; 31' ],
+        deliveryDays:45, emdAmount:198000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri',
+        valueBasis:'Covers the workstation portion of the 31 District/State-HQ dashboard sets (31 each); the 55" LED display portion of this component is not part of this bid.',
+        items:[ 'Fixed Computer Workstation &times; 31' ],
         stages: freshStages([
-          {status:'done'}, {status:'done'}, {status:'blocked', note:'Tednder cancelled as Bidders quoted wrong models. Awaiting revised specifications from MHA.'},
+          {status:'done'}, {status:'done'}, {status:'blocked', note:'Received updated Spec from MHA. Bid floated again.'},
           {status:'pending'}, {status:'pending'}, {status:'pending'}, {status:'pending'},
         ])
       },
@@ -746,9 +746,6 @@ const DEFAULT_PROJECTS = [
     officer:'DIG, Communications (nodal officer not specified in source documents)', amount:'2.80',
     context:'Emergency Response Communication Terminal (ERCT) kits for 12 districts plus a State HQ live dashboard. Satellite Terminal and Rugged 5G Router were dropped on DCPW\u2019s advice (internet-dependent links pose a security risk); the SimulCast/SFR repeater was replaced with a conventional DMR repeater. One combined GeM tender covering 6 of the 9 components has now been floated. <b>Note:</b> ₹33.90 Lakh of DMR Tier II radio/HH sets included in that tender\u2019s Schedule 1 has been reallocated to the <b>STRIKE</b> project\u2019s budget &ndash; see STRIKE for that tender entry.',
     components:[
-      { name:'VHF DMR Tier-II Handheld Sets (145/district &times; 12 districts)', qty:'1,740', cost:'6.87 Cr', method:'GeM Portal', bidRef:null },
-      { name:'VHF DMR Tier-II Base Sets (5/district &times; 12 districts)', qty:'60', cost:'0.25 Cr', method:'GeM Portal', bidRef:null },
-      { name:'VHF DMR Tier-II Conventional Repeater Set (1/district &times; 12 districts)', qty:'12', cost:'0.30 Cr', method:'GeM Portal', bidRef:null },
       { name:'Pneumatic Telescopic Mast (1/district &times; 12 districts)', qty:'12', cost:'0.24 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)', qty:'12', cost:'0.12 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
       { name:'DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)', qty:'12', cost:'1.20 Cr', method:'GeM Portal', bidRef:'cad-bid1' },
