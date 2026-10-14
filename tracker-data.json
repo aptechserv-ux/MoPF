@@ -208,12 +208,12 @@
      "bidEndDate": "17.08.2026",
      "bidOpeningDate": "17.08.2026",
      "deliveryDays": 45,
-     "emdAmount": 3512000,
+     "emdAmount": 3317000,
      "consignee": "O/o DIG (Technical Services), AP Police, Mangalagiri",
      "valueBasis": "Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.",
      "items": [
-      "Fixed Computer Workstation &times; 1,041",
-      "Line Interactive UPS with AVR &times; 1,041"
+      "Fixed Computer Workstation &times; 1,041"
+      
      ],
      "stages": [
       {
@@ -322,12 +322,11 @@
      "bidEndDate": "19.08.2026",
      "bidOpeningDate": "19.08.2026",
      "deliveryDays": 45,
-     "emdAmount": 208000,
+     "emdAmount": 198000,
      "consignee": "Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police, Tech Towers, Mangalagiri",
      "valueBasis": "Covers the workstation and line-interactive UPS portion of the 31 District/State-HQ dashboard sets (31 each); the 55\" LED display portion of this component is not part of this bid.",
      "items": [
-      "Fixed Computer Workstation &times; 31",
-      "Line Interactive UPS with AVR &times; 31"
+      "Fixed Computer Workstation &times; 31"
      ],
      "stages": [
       {
