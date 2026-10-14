@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-14T09:23:19.396Z",
+ "savedAt": "2026-10-14T09:24:14.419Z",
  "projects": [
   {
    "id": "cctv",
@@ -342,7 +342,7 @@
       },
       {
        "status": "progress",
-       "note": "Tednder cancelled as Bidders quoted wrong models. Awaiting revised specifications from MHA.",
+       "note": "T",
        "date": ""
       },
       {
