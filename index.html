@@ -528,12 +528,12 @@ const DEFAULT_PROJECTS = [
   {
     id:'ueccr', code:'P-05', name:'Unified Emergency Command & Control Response Centre (UECCR)',
     officer:'M. Hemalatha, DSP', amount:'9.72',
-    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. Two GeM tenders have been floated so far &ndash; one for the laptop/desktop/display portion, and a second combined tender for MDTs/smartphones, video wall, power backup and switches.',
+    context:'MDT replacement, power backup augmentation, command-room IT/network infrastructure, workspace fit-out and facility support systems. Two GeM tenders have been floated so far &ndash; one for the laptop/desktop/display portion, and a second combined tender for MDTs/smartphones, video wall, power backup and switches. <b>Note:</b> under the combined GEM/2026/B/7875015 tender, the bidder quoted ₹0.89 Cr for the Video Wall against its ₹0.38 Cr sanctioned cost; PO has been withheld for this item pending re-tender or a revised sanction, and it is excluded from the approved-cost base used to compute savings on this tender.',
     components:[
       { name:'Mobile Data Terminals (field officer units, 2020 EOL replacement)', qty:'2,100', cost:'7.56 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
       { name:'Standby power backup (60 KVA generator + AMF panel)', qty:'1', cost:'0.09 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
       { name:'Uninterrupted power backup (40 KVA online UPS)', qty:'1', cost:'0.07 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
-      { name:'Video wall', qty:'1', cost:'0.38 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
+      { name:'Video wall', qty:'1', cost:'0.38 Cr', method:'GeM Portal – PO withheld (quote ₹0.89 Cr exceeds ₹0.38 Cr sanction)', bidRef:'ueccr-bid2' },
       { name:'Workstations (desktops/laptops for supervisory positions)', qty:'16', cost:'0.18 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
       { name:'Desktop systems for helpline operations (1972/1093/Shakti SOS)', qty:'74', cost:'0.73 Cr', method:'GeM Portal', bidRef:'ueccr-bid' },
       { name:'Managed distribution switches (L3 PoE)', qty:'4', cost:'0.06 Cr', method:'GeM Portal', bidRef:'ueccr-bid2' },
@@ -569,12 +569,13 @@ const DEFAULT_PROJECTS = [
         id:'ueccr-bid2', isGeneric:false,
         bidNumber:'GEM/2026/B/7875015', dated:'07.08.2026', bidEndDate:'24.08.2026', bidOpeningDate:'24.08.2026',
         deliveryDays:45, emdAmount:1640000, consignee:'Gurugubelli Ravi Kiran, O/o DIG (Technical Services), AP Police Tech Towers, Mangalagiri',
+        valueBasis:'Approved cost for savings purposes is taken as ₹7.82 Cr (the ₹8.20 Cr combined sanction less the ₹0.38 Cr Video Wall component), since the Video Wall’s PO was not issued – see note above. The ₹6.78 Cr PO therefore reflects MDTs, standby power backup, UPS and switches only.',
         items:[ 'Smartphones (V3) (Q2) &times; 2,100', 'Active LED Video Wall', 'Standby Power Backup System with AMF', 'Uninterrupted Power Backup System', 'Managed Distribution Switches', 'Managed Uplink Switches' ],
         stages: freshStages([
           {status:'done'}, {status:'done'}, {status:'done'},
-          {status:'done'}, {status:'progress'}, {status:'pending'}, {status:'pending'},
+          {status:'done'}, {status:'done', date:'29.09.2026'}, {status:'progress'}, {status:'pending'},
         ]),
-        fin:{ bidders:'3', l1Vendor:'Mouktik Consulting Services Pvt Ltd', l1Price:'7,89,64,328' }
+        fin:{ bidders:'3', l1Vendor:'Mouktik Consulting Services Pvt Ltd', l1Price:'7,89,64,328', poVendor:'Mouktik Consulting Services Pvt Ltd', poValue:'67847840', poDate:'29.09.2026', finOpenDate:'18.09.2026', approvedCost:'78200000' }
       }
     ]
   },
