@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-15T07:03:29.766Z",
+ "savedAt": "2026-10-15T07:03:40.532Z",
  "projects": [
   {
    "id": "cctv",
@@ -2160,7 +2160,7 @@
       }
      ],
      "fin": {
-      "l1Vendor": "Global Telecommunication, VKT, "
+      "l1Vendor": "Global Telecommunication, VKT, SEAMLESS"
      }
     }
    ]
