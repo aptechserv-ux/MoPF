@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-15T06:43:04.127Z",
+ "savedAt": "2026-10-15T07:02:29.781Z",
  "projects": [
   {
    "id": "cctv",
@@ -2072,45 +2072,95 @@
      "qty": "12",
      "cost": "0.24 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     },
     {
      "name": "Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.12 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     },
     {
      "name": "DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)",
      "qty": "12",
      "cost": "1.20 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     },
     {
      "name": "Radio over IP (RoIP) Gateway, 4-port (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.18 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     },
     {
      "name": "Network Integration Router (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.24 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     },
     {
      "name": "96\" LED Video Wall Dashboard Unit for State HQ",
      "qty": "1",
      "cost": "0.04 Cr",
      "method": "GeM Portal",
-     "bidRef": null
+     "bidRef": "bid-1792047746536"
     }
    ],
-   "bids": []
+   "bids": [
+    {
+     "id": "bid-1792047746536",
+     "isGeneric": false,
+     "bidNumber": "GEM/2026/B/7871272",
+     "dated": "03.08.2026",
+     "bidEndDate": "27.08.2026",
+     "bidOpeningDate": "28.08.2026",
+     "deliveryDays": 45,
+     "emdAmount": 560000,
+     "consignee": "—",
+     "items": [],
+     "stages": [
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "done",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "progress",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      },
+      {
+       "status": "pending",
+       "note": "",
+       "date": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "mccp",
