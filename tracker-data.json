@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-14T10:30:05.931Z",
+ "savedAt": "2026-10-15T06:43:04.127Z",
  "projects": [
   {
    "id": "cctv",
@@ -213,7 +213,6 @@
      "valueBasis": "Corrigendum GEM/2026/B/7868510-C1 dated 07.08.2026: EMD revised from ₹29,76,000 to ₹35,12,000.",
      "items": [
       "Fixed Computer Workstation &times; 1,041"
-      
      ],
      "stages": [
       {
@@ -2073,109 +2072,45 @@
      "qty": "12",
      "cost": "0.24 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     },
     {
      "name": "Battery Backup Banks for Base &amp; Repeater (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.12 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     },
     {
      "name": "DMR Dispatcher Console SW Licence (145 radios + setup, 1/district &times; 12 districts)",
      "qty": "12",
      "cost": "1.20 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     },
     {
      "name": "Radio over IP (RoIP) Gateway, 4-port (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.18 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     },
     {
      "name": "Network Integration Router (1/district &times; 12 districts)",
      "qty": "12",
      "cost": "0.24 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     },
     {
      "name": "96\" LED Video Wall Dashboard Unit for State HQ",
      "qty": "1",
      "cost": "0.04 Cr",
      "method": "GeM Portal",
-     "bidRef": "cad-bid1"
+     "bidRef": null
     }
    ],
-   "bids": [
-    {
-     "id": "cad-bid1",
-     "isGeneric": false,
-     "bidNumber": "GEM/2026/B/7871272",
-     "dated": "03.08.2026",
-     "bidEndDate": "19.08.2026",
-     "bidOpeningDate": "19.08.2026",
-     "deliveryDays": 30,
-     "emdAmount": 1467060,
-     "emdPercent": 0.015,
-     "emdLabel": "₹13,44,060 (console/radio, incl. STRIKE portion) + ₹36,000 (mast) + ₹18,000 (battery) + ₹27,000 (RoIP gateway) + ₹36,000 (router) + ₹6,000 (video wall)",
-     "valueAdjustment": -3390000,
-     "valueBasis": "This tender was floated at an EMD of <b>1.5%</b> of tender value (not the usual 2% GeM default), so value = EMD &divide; 1.5%. ₹33.90 Lakh of Schedule 1 (DMR Tier II Radios with Dispatch Console) is STRIKE’s DMR Tier-II VHF radio/HH set order, not CAD’s &ndash; subtracted out of this figure and counted under STRIKE instead. Full EMD is still shown above since one combined bid document covers both.",
-     "consignee": "Tummala Subba Rao, Technical Stores, Police Communications, Mangalagiri, Guntur Urban",
-     "items": [
-      "DMR Tier II Radios with Dispatch Console &times; 1 (₹33.90L of this schedule reallocated to STRIKE)",
-      "Pneumatic Telescopic Mast &times; 12",
-      "Battery Backup Banks &times; 12",
-      "Radio over IP Gateway &times; 12",
-      "Network Integration Router with Programming Kit &times; 12",
-      "Data Wall Display &times; 1"
-     ],
-     "stages": [
-      {
-       "status": "done",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "done",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "done",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "done",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "done",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "progress",
-       "note": "",
-       "date": ""
-      },
-      {
-       "status": "pending",
-       "note": "",
-       "date": ""
-      }
-     ],
-     "fin": {
-      "l1Price": "27300000"
-     }
-    }
-   ]
+   "bids": []
   },
   {
    "id": "mccp",
