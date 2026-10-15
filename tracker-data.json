@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-15T07:02:44.672Z",
+ "savedAt": "2026-10-15T07:03:09.789Z",
  "projects": [
   {
    "id": "cctv",
@@ -2158,7 +2158,10 @@
        "note": "",
        "date": ""
       }
-     ]
+     ],
+     "fin": {
+      "l1Vendor": "Global Telecommunication"
+     }
     }
    ]
   },
