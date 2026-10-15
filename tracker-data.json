@@ -1,6 +1,6 @@
 {
  "version": 1,
- "savedAt": "2026-10-15T07:03:40.532Z",
+ "savedAt": "2026-10-15T07:03:47.156Z",
  "projects": [
   {
    "id": "cctv",
@@ -2160,7 +2160,8 @@
       }
      ],
      "fin": {
-      "l1Vendor": "Global Telecommunication, VKT, SEAMLESS"
+      "l1Vendor": "Global Telecommunication, VKT, SEAMLESS",
+      "l1Price": "2730000"
      }
     }
    ]
